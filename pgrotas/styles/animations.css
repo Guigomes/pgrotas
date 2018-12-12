@@ -1,0 +1,90 @@
+.imagem-cima {
+  transition: all linear 5s;
+}
+
+.imagem-cima .ng-show {
+  height: 100%;
+}
+.ng-show {
+  height: 100%;
+}
+
+.imagem-cima .ng-hide {
+  animation-name: "bounce";
+  animation-duration: 3s;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
+}
+
+.ng-hide {
+  height: 0 !important;
+}
+
+.fade.ng-enter {
+  animation-name: "slideInDown";
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+
+  -moz-animation-name: "slideInDown";
+  -moz-animation-duration: 0.5s;
+  -moz-animation-iteration-count: 1;
+
+  -webkit-animation-name: "slideInDown";
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: 1;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  animation-name: "slideInDown";
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+
+  -moz-animation-name: "slideInDown";
+  -moz-animation-duration: 0.5s;
+  -moz-animation-iteration-count: 1;
+
+  -webkit-animation-name: "slideInDown";
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: 1;
+}
+
+.fade.ng-leave {
+  animation-name: "slideOutUp";
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+
+  -moz-animation-name: "slideOutUp";
+  -moz-animation-duration: 0.5s;
+  -moz-animation-iteration-count: 1;
+
+  -webkit-animation-name: "slideOutUp";
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: 1;
+}
+.fade.ng-leave.ng-leave-active {
+  animation-name: "slideOutUp";
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+
+  -moz-animation-name: "slideOutUp";
+  -moz-animation-duration: 0.5s;
+  -moz-animation-iteration-count: 1;
+
+  -webkit-animation-name: "slideOutUp";
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: 1;
+}
+/*
+.div-baixo {
+  position: absolute;
+  top: 32px;
+  transition: all 0.5s linear 0s;
+  -moz-transition: all 0.5s linear 0s;
+  -webkit-transition: all 0.5s linear 0s;
+}
+
+.div-mais-baixo {
+  top: 220px;
+}
+*/

@@ -1,0 +1,21 @@
+{
+  "name": "pgrotas",
+  "homepage": "https://github.com/Guigomes/pgrotas",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.7.5",
+    "angular-ui-router": "^1.0.20",
+    "angular-animate": "^1.7.5",
+    "angular-aria": "^1.7.5",
+    "angular-messages": "^1.7.5"
+  }
+}

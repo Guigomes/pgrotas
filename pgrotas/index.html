@@ -1,0 +1,118 @@
+<!--
+  Copyright 2016 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- TODO add manifest here -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta
+      name="msapplication-TileImage"
+      content="images/icons/icon-144x144.png"
+    />
+    <meta name="msapplication-TileColor" content="#2F3BA2" />
+
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Weather PWA" />
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+
+    <!-- Angular Material Library -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css"
+    />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-105248938-2"
+    ></script>
+    <script src="scripts/analytics.js"></script>
+
+    <!-- Aplicação -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services/clipboard.js"></script>
+
+    <script src="scripts/services/authentication.service.js"></script>
+    <script src="scripts/controllers/inicio.controller.js"></script>
+    <script src="scripts/controllers/principal.controller.js"></script>
+    <script src="scripts/app-route.js"></script>
+    <script src="scripts/ginasios.factory.js"></script>
+
+    <script src="scripts/factory/usuario.factory.js"></script>
+
+    <script src="scripts/pwa.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/ui/3.4.1/firebase-ui-auth__pt.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <script src="scripts/firebaseInit.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/3.4.1/firebase-ui-auth.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css"
+    />
+
+    <link rel="stylesheet" type="text/css" href="styles/inline.css" />
+    <link rel="stylesheet" type="text/css" href="styles/animations.css" />
+    <link rel="stylesheet" type="text/css" href="styles/animate.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <script src="scripts/services/user.service.js"></script>
+    <script src="scripts/services/toast.service.js"></script>
+
+    <script
+      async
+      src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-3637350672317803",
+        enable_page_level_ads: true
+      });
+    </script>
+
+    <title>MAPA RAID PG</title>
+  </head>
+
+  <body ng-app="app" ng-cloak style="overflow:scroll">
+    <ui-view name="viewContent"></ui-view>
+  </body>
+</html>

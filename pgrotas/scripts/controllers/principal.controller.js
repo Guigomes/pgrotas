@@ -1,35 +1,7 @@
 angular.module("app").controller("PrincipalController", PrincipalController);
-angular.module("app").directive("moveNextOnMaxlength", function () {
-  return {
-    restrict: "A",
-    link: function ($scope, element) {
-      element.on("input", function (e) {
-        console.log('element.val()', element.val());
 
-        if (element.val().length == element.attr("maxlength")) {
-          console.log("aqui");
-          var $nextElement = element.next();
-          $nextElement = element.parent().parent();
-          // $nextElement = $nextElement.next();
-
-          $nextElement = $nextElement.find('.teste');
-          console.log("next", $nextElement);
-          //.find('.next');
-          var myEl = angular.element(element[0].querySelector('.next'));
-          console.log("EL", myEl);
-          myEl.focus();
-          myEl[0].focus();
-
-          // $nextElement[0].focus();
-
-        }
-      });
-    }
-  }
-});
 function PrincipalController(
   $mdSidenav,
-  Usuario,
   Authentication,
   $mdToast,
   $state,
@@ -73,10 +45,13 @@ function PrincipalController(
   };
 
 
-
-  //vm.grupo = Usuario.getGrupo();
+/*
+  vm.grupo = Usuario.getGrupo();
+  for(var i in vm.grupo){
+    User.adicionarJogador(vm.grupo[i]);
+  }
+  */
   init();
-  console.log("grupo", vm.grupo);
 
 
   vm.copiar = function (pessoa) {
@@ -150,10 +125,8 @@ function PrincipalController(
       .then(
         function () {
           $state.go("/");
-          console.log("logout");
         },
         function (error) {
-          console.log("logout error");
         }
       );
   }
@@ -165,7 +138,7 @@ function PrincipalController(
         controllerAs: "vm",
         templateUrl: "pages/dialog1.tmpl.html",
         parent: angular.element(document.body),
-        //  clickOutsideToClose: true,
+        clickOutsideToClose: true,
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
       })
       .then(
@@ -181,7 +154,6 @@ function PrincipalController(
               Toast.mostrarErro(erro);
             }
           );
-          console.log("novoUsuario", novoUsuario);
         },
         function () {
           $scope.status = "You cancelled the dialog.";

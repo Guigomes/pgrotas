@@ -11,13 +11,13 @@
   <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary">
     <md-tab label="Ginásios">
       <md-content class="md-padding">
-
+<!--
         <img src="images/mapa_cima.jpg" style="width: 100%;" ng-if="vm.mostrarLegenda" class="fade" />
 
         <div class="div-baixo" ng-class="{'div-mais-baixo': vm.mostrarLegenda}">
           <img src="images/mapa_baixo.jpg" style="width: 100%;" />
         </div>
-
+-->
         <md-button class="md-primary" ng-click="vm.mostrarLegenda = !vm.mostrarLegenda;" target="_blank">
           <span ng-show="!vm.mostrarLegenda">Mostrar Legenda</span>
           <span ng-show="vm.mostrarLegenda">Ocultar Legenda </span>
@@ -63,14 +63,15 @@
       <md-content class="md-padding" layout-fill style="overflow: hidden !important;">
 
         <md-list layout-fill style="overflow: hidden !important;">
-          <div layout="row" layout-align="end end">
-
-            <md-button class="md-secondary md-icon-button" ng-click="vm.adicionarJogador();">
-              <md-icon md-font-icon="material-icons">person_add</md-icon>
-            </md-button>
-          </div>
+         
           <md-subheader class="md-no-sticky no-padding-vertical">
-            Pressione sobre o jogador desejado para copiar o código
+              <div layout="row" layout-align="center end">
+                  Pressione sobre o jogador desejado para copiar o código
+
+                  <md-button class="md-secondary md-icon-button" ng-click="vm.adicionarJogador();">
+                    <md-icon md-font-icon="material-icons">person_add</md-icon>
+                  </md-button>
+                </div>
             <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;">
 
               <md-icon md-font-set="material-icons">search</md-icon>
@@ -79,16 +80,27 @@
             </md-input-container>
           </md-subheader>
           <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.activated">
-            <md-progress-circular class="md-hue-2" ng-disabled="!vm.activated" md-diameter="100px"></md-progress-circular>
+            <md-progress-circular class="md-hue-2" ng-disabled="!vm.activated" md-diameter="50px"></md-progress-circular>
           </div>
 
           <md-list-item style="overflow: hidden !important;" class="md-2-line" ng-repeat="pessoa in vm.grupo | orderBy: 'nome' | filter: vm.pesquisa"
             ng-click="vm.copiar(pessoa)">
 
-            <div class="md-list-item-text" layout="column">
+            <div class="md-list-item-text" layout="row">
+              <div layout="column" class="no-padding-vertical" flex="60">
               <h3>{{ pessoa.nome}}</h3>
               <p>{{ pessoa.codigo }}</p>
-
+            </div>
+            <div layout="column" class="no-padding-vertical" flex ng-show="pessoa.nivel !== undefined && pessoa.nivel !== 0">
+                 <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="Eat cake">
+                    {{ pessoa.nivel}}
+        </md-button>
+              </div>
+              <div layout="column" layout-align="center center" class="no-padding-vertical" flex ng-show="pessoa.time !== undefined">
+                  <img src="../images/fire.png" width="20px" height="20px" ng-show="pessoa.time == 1">  
+                <img src="../images/snowflake.png" width="20px" height="20px" ng-show="pessoa.time == 2">
+                <img src="../images/lightning.png" width="20px" height="20px" ng-show="pessoa.time == 3">
+                </div>
             </div>
             <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(pessoa)">
               <md-icon md-font-icon="material-icons">file_copy</md-icon>

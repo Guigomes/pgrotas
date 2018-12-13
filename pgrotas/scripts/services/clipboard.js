@@ -3,14 +3,12 @@ angular.module('app')
     .factory('ngClipboard', function($compile,$rootScope,$document, Toast) {
         return {
             toClipboard: function(element, nome){
-console.log("Elem", element);
-console.log("Nome", nome);
+
             var copyElement = angular.element('<span id="ngClipboardCopyId">'+element+'</span>');
             var body = $document.find('body').eq(0);
             body.append($compile(copyElement)($rootScope));
             
             var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
-            console.log(ngClipboardElement);
             var range = document.createRange();
 
             range.selectNode(ngClipboardElement[0]);
@@ -26,7 +24,6 @@ console.log("Nome", nome);
             }else{
                 Toast.mostrarErro("erro ao copiar código do jogador " + nome);
             }
-            //console.log('Copying text command was ' + msg);
             window.getSelection().removeAllRanges();
 
             copyElement.remove();

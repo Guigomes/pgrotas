@@ -5,19 +5,19 @@ function InicioController(Authentication, $rootScope, $scope) {
   var vm = this;
   vm.mostrarInstalar = false;
 
-  $rootScope.$on("available", function() {
+  $rootScope.$on("available", function () {
     vm.mostrarInstalar = true;
     $rootScope.$apply();
   });
   Authentication.inicializar();
-  vm.instalar = function() {
+  vm.instalar = function () {
     Authentication.instalar();
   };
 }
 
 function DialogController($scope, $mdDialog, $mdToast) {
   var vm = this;
-  $scope.hide = function() {
+  $scope.hide = function () {
     $mdDialog.hide();
   };
 
@@ -35,11 +35,11 @@ function DialogController($scope, $mdDialog, $mdToast) {
       nome: "Instinto"
     }
   ];
-  $scope.cancel = function() {
+  $scope.cancel = function () {
     $mdDialog.cancel();
   };
 
-  vm.answer = function(form) {
+  vm.answer = function (form) {
     if (!form.$valid) {
       $mdToast.show(
         $mdToast
@@ -49,9 +49,9 @@ function DialogController($scope, $mdDialog, $mdToast) {
           .hideDelay(3000)
       );
     } else {
-      if (vm.nivel === undefined  || vm.nivel === "" || (vm.nivel > 0 && vm.nivel <= 40)) {
+      if (vm.nivel === undefined || vm.nivel === "" || (vm.nivel > 0 && vm.nivel <= 40)) {
         let novoUsuario = {
-          codigo: vm.codigo,
+          codigo: vm.codigo1 + " " + vm.codigo2 + " " + vm.codigo3,
           nome: vm.apelido,
           nivel: vm.nivel,
           time: vm.time

@@ -1,5 +1,5 @@
 <md-dialog aria-label="Cadastro">
-    <form ng-cloak name="userForm">
+    <form ng-cloak name="jogadorForm">
         <md-toolbar class="primary">
             <div class="md-toolbar-tools">
                 <h2>Cadastro</h2>
@@ -18,23 +18,53 @@
                     </md-input-container>
 
                     <md-input-container>
-                        <label>Nível  (opcional) </label>
+                        <label>Nível (opcional) </label>
                         <input ng-model="vm.nivel" type="number">
                     </md-input-container>
                 </div>
 
-                <div layout-gt-xs="row">
-                      
-                        <md-input-container>
-                            <label>Código </label>
-                            <input ng-model="vm.codigo" type="number" required>
-                        </md-input-container>
-                    </div>
-    
+                <div layout="row">
+
+                    <md-input-container flex>
+                        <label>Código </label>
+                        <input ng-model="vm.codigo1" name="codigo1" type="number" required minlength="4" maxlength="4"
+                            size="4">
+
+                        <div ng-messages="jogadorForm.codigo1.$error">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Precisa ser 4 números
+                            </div>
+
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Código</label>
+                        <input class="next" name="codigo2" ng-model="vm.codigo2" type="text" required minlength="4"
+                            maxlength="4" size="4">
+                        <div ng-messages="jogadorForm.codigo2.$error">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Precisa ser 4 números
+                            </div>
+
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Código </label>
+                        <input ng-model="vm.codigo3" name="codigo3" type="number" required minlength="4" maxlength="4"
+                            size="4">
+                        <div ng-messages="jogadorForm.codigo3.$error">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Precisa ser 4 números
+                            </div>
+
+                        </div>
+                    </md-input-container>
+                </div>
+
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Time (opcional)</label>
-                    <md-select ng-model="vm.time" required>
+                    <md-select ng-model="vm.time">
                         <md-option ng-repeat="time in vm.times" value="{{time.codigo}}">
                             {{time.nome}}
                         </md-option>
@@ -45,7 +75,7 @@
 
         <md-dialog-actions layout="row">
 
-            <md-button ng-click="vm.answer(userForm)" class="primary">
+            <md-button ng-click="vm.answer(jogadorForm)" class="primary">
                 Cadastrar
             </md-button>
 

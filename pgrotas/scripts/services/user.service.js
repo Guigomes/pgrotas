@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   angular.module("app").factory("User", User);
@@ -6,8 +6,32 @@
   function User(Usuario) {
     return {
       adicionarUsuario: adicionarUsuario,
-      buscarUsuario: buscarUsuario
+      buscarUsuario: buscarUsuario,
+      adicionarJogador: adicionarJogador,
+      listarJogadores: listarJogadores
     };
+
+    function adicionarJogador(jogador) {
+      if (jogador.nivel == undefined || jogador.nivel == null) {
+        jogador.nivel = 0;
+      }
+
+      if (jogador.time == undefined || jogador.time == null) {
+        jogador.time = "";
+      }
+      return firebase
+        .database()
+        .ref("jogador").push()
+        .set({
+          jogador: jogador
+        });
+    }
+
+    function listarJogadores() {
+      return firebase.database().ref('jogador/').once("value").then(function (user) {
+        return user.val();
+      });
+    }
 
     function adicionarUsuario(nome, level, time) {
       let userId = firebase.auth().currentUser.uid;
@@ -30,7 +54,7 @@
         .database()
         .ref("/users/" + userId)
         .once("value")
-        .then(function(user) {
+        .then(function (user) {
           return user.val();
         });
     }

@@ -1,5 +1,32 @@
 angular.module("app").controller("PrincipalController", PrincipalController);
+angular.module("app").directive("moveNextOnMaxlength", function () {
+  return {
+    restrict: "A",
+    link: function ($scope, element) {
+      element.on("input", function (e) {
+        console.log('element.val()', element.val());
 
+        if (element.val().length == element.attr("maxlength")) {
+          console.log("aqui");
+          var $nextElement = element.next();
+          $nextElement = element.parent().parent();
+          // $nextElement = $nextElement.next();
+
+          $nextElement = $nextElement.find('.teste');
+          console.log("next", $nextElement);
+          //.find('.next');
+          var myEl = angular.element(element[0].querySelector('.next'));
+          console.log("EL", myEl);
+          myEl.focus();
+          myEl[0].focus();
+
+          // $nextElement[0].focus();
+
+        }
+      });
+    }
+  }
+});
 function PrincipalController(
   $mdSidenav,
   Usuario,
@@ -15,29 +42,49 @@ function PrincipalController(
   ngClipboard
 ) {
   var vm = this;
-  vm.adicionarJogador = function(){
-         __abrirModalCadastro();
+  listarJogadores();
+  vm.adicionarJogador = function () {
+    __abrirModalCadastro();
   }
-  
+
   vm.toggle = toggle;
   vm.go = go;
   vm.sair = sair;
 
 
+  function listarJogadores() {
+    vm.activated = true;
+    User.listarJogadores().then((grupo) => {
 
-  vm.instalar = function() {
+      vm.grupo = [];
+
+      for (var i in grupo) {
+        vm.grupo.push(grupo[i].jogador);
+      }
+
+
+      $scope.$apply();
+      vm.activated = false;
+    });
+  }
+
+  vm.instalar = function () {
     Authentication.instalar();
   };
 
-  vm.grupo = Usuario.getGrupo();
-    init();
-  console.log("grupo", vm.grupo);
-vm.copiar = function(pessoa){
-  ngClipboard.toClipboard(pessoa.codigo, pessoa.nome);
 
-}
+
+  //vm.grupo = Usuario.getGrupo();
+  init();
+  console.log("grupo", vm.grupo);
+
+
+  vm.copiar = function (pessoa) {
+    ngClipboard.toClipboard(pessoa.codigo, pessoa.nome);
+
+  }
   function init() {
-    $rootScope.$on("available", function() {
+    $rootScope.$on("available", function () {
       vm.mostrarInstalar = true;
       $rootScope.$apply();
     });
@@ -101,11 +148,11 @@ vm.copiar = function(pessoa){
       .auth()
       .signOut()
       .then(
-        function() {
+        function () {
           $state.go("/");
           console.log("logout");
         },
-        function(error) {
+        function (error) {
           console.log("logout error");
         }
       );
@@ -122,13 +169,13 @@ vm.copiar = function(pessoa){
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
       })
       .then(
-        function(novoUsuario) {
-          User.adicionarUsuario(
-            novoUsuario.nome,
-            novoUsuario.codigo,            
+        function (novoUsuario) {
+          User.adicionarJogador(
+            novoUsuario
           ).then(
             () => {
               Toast.mostrarMensagem("Jogador adicionado  com sucesso");
+              listarJogadores();
             },
             erro => {
               Toast.mostrarErro(erro);
@@ -136,7 +183,7 @@ vm.copiar = function(pessoa){
           );
           console.log("novoUsuario", novoUsuario);
         },
-        function() {
+        function () {
           $scope.status = "You cancelled the dialog.";
         }
       );
@@ -164,12 +211,12 @@ vm.copiar = function(pessoa){
                 */ else
       window.open(
         "https://maps.google.com/maps?q=" +
-          lat +
-          ", + " +
-          long +
-          "(" +
-          nome +
-          ")&amp;ll="
+        lat +
+        ", + " +
+        long +
+        "(" +
+        nome +
+        ")&amp;ll="
       );
   }
 }

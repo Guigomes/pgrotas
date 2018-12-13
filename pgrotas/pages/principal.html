@@ -1,132 +1,105 @@
 <md-toolbar class="toolbar-small">
   <div class="md-toolbar-tools small">
     <h3>
-     
+
       <span>Ginásios de Águas Claras </span>
     </h3>
   </div>
 </md-toolbar>
 
-    <md-content  layout-fill style="overflow: hidden !important;">
-      <md-tabs
-        md-dynamic-height
-        md-border-bottom
-        md-stretch-tabs="always"
-        class="md-primary"
-      >
-        <md-tab label="Ginásios">
-          <md-content class="md-padding">
-            <!--
-            <img
-              src="images/mapa_cima.jpg"
-              style="width: 100%;"
-              ng-if="vm.mostrarLegenda"
-              class="fade"
-            />
+<md-content layout-fill style="overflow: hidden !important;">
+  <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary">
+    <md-tab label="Ginásios">
+      <md-content class="md-padding">
 
-            <div
-              class="div-baixo"
-              ng-class="{'div-mais-baixo': vm.mostrarLegenda}"
-            >
-              <img src="images/mapa_baixo.jpg" style="width: 100%;" />
-            </div>
+        <img src="images/mapa_cima.jpg" style="width: 100%;" ng-if="vm.mostrarLegenda" class="fade" />
+
+        <div class="div-baixo" ng-class="{'div-mais-baixo': vm.mostrarLegenda}">
+          <img src="images/mapa_baixo.jpg" style="width: 100%;" />
+        </div>
+
+        <md-button class="md-primary" ng-click="vm.mostrarLegenda = !vm.mostrarLegenda;" target="_blank">
+          <span ng-show="!vm.mostrarLegenda">Mostrar Legenda</span>
+          <span ng-show="vm.mostrarLegenda">Ocultar Legenda </span>
+        </md-button>
+
+        <div class="card" layout-align="center center" layout="column">
+          <!--
+          <md-button ng-click="vm.instalar();" class="md-raised  button2" target="_blank">
+            Adicionar a sua tela inicial
+          </md-button>
 -->
-            <md-button
-              class="md-primary"
-              ng-click="vm.mostrarLegenda = !vm.mostrarLegenda;"
-              target="_blank"
-            >
-              <span ng-show="!vm.mostrarLegenda">Mostrar Legenda</span>
-              <span ng-show="vm.mostrarLegenda">Ocultar Legenda </span>
-            </md-button>
+          <div class="card-header" style="font-weight: bold; background-color:#ba2f2f; ">
+            Selecione o ginásio ou digite o código e aperte GO
+          </div>
 
-            <div class="card" layout-align="center center" layout="column">
-              <md-button
-                ng-click="vm.instalar();"
-                class="md-raised  button2"
-                target="_blank"
-              >
-                Adicionar a sua tela inicial
-              </md-button>
-
-              <div
-                class="card-header"
-                style="font-weight: bold; background-color:#ba2f2f; "
-              >
-                Selecione o ginásio ou digite o código e aperte GO
-              </div>
-
-              <form ng-submit="vm.go()">
-                <div layout="row" layout-align="center center">
-                  <div layout="column">
-                    <div layout="row">
-                      <md-input-container>
-                        <label>Ginásio</label>
-                        <md-select
-                          ng-model="vm.localSelecionado"
-                          ng-change="vm.codigoLocal = vm.localSelecionado.codigo"
-                        >
-                          <md-option
-                            ng-repeat="local in vm.locais"
-                            ng-value="local"
-                          >
-                            {{ local.codigo + " - " + local.nome }}
-                          </md-option>
-                        </md-select>
-                      </md-input-container>
-                    </div>
-                    <div layout="row">
-                      <md-input-container>
-                        <label>Código do Ginásio</label>
-                        <input ng-model="vm.codigoLocal" type="number" />
-                      </md-input-container>
-                    </div>
-                  </div>
-                  <div layout="column" layout-align="center center">
-                    <button class="button-go"></button>
-                  </div>
+          <form ng-submit="vm.go()">
+            <div layout="row" layout-align="center center">
+              <div layout="column">
+                <div layout="row">
+                  <md-input-container>
+                    <label>Ginásio</label>
+                    <md-select ng-model="vm.localSelecionado" ng-change="vm.codigoLocal = vm.localSelecionado.codigo">
+                      <md-option ng-repeat="local in vm.locais" ng-value="local">
+                        {{ local.codigo <= 9 ? "0" + local.codigo + " - " : local.codigo + " - " }}{{local.nome}} </md-option>
+                          </md-select> </md-input-container> </div> <div layout="row">
+                          <md-input-container>
+                            <label>Código do Ginásio</label>
+                            <input ng-model="vm.codigoLocal" type="number" />
+                          </md-input-container>
                 </div>
-
-                <br />
-              </form>
+              </div>
+              <div layout="column" layout-align="center center">
+                <button class="button-go"></button>
+              </div>
             </div>
-          </md-content>
-        </md-tab>
-        <md-tab label="Grupo">
-          <md-content class="md-padding"  layout-fill style="overflow: hidden !important;" >
-           
-            <md-list layout-fill style="overflow: hidden !important;">
-              <div layout="row" layout-align="end end">
-                  <md-button class="md-secondary md-icon-button" ng-click="vm.adicionarJogador();" >
-                        <md-icon md-font-icon="material-icons">file_copy</md-icon>
-                </md-button>
-              </div>
-              <md-subheader class="md-no-sticky">
-                Pressione sobre o jogador desejado para copiar o código
-                <md-input-container class="md-icon-float md-icon-left md-block">
-                  
-                  <md-icon md-font-set="material-icons">search</md-icon>
-                                    <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
-                
-                </md-input-container>        
-              </md-subheader>
-              <md-list-item  style="overflow: hidden !important;"  class="md-2-line" ng-repeat="pessoa in vm.grupo | filter: vm.pesquisa" ng-click="vm.copiar(pessoa)">
-                
-                <div class="md-list-item-text" layout="column">
-                  <h3>{{ pessoa.nome}}</h3>                  
-                  <p>{{ pessoa.codigo }}</p>
 
-                </div>
-                <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(pessoa)" >
-                  <md-icon md-font-icon="material-icons">file_copy</md-icon>
-                
-                </md-button>
-                <md-divider></md-divider>
-              </md-list-item>
+            <br />
+          </form>
+        </div>
+      </md-content>
+    </md-tab>
+    <md-tab label="Grupo">
+      <md-content class="md-padding" layout-fill style="overflow: hidden !important;">
 
-          </md-content>
-        </md-tab>
-      </md-tabs>
-    </md-content>
-  </section>
+        <md-list layout-fill style="overflow: hidden !important;">
+          <div layout="row" layout-align="end end">
+
+            <md-button class="md-secondary md-icon-button" ng-click="vm.adicionarJogador();">
+              <md-icon md-font-icon="material-icons">person_add</md-icon>
+            </md-button>
+          </div>
+          <md-subheader class="md-no-sticky no-padding-vertical">
+            Pressione sobre o jogador desejado para copiar o código
+            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;">
+
+              <md-icon md-font-set="material-icons">search</md-icon>
+              <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
+
+            </md-input-container>
+          </md-subheader>
+          <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.activated">
+            <md-progress-circular class="md-hue-2" ng-disabled="!vm.activated" md-diameter="100px"></md-progress-circular>
+          </div>
+
+          <md-list-item style="overflow: hidden !important;" class="md-2-line" ng-repeat="pessoa in vm.grupo | orderBy: 'nome' | filter: vm.pesquisa"
+            ng-click="vm.copiar(pessoa)">
+
+            <div class="md-list-item-text" layout="column">
+              <h3>{{ pessoa.nome}}</h3>
+              <p>{{ pessoa.codigo }}</p>
+
+            </div>
+            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(pessoa)">
+              <md-icon md-font-icon="material-icons">file_copy</md-icon>
+
+            </md-button>
+            <md-divider></md-divider>
+          </md-list-item>
+
+      </md-content>
+    </md-tab>
+  </md-tabs>
+</md-content>
+</section>
 </div>

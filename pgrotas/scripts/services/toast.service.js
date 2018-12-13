@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   angular.module("app").factory("Toast", Toast);
@@ -15,7 +15,7 @@
           .simple()
           .textContent(mensagemErro)
           .position("bottom")
-          .hideDelay(3000)
+          .hideDelay(2000)
       );
     }
     function mostrarMensagem(mensagem) {
@@ -24,7 +24,7 @@
           .simple()
           .textContent(mensagem)
           .position("bottom")
-          .hideDelay(3000)
+          .hideDelay(2000)
       );
     }
   }

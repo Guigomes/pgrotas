@@ -11,9 +11,85 @@ function PrincipalController(
   $mdDialog,
   $scope,
   Toast,
-  ngClipboard
+  ngClipboard, $log
 ) {
   var vm = this;
+
+
+  vm.simulateQuery = false;
+  vm.isDisabled = false;
+
+  // list of `state` value/display objects
+  vm.querySearch = querySearch;
+  vm.selectedItemChange = selectedItemChange;
+  vm.searchTextChange = searchTextChange;
+
+  vm.newState = newState;
+
+  function newState(state) {
+    alert("Sorry! You'll need to create a Constitution for " + state + " first!");
+  }
+
+  // ******************************
+  // Internal methods
+  // ******************************
+
+  /**
+   * Search for states... use $timeout to simulate
+   * remote dataservice call.
+   */
+  function querySearch(query) {
+    var results = query ? vm.states.filter(createFilterFor(query)) : vm.states,
+      deferred;
+    if (vm.simulateQuery) {
+      deferred = $q.defer();
+      $timeout(function () {
+        deferred.resolve(results);
+      }, Math.random() * 1000, false);
+      return deferred.promise;
+    } else {
+      return results;
+    }
+  }
+
+  function searchTextChange(text) {}
+
+  function selectedItemChange(item) {
+    vm.localSelecionado = vm.locais[item.index];
+    vm.codigoLocal = vm.locais[item.index].codigo;
+  }
+
+  /**
+   * Build `states` list of key/value pairs
+   */
+  function loadAll() {
+
+
+
+
+    return vm.locais.map(function (state) {
+      return {
+        value: state.nome.toLowerCase(),
+        display: state.nome,
+        index: vm.locais.indexOf(state)
+      };
+    });
+  }
+
+  /**
+   * Create filter function for a query string
+   */
+  function createFilterFor(query) {
+    var lowercaseQuery = query.toLowerCase();
+
+    return function filterFn(state) {
+      if (lowercaseQuery.length > 2) {
+        return (state.value.indexOf(lowercaseQuery) != -1);
+      }
+    };
+
+  }
+
   listarJogadores();
   vm.adicionarJogador = function () {
     __abrirModalCadastro();
@@ -45,12 +121,12 @@ function PrincipalController(
   };
 
 
-/*
-  vm.grupo = Usuario.getGrupo();
-  for(var i in vm.grupo){
-    User.adicionarJogador(vm.grupo[i]);
-  }
-  */
+  /*
+    vm.grupo = Usuario.getGrupo();
+    for(var i in vm.grupo){
+      User.adicionarJogador(vm.grupo[i]);
+    }
+    */
   init();
 
 
@@ -58,6 +134,7 @@ function PrincipalController(
     ngClipboard.toClipboard(pessoa.codigo, pessoa.nome);
 
   }
+
   function init() {
     $rootScope.$on("available", function () {
       vm.mostrarInstalar = true;
@@ -79,6 +156,8 @@ function PrincipalController(
     try {
       vm.locais = Ginasios.getGinasios();
       vm.localSelecionado = vm.locais[0];
+      vm.states = loadAll();
+
     } catch (err) {
       $mdToast
         .simple()
@@ -108,12 +187,12 @@ function PrincipalController(
     } else {
       $mdToast.show(
         $mdToast
-          .simple()
-          .textContent(
-            "Não foi encontrado um ginásio com o código " + vm.codigoLocal
-          )
-          .position("bottom")
-          .hideDelay(3000)
+        .simple()
+        .textContent(
+          "Não foi encontrado um ginásio com o código " + vm.codigoLocal
+        )
+        .position("bottom")
+        .hideDelay(3000)
       );
     }
   }
@@ -126,8 +205,7 @@ function PrincipalController(
         function () {
           $state.go("/");
         },
-        function (error) {
-        }
+        function (error) {}
       );
   }
 
@@ -180,7 +258,8 @@ function PrincipalController(
                     long +
                     "&amp;ll="
                 );
-                */ else
+                */
+    else
       window.open(
         "https://maps.google.com/maps?q=" +
         lat +

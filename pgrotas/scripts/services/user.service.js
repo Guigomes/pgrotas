@@ -33,18 +33,22 @@
       });
     }
 
-    function adicionarUsuario(nome, level, time) {
+    function adicionarUsuario(novoUsuario) {
       let userId = firebase.auth().currentUser.uid;
-      console.log(userId + " - " + nome + " - " + level + " - " + time);
       return firebase
         .database()
         .ref("users/" + userId)
         .set({
-          nome: nome,
-          level: level,
-          time: time
+          nome: novoUsuario.nome,
+          codigo: novoUsuario.codigo,
+          nivel: novoUsuario.nivel,
+          time: novoUsuario.time,
+          mensagens: novoUsuario.mensagens,
+          grupo: novoUsuario.grupo
+
         });
     }
+
     function buscarUsuario(userId) {
       if (userId === undefined) {
         let usuario = Usuario.getUsuario();

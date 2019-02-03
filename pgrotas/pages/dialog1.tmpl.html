@@ -8,23 +8,23 @@
             </div>
         </md-toolbar>
 
-        <md-dialog-content >
+        <md-dialog-content>
             <div class="md-dialog-content no-padding-vertical">
 
-                <div layout="row"  class="no-padding-vertical">
+                <div layout="row" class="no-padding-vertical">
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Apelido (no jogo)</label>
-                        <input ng-model="vm.apelido" type="text" required>
-                        
+                        <input ng-model="vm.usuario.nome" type="text" required>
+
                     </md-input-container>
 
                 </div>
 
-                <div layout="row"  class="no-padding-vertical">
+                <div layout="row" class="no-padding-vertical">
 
                     <md-input-container flex class="margin-vertical-menor">
                         <label>Código</label>
-                        <input ng-model="vm.codigo1" name="codigo1" type="tel" required minlength="4" maxlength="4"
+                        <input ng-model="vm.usuario.codigo1" name="codigo1" type="tel" required minlength="4" maxlength="4"
                             size="4" max="5000">
 
                         <div ng-messages="jogadorForm.codigo1.$error">
@@ -36,8 +36,8 @@
                     </md-input-container>
                     <md-input-container flex class="margin-vertical-menor">
                         <label>Código</label>
-                        <input  name="codigo2" ng-model="vm.codigo2" type="tel" required minlength="4"
-                            maxlength="4" size="4">
+                        <input name="codigo2" ng-model="vm.usuario.codigo2" type="tel" required minlength="4" maxlength="4"
+                            size="4">
                         <div ng-messages="jogadorForm.codigo2.$error">
                             <div ng-message-exp="['required', 'minlength', 'maxlength']">
                                 Precisa ser 4 números
@@ -47,7 +47,7 @@
                     </md-input-container>
                     <md-input-container flex class="margin-vertical-menor">
                         <label>Código </label>
-                        <input ng-model="vm.codigo3" name="codigo3" type="tel" required minlength="4" maxlength="4"
+                        <input ng-model="vm.usuario.codigo3" name="codigo3" type="tel" required minlength="4" maxlength="4"
                             size="4">
                         <div ng-messages="jogadorForm.codigo3.$error">
                             <div ng-message-exp="['required', 'minlength', 'maxlength']">
@@ -56,22 +56,42 @@
 
                         </div>
                     </md-input-container>
+
                 </div>
 
-<div layout="row" class="no-padding-vertical">
-                    <md-input-container flex="50"  class="md-block margin-vertical-menor"> 
+                <div layout="row" class="no-padding-vertical">
+                    <md-input-container flex="50" class="md-block margin-vertical-menor">
                         <label>Nível (opcional) </label>
-                        <input ng-model="vm.nivel" type="number">
+                        <input ng-model="vm.usuario.nivel" type="number">
                     </md-input-container>
-                <md-input-container class="md-block margin-vertical-menor" flex="50">
-                    <label>Time (opcional)</label>
-                    <md-select ng-model="vm.time">
-                        <md-option ng-repeat="time in vm.times" value="{{time.codigo}}">
-                            {{time.nome}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
+                    <md-input-container class="md-block margin-vertical-menor" flex="50">
+                        <label>Time (opcional)</label>
+                        <md-select ng-model="vm.usuario.time">
+                            <md-option ng-repeat="time in vm.times" value="{{time.codigo}}">
+                                {{time.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row" class="no-padding-vertical" flex="100">
+                    <md-input-container class="md-block margin-vertical-menor" flex="100">
+                        <label>Em qual grupo gostaria de se cadastrar</label>
+                        <md-select ng-model="vm.usuario.grupo">
+                            <md-option ng-repeat="grupo in vm.grupos" value="{{grupo.codigo}}">
+                                {{grupo.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row" class="no-padding-vertical">
+
+                    <md-input-container class="md-block">
+                        <md-checkbox ng-model="vm.usuario.mensagens">
+                            Aceito receber mensagens de outros jogadores.
+                        </md-checkbox>
+
+                    </md-input-container>
+                </div>
             </div>
         </md-dialog-content>
 

@@ -1,0 +1,37 @@
+<md-dialog aria-label="Trocar Grupo" style="min-width: 360px !important">
+    <form ng-cloak>
+        <md-toolbar class="primary">
+            <div class="md-toolbar-tools">
+                <h2>Trocar Grupo</h2>
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="width: 100%">
+            <div class="md-dialog-content">
+
+
+                <div layout="row" flex="100">
+
+                    <md-input-container class="md-block" flex="100">
+                        <label>Selecione o grupo que deseja acessar</label>
+                        <md-select ng-model="vm.grupo">
+                            <md-option ng-repeat="grupo in vm.grupos" value="{{grupo.codigo}}">
+                                {{grupo.nome}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+
+            <md-button ng-click="vm.answer()" class="primary">
+                Cadastrar
+            </md-button>
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>

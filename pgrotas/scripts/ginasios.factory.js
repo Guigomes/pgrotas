@@ -1,11 +1,12 @@
-(function() {
+(function () {
   "use strict";
 
   angular.module("app").factory("Ginasios", Ginasios);
 
   function Ginasios() {
     return {
-      getGinasios: getGinasios
+      getGinasiosAguasClaras: getGinasiosAguasClaras,
+      getGinasiosEsplanada: getGinasiosEsplanada
     };
 
     function compare(a, b) {
@@ -14,9 +15,137 @@
       return 0;
     }
 
-    function getGinasios() {
-      var ginasios = [
+    function getGinasiosEsplanada() {
+      var ginasios = [{
+          codigo: 1,
+          nome: "Anjo - Salão Verde",
+          lat: "-15.800033,",
+          long: "-47.863519"
+        },
         {
+          codigo: 2,
+          nome: "Congresso Nacional *Ex",
+          lat: "-15.799646",
+          long: "-47.864177"
+        },
+        {
+          codigo: 3,
+          nome: "Palácio da Justiça",
+          lat: "-15.797044",
+          long: "-47.865904"
+        },
+
+        {
+          codigo: 4,
+          nome: "Mastro da Bandeira do Brasil",
+          lat: "-15.800783",
+          long: "-47.859985"
+        },
+        {
+          codigo: 5,
+          nome: "Oswaldo Cruz",
+          lat: "-15.800144",
+          long: "-47.868231"
+        },
+
+        {
+          codigo: 6,
+          nome: "Estátua Eloy Chaves",
+          lat: "-15.799884",
+          long: "-47.869066"
+        },
+        {
+          codigo: 7,
+          nome: "Candangos, Brasília, Brasil",
+          lat: "-15.800533",
+          long: "-47.860951"
+        },
+        {
+          codigo: 8,
+          nome: "Tribunal de Contas da União",
+          lat: "-15.80409",
+          long: "-47.862484"
+        },
+        {
+          codigo: 9,
+          nome: "Campanário Catedral",
+          lat: "-15.797927",
+          long: "-47.875822"
+        },
+        {
+          codigo: 10,
+          nome: "Catedral",
+          lat: "-15.798375",
+          long: "-47.875546"
+        },
+        {
+          codigo: 11,
+          nome: "Pau-Brasil",
+          lat: "-15.795133",
+          long: "-47.874784"
+        },
+        {
+          codigo: 12,
+          nome: "Estátuas de Águia - Anexo Aeronáutica",
+          lat: "-15.793675",
+          long: "-47.872111"
+        },
+        {
+          codigo: 13,
+          nome: "Canhão de Guerra Naval",
+          lat: "-15.795724",
+          long: "-47.871134"
+        },
+        {
+          codigo: 14,
+          nome: "Ministério dos Transportes",
+          lat: "-15.797232",
+          long: "-47.867201"
+        },
+        {
+          codigo: 15,
+          nome: "Bosque dos constituintes *Ex",
+          lat: "-15.801168",
+          long: "-47.856485"
+        },
+        {
+          codigo: 16,
+          nome: "Minister Marker",
+          lat: "15.799677",
+          long: "-47.87018"
+        },
+        {
+          codigo: 17,
+          nome: "Museu nacional",
+          lat: "-15.797293",
+          long: "-47.878461"
+        },
+        {
+          codigo: 18,
+          nome: "Biblioteca nacional",
+          lat: "-15.796875",
+          long: "-47.879916"
+        },
+        {
+          codigo: 19,
+          nome: "Embaixada de Portugal",
+          lat: "-15.802116",
+          long: "-47.874277"
+        },
+        {
+          codigo: 20,
+          nome: "Praça Portugal *Ex",
+          lat: "-15.802821",
+          long: "-47.871588"
+        }
+      ];
+
+      ginasios.sort(compare);
+      return ginasios;
+    }
+
+    function getGinasiosAguasClaras() {
+      var ginasios = [{
           codigo: 1,
           nome: "Academia dos Vovos",
           lat: "-15.8376886",
@@ -241,6 +370,7 @@
           long: "-48.0383533"
         }
       ];
+
       ginasios.sort(compare);
       return ginasios;
     }

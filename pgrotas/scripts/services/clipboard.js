@@ -1,54 +1,60 @@
-angular.module('app')
+(function () {
+    "use strict";
 
-    .factory('ngClipboard', function($compile,$rootScope,$document, Toast) {
-        return {
-            toClipboard: function(element, nome){
+    angular.module('app')
 
-            var copyElement = angular.element('<span id="ngClipboardCopyId">'+element+'</span>');
-            var body = $document.find('body').eq(0);
-            body.append($compile(copyElement)($rootScope));
-            
-            var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
-            var range = document.createRange();
+        .factory('ngClipboard', function ($compile, $rootScope, $document, Toast) {
+            return {
+                toClipboard: function (element, nome) {
 
-            range.selectNode(ngClipboardElement[0]);
+                    var copyElement = angular.element('<span id="ngClipboardCopyId">' + element + '</span>');
+                    var body = $document.find('body').eq(0);
+                    body.append($compile(copyElement)($rootScope));
 
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+                    var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
+                    var range = document.createRange();
 
-            var successful = document.execCommand('copy');
+                    range.selectNode(ngClipboardElement[0]);
 
-            var msg = successful ? 'successful' : 'unsuccessful';
-            if(successful){
-            Toast.mostrarMensagem("o código do jogador " + nome  + " foi copiado");
-            }else{
-                Toast.mostrarErro("erro ao copiar código do jogador " + nome);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+
+                    var successful = document.execCommand('copy');
+
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    if (successful) {
+                        Toast.mostrarMensagem("o código do jogador " + nome + " foi copiado");
+                    } else {
+                        Toast.mostrarErro("erro ao copiar código do jogador " + nome);
+                    }
+                    window.getSelection().removeAllRanges();
+
+                    copyElement.remove();
+                }
             }
-            window.getSelection().removeAllRanges();
+        })
 
-            copyElement.remove();
-        }
-    }
-    })
+        .directive('ngCopyable', function () {
+            return {
+                restrict: 'A',
+                link: link
+            };
 
-    .directive('ngCopyable', function() {
-        return {
-            restrict: 'A',
-            link:link
-        };
-        function link(scope, element, attrs) {
-            element.bind('click',function(){
+            function link(scope, element, attrs) {
+                element.bind('click', function () {
 
-                var range = document.createRange();
-                range.selectNode(element[0]);
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(range);
-                var successful = document.execCommand('copy');
+                    var range = document.createRange();
+                    range.selectNode(element[0]);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    var successful = document.execCommand('copy');
 
-                var msg = successful ? 'successful' : 'unsuccessful';
-                console.log('Copying text command was ' + msg);
-                window.getSelection().removeAllRanges();
-            });
-        }
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    console.log('Copying text command was ' + msg);
+                    window.getSelection().removeAllRanges();
+                });
+            }
 
-    });
+        });
+
+})();

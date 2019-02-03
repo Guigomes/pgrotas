@@ -1,273 +1,353 @@
-angular.module("app").controller("PrincipalController", PrincipalController);
+(function () {
+  'use strict';
 
-function PrincipalController(
-  $mdSidenav,
-  Authentication,
-  $mdToast,
-  $state,
-  $rootScope,
-  User,
-  Ginasios,
-  $mdDialog,
-  $scope,
-  Toast,
-  ngClipboard, $log
-) {
-  var vm = this;
+  angular.module("app").controller("PrincipalController", PrincipalController);
 
+  function PrincipalController(
+    $mdSidenav,
 
-  vm.simulateQuery = false;
-  vm.isDisabled = false;
+    $mdToast,
+    $state,
+    User,
+    Authentication,
+    Usuario,
+    Ginasios,
+    $mdDialog,
+    $scope,
+    Toast,
+    ngClipboard, $log
+  ) {
+    var vm = this;
 
-  // list of `state` value/display objects
-  vm.querySearch = querySearch;
-  vm.selectedItemChange = selectedItemChange;
-  vm.searchTextChange = searchTextChange;
+    inicializar();
 
-  vm.newState = newState;
+    vm.toggle = toggle;
+    vm.go = go;
+    vm.sair = sair;
+    vm.mostrarMapa = mostrarMapa;
+    vm.editarDados = editarDados;
 
-  function newState(state) {
-    alert("Sorry! You'll need to create a Constitution for " + state + " first!");
-  }
+    function inicializar() {
+      vm.logado = true;
 
-  // ******************************
-  // Internal methods
-  // ******************************
+      // FirebaseUI config.
+      return firebase.auth().onAuthStateChanged(
+        function (user) {
+          if (user) {
 
-  /**
-   * Search for states... use $timeout to simulate
-   * remote dataservice call.
-   */
-  function querySearch(query) {
-    var results = query ? vm.states.filter(createFilterFor(query)) : vm.states,
-      deferred;
-    if (vm.simulateQuery) {
-      deferred = $q.defer();
-      $timeout(function () {
-        deferred.resolve(results);
-      }, Math.random() * 1000, false);
-      return deferred.promise;
-    } else {
-      return results;
-    }
-  }
+            let userId = firebase.auth().currentUser.uid;
+            return User.buscarUsuario(userId).then(function (usuario) {
 
-  function searchTextChange(text) {}
+                if (usuario == null) {
+                  vm.user = user
+                  __abrirModalCadastro();
 
-  function selectedItemChange(item) {
-    vm.localSelecionado = vm.locais[item.index];
-    vm.codigoLocal = vm.locais[item.index].codigo;
-  }
-
-  /**
-   * Build `states` list of key/value pairs
-   */
-  function loadAll() {
+                } else {
 
 
+                  vm.usuario = usuario;
+                  Usuario.setUsuario(usuario);
 
 
-    return vm.locais.map(function (state) {
-      return {
-        value: state.nome.toLowerCase(),
-        display: state.nome,
-        index: vm.locais.indexOf(state)
-      };
-    });
-  }
+                  try {
 
-  /**
-   * Create filter function for a query string
-   */
-  function createFilterFor(query) {
-    var lowercaseQuery = query.toLowerCase();
-
-    return function filterFn(state) {
-      if (lowercaseQuery.length > 2) {
-        return (state.value.indexOf(lowercaseQuery) != -1);
-      }
-    };
-
-  }
-
-  listarJogadores();
-  vm.adicionarJogador = function () {
-    __abrirModalCadastro();
-  }
-
-  vm.toggle = toggle;
-  vm.go = go;
-  vm.sair = sair;
+                    vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
+                    vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
+                    vm.localSelecionado = vm.locais[0];
+                    $scope.$apply();
+                    vm.states = loadAll();
 
 
-  function listarJogadores() {
-    vm.activated = true;
-    User.listarJogadores().then((grupo) => {
+                  } catch (err) {
+                    $mdToast
+                      .simple()
+                      .textContent(err)
+                      .position("bottom")
+                      .hideDelay(3000);
+                  }
+                }
+              },
+              function (error) {
+                console.log("Usuario não encontrado", error);
+              })
 
-      vm.grupo = [];
+          } else {
+            vm.logado = false;
+            var uiConfig = {
+              signInSuccessUrl: "/",
+              signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+              ],
+              // tosUrl and privacyPolicyUrl accept either url string or a callback
+              // function.
+              // Terms of service url/callback.
+              tosUrl: "<your-tos-url>",
+              // Privacy policy url/callback.
+              privacyPolicyUrl: function () {
+                window.location.assign("<your-privacy-policy-url>");
+              }
+            };
+            vm.ui = firebaseui.auth.AuthUI.getInstance();
+            if (!vm.ui) {
+              // Initialize the FirebaseUI Widget using Firebase.
 
-      for (var i in grupo) {
-        vm.grupo.push(grupo[i].jogador);
-      }
-
-
-      $scope.$apply();
-      vm.activated = false;
-    });
-  }
-
-  vm.instalar = function () {
-    Authentication.instalar();
-  };
-
-
-  /*
-    vm.grupo = Usuario.getGrupo();
-    for(var i in vm.grupo){
-      User.adicionarJogador(vm.grupo[i]);
-    }
-    */
-  init();
-
-
-  vm.copiar = function (pessoa) {
-    ngClipboard.toClipboard(pessoa.codigo, pessoa.nome);
-
-  }
-
-  function init() {
-    $rootScope.$on("available", function () {
-      vm.mostrarInstalar = true;
-      $rootScope.$apply();
-    });
-    /*
-    vm.usuario = Usuario.getUsuario();
-*/
-    vm.mostrarInstalar = false;
-    /*
-    User.buscarUsuario().then(user => {
-      if (user == null) {
-        __abrirModalCadastro();
-      }
-
-      vm.usuario = user;
-    });
-*/
-    try {
-      vm.locais = Ginasios.getGinasios();
-      vm.localSelecionado = vm.locais[0];
-      vm.states = loadAll();
-
-    } catch (err) {
-      $mdToast
-        .simple()
-        .textContent(err)
-        .position("bottom")
-        .hideDelay(3000);
-    }
-  }
-
-  function toggle() {
-    $mdSidenav("left").toggle();
-  }
-
-  function go() {
-    if (vm.codigoLocal !== undefined && vm.codigoLocal > 0) {
-      vm.localSelecionado = vm.locais.find(
-        item => item.codigo == vm.codigoLocal
-      );
-    }
-
-    if (vm.localSelecionado !== undefined) {
-      __mapsSelector(
-        vm.localSelecionado.lat,
-        vm.localSelecionado.long,
-        vm.localSelecionado.nome
-      );
-    } else {
-      $mdToast.show(
-        $mdToast
-        .simple()
-        .textContent(
-          "Não foi encontrado um ginásio com o código " + vm.codigoLocal
-        )
-        .position("bottom")
-        .hideDelay(3000)
-      );
-    }
-  }
-
-  function sair() {
-    firebase
-      .auth()
-      .signOut()
-      .then(
-        function () {
-          $state.go("/");
-        },
-        function (error) {}
-      );
-  }
-
-  function __abrirModalCadastro() {
-    $mdDialog
-      .show({
-        controller: DialogController,
-        controllerAs: "vm",
-        templateUrl: "pages/dialog1.tmpl.html",
-        parent: angular.element(document.body),
-        clickOutsideToClose: true,
-        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      })
-      .then(
-        function (novoUsuario) {
-          User.adicionarJogador(
-            novoUsuario
-          ).then(
-            () => {
-              Toast.mostrarMensagem("Jogador adicionado  com sucesso");
-              listarJogadores();
-            },
-            erro => {
-              Toast.mostrarErro(erro);
+              vm.ui = new firebaseui.auth.AuthUI(firebase.auth());
             }
-          );
+            // The start method will wait until the DOM is loaded.
+            vm.ui.start("#firebaseui-auth-container", uiConfig);
+
+          }
         },
-        function () {
-          $scope.status = "You cancelled the dialog.";
+        function (error) {
+          console.log(error);
         }
       );
+    }
+
+
+    vm.adicionarJogador = function () {
+      __abrirModalCadastro();
+    }
+
+
+
+
+    function mostrarMapa() {
+
+      $mdDialog
+        .show({
+          templateUrl: "pages/imagem-dialog.html",
+          parent: angular.element(document.body),
+          controller: "ImagemDialogController",
+          controllerAs: "vm",
+          clickOutsideToClose: true,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(
+          function (novoUsuario) {
+
+          },
+          function () {
+            $scope.status = "You cancelled the dialog.";
+          }
+        );
+    }
+
+    function editarDados() {
+      __abrirModalCadastro();
+
+    }
+
+    function listarJogadores() {
+      vm.activated = true;
+      User.listarJogadores().then((grupo) => {
+
+        vm.grupo = [];
+
+        for (var i in grupo) {
+          vm.grupo.push(grupo[i].jogador);
+        }
+
+        $scope.$apply();
+        vm.activated = false;
+      });
+    }
+
+    vm.instalar = function () {
+      Authentication.instalar();
+    };
+
+    vm.trocarGrupo = function () {
+      $mdDialog
+        .show({
+          templateUrl: "pages/dialog-trocar-grupo.html",
+          controller: "TrocarGrupoDialogController",
+          controllerAs: "vm",
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(
+          function (novoGrupo) {
+            if (novoGrupo != vm.usuario.grupo) {
+              vm.usuario.grupo = novoGrupo;
+              vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
+              vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
+              vm.localSelecionado = vm.locais[0];
+
+            }
+            console.log("RESPOSTA DIALOG");
+          },
+          function () {
+            $scope.status = "You cancelled the dialog.";
+          }
+        );
+    };
+
+    /*
+      var messaging = firebase.messaging();
+
+      messaging.usePublicVapidKey("BCGwZEs7nsIbkiuJE_gHwxnfBjReLr3RJ0X4Y4XHi5gRFy9JBt_3SvAFBfx7K2Tz5cqEWBMg_zziT98xDh8LtDE");
+      messaging.requestPermission().then(function () {
+        alert("Pemissao Concedida");
+        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+        // ...
+
+        messaging.getToken().then(function (currentToken) {
+          if (currentToken) {
+            console.log("TOKEN", currentToken);
+
+          } else {
+            // Show permission request.
+            console.log('No Instance ID token available. Request permission to generate one.');
+
+            setTokenSentToServer(false);
+          }
+        }).catch(function (err) {
+          console.log('An error occurred while retrieving token. ', err);
+
+        });
+      }).catch(function (err) {
+        alert("Pemissao Negada");
+      });
+      messaging.onMessage(function (payload) {
+        console.log('Message received. ', payload);
+
+      });
+
+      messaging.onTokenRefresh(function () {
+        messaging.getToken().then(function (refreshedToken) {
+          console.log('Token refreshed.');
+          // Indicate that the new Instance ID token has not yet been sent to the
+          // app server.
+          // setTokenSentToServer(false);
+          // Send Instance ID token to app server.
+          // sendTokenToServer(refreshedToken);
+          // ...
+        }).catch(function (err) {
+          console.log('Unable to retrieve refreshed token ', err);
+          showToken('Unable to retrieve refreshed token ', err);
+        });
+      });
+      */
+
+
+
+    vm.copiar = function (pessoa) {
+      ngClipboard.toClipboard(pessoa.codigo, pessoa.nome);
+
+    }
+
+
+
+    function toggle() {
+      $mdSidenav("left").toggle();
+    }
+
+    function go() {
+      if (vm.codigoLocal !== undefined && vm.codigoLocal > 0) {
+        vm.localSelecionado = vm.locais.find(
+          item => item.codigo == vm.codigoLocal
+        );
+      }
+
+      if (vm.localSelecionado !== undefined) {
+        __mapsSelector(
+          vm.localSelecionado.lat,
+          vm.localSelecionado.long,
+          vm.localSelecionado.nome
+        );
+      } else {
+        $mdToast.show(
+          $mdToast
+          .simple()
+          .textContent(
+            "Não foi encontrado um ginásio com o código " + vm.codigoLocal
+          )
+          .position("bottom")
+          .hideDelay(3000)
+        );
+      }
+    }
+
+    function sair() {
+      firebase
+        .auth()
+        .signOut()
+        .then(
+          function () {
+            $state.go("/");
+          },
+          function (error) {}
+        );
+    }
+
+    function __abrirModalCadastro() {
+      $mdDialog
+        .show({
+          controller: CadastroDialogController,
+          controllerAs: "vm",
+          templateUrl: "pages/dialog1.tmpl.html",
+          parent: angular.element(document.body),
+          clickOutsideToClose: false,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(
+          function (novoUsuario) {
+            novoUsuario.email = vm.user.email;
+            User.adicionarUsuario(
+              novoUsuario
+            ).then(
+              () => {
+                Toast.mostrarMensagem("Seja bem vindo " + novoUsuario.nome);
+                listarJogadores();
+              },
+              erro => {
+                Toast.mostrarErro(erro);
+              }
+            );
+          },
+          function () {
+            $scope.status = "You cancelled the dialog.";
+          }
+        );
+    }
+
+    function __mapsSelector(lat, long, nome) {
+      if (
+        /* if we're on iOS, open in Apple Maps */
+        navigator.platform.indexOf("iPhone") != -1 ||
+        navigator.platform.indexOf("iPod") != -1 ||
+        navigator.platform.indexOf("iPad") != -1
+      )
+        window.open(
+          "maps://maps.google.com/maps?daddr=" + lat + ", + " + long + "&amp;ll="
+        );
+      /* else use Google */
+      /*
+                  window.open(
+                    "https://maps.google.com/maps?daddr=" +
+                      lat +
+                      ", + " +
+                      long +
+                      "&amp;ll="
+                  );
+                  */
+      else
+        window.open(
+          "https://maps.google.com/maps?q=" +
+          lat +
+          ", + " +
+          long +
+          "(" +
+          nome +
+          ")&amp;ll="
+        );
+    }
+
+
+
   }
 
-  function __mapsSelector(lat, long, nome) {
-    if (
-      /* if we're on iOS, open in Apple Maps */
-      navigator.platform.indexOf("iPhone") != -1 ||
-      navigator.platform.indexOf("iPod") != -1 ||
-      navigator.platform.indexOf("iPad") != -1
-    )
-      window.open(
-        "maps://maps.google.com/maps?daddr=" + lat + ", + " + long + "&amp;ll="
-      );
-    /* else use Google */
-    /*
-                window.open(
-                  "https://maps.google.com/maps?daddr=" +
-                    lat +
-                    ", + " +
-                    long +
-                    "&amp;ll="
-                );
-                */
-    else
-      window.open(
-        "https://maps.google.com/maps?q=" +
-        lat +
-        ", + " +
-        long +
-        "(" +
-        nome +
-        ")&amp;ll="
-      );
-  }
-}
+})();

@@ -4,7 +4,7 @@ var config = {
   databaseURL: "https://pgrotas.firebaseio.com",
   projectId: "pgrotas",
   storageBucket: "pgrotas.appspot.com",
-  messagingSenderId: "76992976990"
+  messagingSenderId: "103953800507"
 };
 firebase.initializeApp(config);
 var database = firebase.database();
@@ -17,7 +17,7 @@ if (navigator.serviceWorker.controller) {
     .register("/serviceworker.js", {
       scope: "./"
     })
-    .then(function(reg) {
+    .then(function (reg) {
       console.log("Service worker has been registered for scope:" + reg.scope);
     });
 }

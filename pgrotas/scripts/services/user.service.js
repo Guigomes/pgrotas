@@ -8,7 +8,9 @@
       adicionarUsuario: adicionarUsuario,
       buscarUsuario: buscarUsuario,
       adicionarJogador: adicionarJogador,
-      listarJogadores: listarJogadores
+      listarJogadores: listarJogadores,
+      listarUsuarios: listarUsuarios,
+      alterarUsuario: alterarUsuario
     };
 
     function adicionarJogador(jogador) {
@@ -27,8 +29,19 @@
         });
     }
 
+
     function listarJogadores() {
       return firebase.database().ref('jogador/').once("value").then(function (user) {
+        console.log("User", user.val());
+        return user.val();
+      });
+
+    }
+
+    function listarUsuarios(grupo) {
+      console.log("grupoTeste", grupo);
+      return firebase.database().ref('users/').orderByChild("grupo").equalTo(grupo.toString()).once("value").then(function (user) {
+        console.log("SAIU0");
         return user.val();
       });
     }
@@ -44,10 +57,27 @@
           nivel: novoUsuario.nivel,
           time: novoUsuario.time,
           mensagens: novoUsuario.mensagens,
-          grupo: novoUsuario.grupo
-
+          grupo: novoUsuario.grupo,
+          email: novoUsuario.email
         });
     }
+
+    function alterarUsuario(novosDadosUsuario) {
+      let userId = firebase.auth().currentUser.uid;
+      return firebase
+        .database()
+        .ref("users/" + userId)
+        .set({
+          nome: novosDadosUsuario.nome,
+          codigo: novosDadosUsuario.codigo,
+          nivel: novosDadosUsuario.nivel,
+          time: novosDadosUsuario.time,
+          mensagens: novosDadosUsuario.mensagens,
+          grupo: novosDadosUsuario.grupo,
+          email: novosDadosUsuario.email
+        });
+    }
+
 
     function buscarUsuario(userId) {
       if (userId === undefined) {

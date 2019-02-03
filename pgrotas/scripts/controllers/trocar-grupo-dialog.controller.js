@@ -2,12 +2,15 @@
     'use strict';
     angular.module("app").controller("TrocarGrupoDialogController", TrocarGrupoDialogController);
 
-    function TrocarGrupoDialogController($scope, $mdDialog, $mdToast) {
+
+    TrocarGrupoDialogController.$inject = ["$scope", "$mdDialog", "Usuario"];
+
+    function TrocarGrupoDialogController($scope, $mdDialog, Usuario) {
         var vm = this;
         $scope.hide = function () {
             $mdDialog.hide();
         };
-
+        vm.grupo = Usuario.getUsuario().grupo;
         vm.grupos = [{
                 codigo: 1,
                 nome: "Aguas Claras"

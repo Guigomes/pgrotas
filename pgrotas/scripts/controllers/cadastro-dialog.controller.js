@@ -11,7 +11,16 @@
             vm.usuario.codigo1 = vm.usuario.codigo.substring(0, 4);
             vm.usuario.codigo2 = vm.usuario.codigo.substring(5, 9);
             vm.usuario.codigo3 = vm.usuario.codigo.substring(10, 14);
+            vm.podeCancelar = true;
+            vm.title = "Editar meus dados";
+        } else {
+            vm.usuario = {};
+            vm.usuario.mensagens = true;
+            vm.title = "Novo jogador";
         }
+
+
+
         $scope.hide = function () {
             $mdDialog.hide();
         };
@@ -39,11 +48,10 @@
                 nome: "Esplanada"
             }
         ];
-        $scope.cancel = function () {
+        vm.cancel = function () {
             $mdDialog.cancel();
         };
 
-        vm.mensagens = true;
         vm.answer = function (form) {
             if (!form.$valid) {
                 $mdToast.show(
@@ -55,16 +63,9 @@
                 );
             } else {
                 if (vm.nivel === undefined || vm.nivel === "" || (vm.nivel > 0 && vm.nivel <= 40)) {
-                    let novoUsuario = {
-                        codigo: vm.codigo1 + " " + vm.codigo2 + " " + vm.codigo3,
-                        nome: vm.apelido,
-                        nivel: vm.nivel,
-                        time: vm.time,
-                        grupo: vm.grupo,
-                        mensagens: vm.mensagens
-                    };
-                    console.log(vm.apelido);
-                    $mdDialog.hide(novoUsuario);
+
+                    vm.usuario.codigo = vm.usuario.codigo1 + " " + vm.usuario.codigo2 + " " + vm.usuario.codigo3
+                    $mdDialog.hide(vm.usuario);
                 } else {
                     $mdToast.show(
                         $mdToast

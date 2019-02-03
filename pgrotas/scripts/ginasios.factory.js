@@ -19,7 +19,7 @@
       var ginasios = [{
           codigo: 1,
           nome: "Anjo - Salão Verde",
-          lat: "-15.800033,",
+          lat: "-15.800033",
           long: "-47.863519"
         },
         {

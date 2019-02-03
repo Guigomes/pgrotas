@@ -2,7 +2,7 @@
     <form ng-cloak name="jogadorForm">
         <md-toolbar class="primary">
             <div class="md-toolbar-tools">
-                <h2>Novo Jogador</h2>
+                <h2>{{vm.title}}</h2>
                 <span flex></span>
 
             </div>
@@ -76,7 +76,7 @@
                 <div layout="row" class="no-padding-vertical" flex="100">
                     <md-input-container class="md-block margin-vertical-menor" flex="100">
                         <label>Em qual grupo gostaria de se cadastrar</label>
-                        <md-select ng-model="vm.usuario.grupo">
+                        <md-select ng-model="vm.usuario.grupo" required>
                             <md-option ng-repeat="grupo in vm.grupos" value="{{grupo.codigo}}">
                                 {{grupo.nome}}
                             </md-option>
@@ -97,8 +97,13 @@
 
         <md-dialog-actions layout="row">
 
+
+            <md-button ng-click="vm.cancel();" class="primary" ng-show="vm.podeCancelar">
+                Cancelar
+            </md-button>
             <md-button ng-click="vm.answer(jogadorForm)" class="primary">
-                Cadastrar
+                <span ng-show="!vm.podeCancelar"> Cadastrar</span>
+                <span ng-show="vm.podeCancelar"> Alterar</span>
             </md-button>
 
         </md-dialog-actions>

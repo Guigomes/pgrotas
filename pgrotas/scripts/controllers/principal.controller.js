@@ -15,12 +15,12 @@
     $mdDialog,
     $scope,
     Toast,
-    ngClipboard, $log
+    ngClipboard, Progress
   ) {
     var vm = this;
 
+    Progress.show();
     inicializar();
-
     vm.toggle = toggle;
     vm.go = go;
     vm.sair = sair;
@@ -40,6 +40,9 @@
 
                 if (usuario == null) {
                   vm.user = user
+                  Progress.hide();
+
+
                   __abrirModalCadastro();
 
                 } else {
@@ -50,12 +53,8 @@
 
 
                   try {
+                    carregarGrupo();
 
-                    vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
-                    vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
-                    vm.localSelecionado = vm.locais[0];
-                    $scope.$apply();
-                    vm.states = loadAll();
 
 
                   } catch (err) {
@@ -72,6 +71,8 @@
               })
 
           } else {
+            Progress.hide();
+
             vm.logado = false;
             var uiConfig = {
               signInSuccessUrl: "/",
@@ -135,23 +136,50 @@
     }
 
     function editarDados() {
-      __abrirModalCadastro();
+      __abrirModalCadastro(true);
 
     }
 
     function listarJogadores() {
       vm.activated = true;
-      User.listarJogadores().then((grupo) => {
+      console.log(vm.usuario.grupo == 1);
+      if (vm.usuario.grupo == 1) {
+        console.log("Aqui");
+        User.listarJogadores().then((grupo) => {
 
-        vm.grupo = [];
+          vm.grupo = [];
 
-        for (var i in grupo) {
-          vm.grupo.push(grupo[i].jogador);
-        }
+          for (var i in grupo) {
+            vm.grupo.push(grupo[i].jogador);
+          }
 
-        $scope.$apply();
-        vm.activated = false;
-      });
+          console.log("GUPO", vm.grupo);
+          User.listarUsuarios(vm.usuario.grupo).then(function (usuarios) {
+            vm.usuarios = [];
+
+            for (var i in usuarios) {
+              vm.usuarios.push(usuarios[i]);
+            }
+            Progress.hide();
+            vm.activated = false;
+          });
+
+
+        });
+
+      } else {
+        User.listarUsuarios(vm.usuario.grupo).then(function (usuarios) {
+          vm.usuarios = [];
+          vm.grupo = [];
+
+          for (var i in usuarios) {
+            vm.usuarios.push(usuarios[i]);
+          }
+          Progress.hide();
+          vm.activated = false;
+        });
+
+      }
     }
 
     vm.instalar = function () {
@@ -170,14 +198,12 @@
         })
         .then(
           function (novoGrupo) {
+
+
             if (novoGrupo != vm.usuario.grupo) {
               vm.usuario.grupo = novoGrupo;
-              vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
-              vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
-              vm.localSelecionado = vm.locais[0];
-
+              carregarGrupo();
             }
-            console.log("RESPOSTA DIALOG");
           },
           function () {
             $scope.status = "You cancelled the dialog.";
@@ -283,35 +309,66 @@
         );
     }
 
-    function __abrirModalCadastro() {
+    function __abrirModalCadastro(editar) {
+
       $mdDialog
         .show({
-          controller: CadastroDialogController,
+          controller: "CadastroDialogController",
           controllerAs: "vm",
           templateUrl: "pages/dialog1.tmpl.html",
           parent: angular.element(document.body),
-          clickOutsideToClose: false,
+          clickOutsideToClose: editar == true,
           fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
         })
         .then(
           function (novoUsuario) {
-            novoUsuario.email = vm.user.email;
-            User.adicionarUsuario(
-              novoUsuario
-            ).then(
-              () => {
-                Toast.mostrarMensagem("Seja bem vindo " + novoUsuario.nome);
-                listarJogadores();
-              },
-              erro => {
-                Toast.mostrarErro(erro);
-              }
-            );
+
+            if (Usuario.getUsuario() === undefined) {
+              novoUsuario.email = vm.user.email;
+              User.adicionarUsuario(
+                novoUsuario
+              ).then(
+                () => {
+                  Toast.mostrarMensagem("Seja bem vindo " + novoUsuario.nome);
+                  vm.usuario = novoUsuario;
+                  Usuario.setUsuario(vm.usuario);
+                  carregarGrupo();
+
+                },
+                erro => {
+                  Toast.mostrarErro(erro);
+                }
+              );
+            } else {
+              Progress.show();
+              User.alterarUsuario(
+                vm.usuario
+              ).then(
+                () => {
+                  Toast.mostrarMensagem("Seus dados foram alterados com sucesso");
+                  Usuario.setUsuario(vm.usuario);
+                  Progress.hide();
+                },
+                erro => {
+                  Toast.mostrarErro(erro);
+                }
+              );
+            }
           },
           function () {
             $scope.status = "You cancelled the dialog.";
           }
         );
+    }
+
+    function carregarGrupo() {
+      Progress.show();
+      vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
+      vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
+      vm.localSelecionado = vm.locais[0];
+      listarJogadores();
+
+
     }
 
     function __mapsSelector(lat, long, nome) {

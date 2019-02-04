@@ -21,6 +21,17 @@
               templateUrl: "/pages/principal.html"
             }
           }
+        }).state("conversas", {
+          url: "/conversas",
+          name: "conversas",
+          views: {
+            viewContent: {
+              controller: "ConversasController",
+              controllerAs: "vm",
+              templateUrl: "/pages/conversas.html"
+            }
+          }
+
         });
 
       $urlRouterProvider.otherwise("/");
@@ -34,7 +45,6 @@
       promptEvent.preventDefault();
       $rootScope.$broadcast("available");
 
-      console.log("before4");
       Authentication.setPromptEvent(promptEvent);
       ga("send", "event", "install", "available");
 

@@ -32,16 +32,13 @@
 
     function listarJogadores() {
       return firebase.database().ref('jogador/').once("value").then(function (user) {
-        console.log("User", user.val());
         return user.val();
       });
 
     }
 
     function listarUsuarios(grupo) {
-      console.log("grupoTeste", grupo);
       return firebase.database().ref('users/').orderByChild("grupo").equalTo(grupo.toString()).once("value").then(function (user) {
-        console.log("SAIU0");
         return user.val();
       });
     }

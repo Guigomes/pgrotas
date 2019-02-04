@@ -5,7 +5,6 @@
 
   function PrincipalController(
     $mdSidenav,
-
     $mdToast,
     $state,
     User,
@@ -19,39 +18,38 @@
   ) {
     var vm = this;
 
-    Progress.show();
     inicializar();
-    vm.toggle = toggle;
+
+
     vm.go = go;
-    vm.sair = sair;
     vm.mostrarMapa = mostrarMapa;
-    vm.editarDados = editarDados;
+
+    $scope.$on('carregarGrupo', function (e) {
+      carregarGrupo();
+
+    });
 
     function inicializar() {
+      Progress.show();
+
       vm.logado = true;
 
       // FirebaseUI config.
       return firebase.auth().onAuthStateChanged(
         function (user) {
           if (user) {
-
             let userId = firebase.auth().currentUser.uid;
             return User.buscarUsuario(userId).then(function (usuario) {
 
                 if (usuario == null) {
                   vm.user = user
                   Progress.hide();
-
-
                   __abrirModalCadastro();
 
                 } else {
-
-
                   vm.usuario = usuario;
+                  $scope.menu.usuario = usuario;
                   Usuario.setUsuario(usuario);
-
-
                   try {
                     carregarGrupo();
 
@@ -67,7 +65,7 @@
                 }
               },
               function (error) {
-                console.log("Usuario não encontrado", error);
+                Toast.mostrarErro("Erro ao buscar usuário");
               })
 
           } else {
@@ -107,11 +105,6 @@
     }
 
 
-    vm.adicionarJogador = function () {
-      __abrirModalCadastro();
-    }
-
-
 
 
     function mostrarMapa() {
@@ -135,16 +128,10 @@
         );
     }
 
-    function editarDados() {
-      __abrirModalCadastro(true);
 
-    }
 
     function listarJogadores() {
-      vm.activated = true;
-      console.log(vm.usuario.grupo == 1);
       if (vm.usuario.grupo == 1) {
-        console.log("Aqui");
         User.listarJogadores().then((grupo) => {
 
           vm.grupo = [];
@@ -152,8 +139,8 @@
           for (var i in grupo) {
             vm.grupo.push(grupo[i].jogador);
           }
+          console.log("GRUPO", vm.grupo);
 
-          console.log("GUPO", vm.grupo);
           User.listarUsuarios(vm.usuario.grupo).then(function (usuarios) {
             vm.usuarios = [];
 
@@ -161,12 +148,10 @@
               vm.usuarios.push(usuarios[i]);
             }
             Progress.hide();
-            vm.activated = false;
+
           });
 
-
         });
-
       } else {
         User.listarUsuarios(vm.usuario.grupo).then(function (usuarios) {
           vm.usuarios = [];
@@ -176,7 +161,6 @@
             vm.usuarios.push(usuarios[i]);
           }
           Progress.hide();
-          vm.activated = false;
         });
 
       }
@@ -186,30 +170,7 @@
       Authentication.instalar();
     };
 
-    vm.trocarGrupo = function () {
-      $mdDialog
-        .show({
-          templateUrl: "pages/dialog-trocar-grupo.html",
-          controller: "TrocarGrupoDialogController",
-          controllerAs: "vm",
-          parent: angular.element(document.body),
-          clickOutsideToClose: true,
-          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-        })
-        .then(
-          function (novoGrupo) {
 
-
-            if (novoGrupo != vm.usuario.grupo) {
-              vm.usuario.grupo = novoGrupo;
-              carregarGrupo();
-            }
-          },
-          function () {
-            $scope.status = "You cancelled the dialog.";
-          }
-        );
-    };
 
     /*
       var messaging = firebase.messaging();
@@ -267,10 +228,6 @@
 
 
 
-    function toggle() {
-      $mdSidenav("left").toggle();
-    }
-
     function go() {
       if (vm.codigoLocal !== undefined && vm.codigoLocal > 0) {
         vm.localSelecionado = vm.locais.find(
@@ -297,74 +254,12 @@
       }
     }
 
-    function sair() {
-      firebase
-        .auth()
-        .signOut()
-        .then(
-          function () {
-            $state.go("/");
-          },
-          function (error) {}
-        );
-    }
 
-    function __abrirModalCadastro(editar) {
-
-      $mdDialog
-        .show({
-          controller: "CadastroDialogController",
-          controllerAs: "vm",
-          templateUrl: "pages/dialog1.tmpl.html",
-          parent: angular.element(document.body),
-          clickOutsideToClose: editar == true,
-          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-        })
-        .then(
-          function (novoUsuario) {
-
-            if (Usuario.getUsuario() === undefined) {
-              novoUsuario.email = vm.user.email;
-              User.adicionarUsuario(
-                novoUsuario
-              ).then(
-                () => {
-                  Toast.mostrarMensagem("Seja bem vindo " + novoUsuario.nome);
-                  vm.usuario = novoUsuario;
-                  Usuario.setUsuario(vm.usuario);
-                  carregarGrupo();
-
-                },
-                erro => {
-                  Toast.mostrarErro(erro);
-                }
-              );
-            } else {
-              Progress.show();
-              User.alterarUsuario(
-                vm.usuario
-              ).then(
-                () => {
-                  Toast.mostrarMensagem("Seus dados foram alterados com sucesso");
-                  Usuario.setUsuario(vm.usuario);
-                  Progress.hide();
-                },
-                erro => {
-                  Toast.mostrarErro(erro);
-                }
-              );
-            }
-          },
-          function () {
-            $scope.status = "You cancelled the dialog.";
-          }
-        );
-    }
 
     function carregarGrupo() {
       Progress.show();
       vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
-      vm.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
+      $scope.menu.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
       vm.localSelecionado = vm.locais[0];
       listarJogadores();
 

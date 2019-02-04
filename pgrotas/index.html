@@ -88,6 +88,8 @@
   <script src="scripts/controllers/cadastro-dialog.controller.js"></script>
   <script src="scripts/controllers/trocar-grupo-dialog.controller.js"></script>
   <script src="scripts/controllers/principal.controller.js"></script>
+  <script src="scripts/controllers/conversas.controller.js"></script>
+  <script src="scripts/controllers/menu.controller.js"></script>
   <script src="scripts/app-route.js"></script>
   <script src="scripts/ginasios.factory.js"></script>
 
@@ -102,8 +104,57 @@
   <title>MAPA RAID PG</title>
 </head>
 
-<body ng-app="app" ng-cloak style="overflow:scroll">
-  <ui-view name="viewContent"></ui-view>
+<body ng-app="app" ng-cloak style="overflow:scroll" ng-controller="MenuController as vm">
+  <md-toolbar class="toolbar-small">
+    <div class="md-toolbar-tools small">
+
+
+      <h3 flex>
+        <md-icon ng-click="vm.toggle();" md-font-set="material-icons" ng-show="vm.logado">
+          menu
+        </md-icon>
+        <span ng-show="vm.logado">{{menu.title}}</span>
+        <span ng-show="!vm.logado">PG Rotas - Login</span>
+      </h3>
+      <md-button class="md-icon-button" aria-label="conversas" ng-click="vm.abrirConversas();">
+        <md-icon md-font-set="material-icons">
+          message
+        </md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <div layout="column" style="height:100%;" ng-cloak>
+    <section layout=" row" flex>
+      <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+        <md-toolbar class="md-theme-indigo primary">
+          <div layout="column">
+            <span> {{ menu.usuario.nome }}</span>
+            <span>Nível: {{ menu.usuario.nivel }}</span>
+            <span>Time: {{ menu.usuario.time | time }}</span>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding>
+          <md-list class="md-dense" flex>
+            <md-list-item ng-click="vm.toggle(); vm.editarDados()">
+              <md-icon md-font-set="material-icons">person</md-icon>
+              <p>Editar meus dados</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="vm.toggle(); vm.trocarGrupo();">
+              <md-icon md-font-set="material-icons">person</md-icon>
+              <p>Trocar Grupo</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-click="vm.toggle(); vm.sair();">
+              <md-icon md-font-set="material-icons">logout</md-icon>
+              <p>Sair</p>
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </md-sidenav>
+      <ui-view name="viewContent" flex></ui-view>
+    </section>
+  </div>
 </body>
 
 </html>

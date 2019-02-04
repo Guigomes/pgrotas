@@ -50,7 +50,6 @@
 
     function logout() {
       vm.ui.delete();
-      console.log("DELETE");
     }
     return {
 

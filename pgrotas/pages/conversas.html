@@ -1,1 +1,12 @@
-<h1>Conversas</h1>
+<md-content class="md-padding">
+
+    <md-card>
+    <md-card-content>
+-- {{vm.conversas.length}} --
+        <div ng-show="vm.conversas.length == 0">
+            <span>Você não tem nenhuma conversa com outro usuário </span>
+            <md-button class="md-primary md-raised primary" ng-click="vm.listarUsuariosConversa()">Adicionar Conversa</md-button>
+        </div>
+    </md-card-content>
+    </md-carD>
+</md-content>

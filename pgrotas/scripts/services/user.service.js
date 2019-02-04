@@ -10,7 +10,8 @@
       adicionarJogador: adicionarJogador,
       listarJogadores: listarJogadores,
       listarUsuarios: listarUsuarios,
-      alterarUsuario: alterarUsuario
+      alterarUsuario: alterarUsuario,
+      listarUsuariosConversa: listarUsuariosConversa
     };
 
     function adicionarJogador(jogador) {
@@ -39,6 +40,13 @@
 
     function listarUsuarios(grupo) {
       return firebase.database().ref('users/').orderByChild("grupo").equalTo(grupo.toString()).once("value").then(function (user) {
+        return user.val();
+      });
+    }
+
+    function listarUsuariosConversa() {
+      return firebase.database().ref('users/').orderByChild("mensagens").equalTo(true).once("value").then(function (user) {
+        console.log("user", user.val());
         return user.val();
       });
     }

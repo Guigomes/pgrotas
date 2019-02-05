@@ -7,7 +7,7 @@
 
     function ConversasController(Chat, User, $scope, $state) {
         var vm = this;
-
+vm.homePageIsShown = true;
         vm.listarUsuariosConversa = listarUsuariosConversa;
         Chat.listarConversas().then(function (response) {
             vm.conversas = response;

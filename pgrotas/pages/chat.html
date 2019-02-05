@@ -1,1 +1,27 @@
-<h1>chat</h1>
+
+<md-content class="padding" layout-fill>
+
+
+
+
+
+        <div layout="column" layout-xs="row" layout-fill>
+                <div flex="95" style="background-color: antiquewhite"> 
+                  
+                </div>
+                <div flex="5" class="no-padding-vertical" layout="row">
+                        <md-input-container class="md-block no-padding-vertical margin-vertical-menor"  flex >
+                                <input ng-model="vm.mensagem" placeholder="Digite aqui...">
+
+                              </md-input-container>
+                              <md-button class="md-icon-button" aria-label="conversas" ng-click="vm.abrirConversas();">
+                                    <md-icon md-font-set="material-icons">
+                                      send
+                                    </md-icon>
+                                  </md-button>
+                  
+                </div>
+              </div>
+              
+              
+</md-content>

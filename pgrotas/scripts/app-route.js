@@ -51,7 +51,7 @@
           url: "/chat",
           name: "chat",
           params: {
-            usuariosConversa: null
+            usuarioConversa: null
           },
           views: {
             viewContent: {

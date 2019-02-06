@@ -7,7 +7,7 @@
 
     function ConversasController(Chat, User, $scope, $state) {
         var vm = this;
-vm.homePageIsShown = true;
+        vm.homePageIsShown = true;
         vm.listarUsuariosConversa = listarUsuariosConversa;
         Chat.listarConversas().then(function (response) {
             vm.conversas = response;
@@ -22,6 +22,7 @@ vm.homePageIsShown = true;
             User.listarUsuariosConversa().then(function (usuariosConversa) {
                 vm.usuariosConversa = []
                 for (var i in usuariosConversa) {
+                    usuariosConversa[i].id = i;
                     vm.usuariosConversa.push(usuariosConversa[i]);
                 }
 

@@ -14,10 +14,39 @@
  * limitations under the License.
  */
 
- body {
+body {
   background-color: #eeeeee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow: hidden;
+}
+
+.dataHoraMensagem {
+  font-size: 10px;
+}
+
+.mensagem {
+  font-size: 14px;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0px !important;
+}
+
+.card-remetente {
+  background-color: #28aefd;
+  max-width: 300px;
+  clear: both;
+  float: right;
+  display: block;
+
+}
+
+.card-destinatario {
+  background-color: yellowgreen;
+  max-width: 300px;
+  clear: both;
+  float: left;
+  display: block;
 }
 
 .header {
@@ -34,6 +63,7 @@
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+
 .header .smaller {
   font-size: 23px;
   line-height: 1;
@@ -55,6 +85,7 @@ a {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+
 .start-btn-wrapper a {
   display: inline-block;
   border: 1px solid #28aefd;
@@ -107,6 +138,7 @@ a {
   transition: all 0.45s cubic-bezier(0.35, 0.33, 0.25, 1.045);
   opacity: 1;
 }
+
 [ui-view] .inner-wrapper {
   height: 100%;
   padding: 20px;
@@ -115,6 +147,7 @@ a {
   border-radius: 5px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.14);
 }
+
 [ui-view].ng-enter {
   -moz-transform: translate(150%, 0%);
   -ms-transform: translate(150%, 0%);
@@ -122,12 +155,14 @@ a {
   transform: translate(150%, 0%);
   opacity: 0;
 }
+
 .view-back [ui-view].ng-enter {
   -moz-transform: translate(-150%, 0%);
   -ms-transform: translate(-150%, 0%);
   -webkit-transform: translate(-150%, 0%);
   transform: translate(-150%, 0%);
 }
+
 [ui-view].ng-enter-active {
   opacity: 1;
   -moz-transform: translate(0%, 0%);
@@ -135,12 +170,14 @@ a {
   -webkit-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
 }
+
 .view-back [ui-view].ng-enter-active {
   -moz-transform: translate(0%, 0%);
   -ms-transform: translate(0%, 0%);
   -webkit-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
 }
+
 [ui-view].ng-leave {
   -moz-transform: translate(0%, 0%);
   -ms-transform: translate(0%, 0%);
@@ -148,18 +185,21 @@ a {
   transform: translate(0%, 0%);
   opacity: 1;
 }
+
 .view-back [ui-view].ng-leave {
   -moz-transform: translate(0%, 0%);
   -ms-transform: translate(0%, 0%);
   -webkit-transform: translate(0%, 0%);
   transform: translate(0%, 0%);
 }
+
 .view-to-home [ui-view].ng-leave {
   -moz-transform: scale(1, 1);
   -ms-transform: scale(1, 1);
   -webkit-transform: scale(1, 1);
   transform: scale(1, 1);
 }
+
 [ui-view].ng-leave-active {
   -moz-transform: translate(-150%, 0%);
   -ms-transform: translate(-150%, 0%);
@@ -167,12 +207,14 @@ a {
   transform: translate(-150%, 0%);
   opacity: 0;
 }
+
 .view-back [ui-view].ng-leave-active {
   -moz-transform: translate(150%, 0%);
   -ms-transform: translate(150%, 0%);
   -webkit-transform: translate(150%, 0%);
   transform: translate(150%, 0%);
 }
+
 .view-to-home [ui-view].ng-leave-active {
   -moz-transform: scale(2, 2);
   -ms-transform: scale(2, 2);
@@ -181,14 +223,16 @@ a {
 }
 
 
- .margin-vertical-menor{
+.margin-vertical-menor {
   margin-top: 5px !important;
-  margin-bottom: 5px !important;   
- }
-.no-padding-vertical{
-padding-top: 0px !important;
-padding-bottom: 0px !important;
+  margin-bottom: 5px !important;
 }
+
+.no-padding-vertical {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -197,20 +241,29 @@ padding-bottom: 0px !important;
 md-toast {
   position: fixed !important;
 }
-body._md-toast-animating { overflow: auto !important; }
 
-body.md-toast-animating { overflow: auto !important; }
+body._md-toast-animating {
+  overflow: auto !important;
+}
+
+body.md-toast-animating {
+  overflow: auto !important;
+}
+
 .available {
   display: inline !important;
 }
+
 .primary {
   background-color: #ba2f2f !important;
   color: white !important;
 }
+
 .button2 {
   background-color: #ba2f2f !important;
   color: white !important;
 }
+
 html,
 body {
   padding: 0;
@@ -224,16 +277,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.fab-menor{
-  line-height: 30px !important; 
-    width: 30px !important;
-    height: 30px !important;
-    min-height: 20px !important;
-    font-weight: bold !important;
+
+.fab-menor {
+  line-height: 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-height: 20px !important;
+  font-weight: bold !important;
 }
+
 .md-dialog-container {
   height: 100% !important;
 }
+
 html {
   overflow: hidden;
 }
@@ -278,9 +334,11 @@ body {
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 2px 9px 1px rgba(0, 0, 0, 0.12),
     0 4px 2px -2px rgba(0, 0, 0, 0.2);
 }
+
 .small {
   height: 32px !important;
 }
+
 .toolbar-small {
   height: 32px !important;
   min-height: 32px !important;
@@ -288,6 +346,7 @@ body {
   background: #ba2f2f !important;
   font-weight: bold !important;
 }
+
 .header {
   width: 100%;
   height: 32px;
@@ -374,6 +433,7 @@ body {
     -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
   z-index: 0;
 }
+
 .header .headerButton {
   width: 24px;
   height: 24px;
@@ -387,9 +447,11 @@ body {
   outline: none;
   cursor: pointer;
 }
+
 .header #butRefresh {
   background: url(/images/ic_refresh_white_24px.svg) center center no-repeat;
 }
+
 .header #butAdd {
   background: url(/images/ic_add_white_24px.svg) center center no-repeat;
 }
@@ -411,6 +473,7 @@ body {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
 .loader #spinner {
   box-sizing: border-box;
   stroke: #673ab7;
@@ -428,6 +491,7 @@ body {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   to {
     -webkit-transform: rotate(450deg);
     transform: rotate(450deg);
@@ -439,6 +503,7 @@ body {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   to {
     -webkit-transform: rotate(450deg);
     transform: rotate(450deg);
@@ -451,10 +516,12 @@ body {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   50% {
     stroke-dasharray: 65.973, 21.9911;
     stroke-dashoffset: 0;
   }
+
   100% {
     stroke-dasharray: 2, 85.964;
     stroke-dashoffset: -65.973;
@@ -469,10 +536,12 @@ body {
     -webkit-transform: rotate(0);
     transform: rotate(0);
   }
+
   50% {
     stroke-dasharray: 65.973, 21.9911;
     stroke-dashoffset: 0;
   }
+
   100% {
     stroke-dasharray: 2, 85.964;
     stroke-dashoffset: -65.973;
@@ -527,7 +596,7 @@ body {
     -webkit-transform 0.333s cubic-bezier(0, 0, 0.21, 1) 0.05s;
 }
 
-.dialog > div {
+.dialog>div {
   padding-left: 24px;
   padding-right: 24px;
 }
@@ -541,6 +610,7 @@ body {
   padding-top: 20px;
   padding-bottom: 24px;
 }
+
 .dialog-body select {
   width: 100%;
   font-size: 2em;
@@ -581,10 +651,12 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
+
 .weather-forecast .current .icon {
   width: 128px;
   height: 128px;
 }
+
 .weather-forecast .current .visual {
   display: -webkit-box;
   display: -webkit-flex;
@@ -592,10 +664,12 @@ body {
   display: flex;
   font-size: 4em;
 }
+
 .weather-forecast .current .visual .scale {
   font-size: 0.5em;
   vertical-align: super;
 }
+
 .weather-forecast .current .visual,
 .weather-forecast .current .description {
   -webkit-box-flex: 1;
@@ -603,26 +677,32 @@ body {
   -ms-flex-positive: 1;
   flex-grow: 1;
 }
+
 .weather-forecast .current .sunset:before {
   content: "Sunset: ";
   color: #888;
 }
+
 .weather-forecast .current .wind:before {
   content: "Wind: ";
   color: #888;
 }
+
 .weather-forecast .current .sunrise:before {
   content: "Sunrise: ";
   color: #888;
 }
+
 .weather-forecast .current .humidity:before {
   content: "Humidity: ";
   color: #888;
 }
+
 .weather-forecast .current .pollen:before {
   content: "Pollen Count: ";
   color: #888;
 }
+
 .weather-forecast .current .pcount:before {
   content: "Pollen ";
   color: #888;
@@ -634,6 +714,7 @@ body {
   display: -ms-flexbox;
   display: flex;
 }
+
 .weather-forecast .future .oneday {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -641,16 +722,19 @@ body {
   flex-grow: 1;
   text-align: center;
 }
+
 .weather-forecast .future .oneday .icon {
   width: 64px;
   height: 64px;
   margin-left: auto;
   margin-right: auto;
 }
+
 .weather-forecast .future .oneday .temp-high,
 .weather-forecast .future .oneday .temp-low {
   display: inline-block;
 }
+
 .weather-forecast .future .oneday .temp-low {
   color: #888;
 }
@@ -659,52 +743,67 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
 .weather-forecast .icon.clear-day {
   background-image: url("/images/clear.png");
 }
+
 .weather-forecast .icon.clear-night {
   background-image: url("/images/clear.png");
 }
+
 .weather-forecast .icon.rain {
   background-image: url("/images/rain.png");
 }
+
 .weather-forecast .icon.snow {
   background-image: url("/images/snow.png");
 }
+
 .weather-forecast .icon.sleet {
   background-image: url("/images/sleet.png");
 }
+
 .weather-forecast .icon.windy {
   background-image: url("/images/wind.png");
 }
+
 .weather-forecast .icon.fog {
   background-image: url("/images/fog.png");
 }
+
 .weather-forecast .icon.cloudy {
   background-image: url("/images/cloudy.png");
 }
+
 .weather-forecast .icon.partly-cloudy-day {
   background-image: url("/images/partly-cloudy.png");
 }
+
 .weather-forecast .icon.partly-cloudy-night {
   background-image: url("/images/partly-cloudy.png");
 }
+
 .weather-forecast .icon.thunderstorms {
   background-image: url("/images/thunderstorm.png");
 }
 
 @media (max-width: 450px) {
+
   .weather-forecast .date,
   .weather-forecast .description {
     font-size: 0.9em;
   }
+
   .weather-forecast .current .icon {
     width: 96px;
     height: 96px;
   }
+
   .weather-forecast .current .visual {
     font-size: 3em;
   }
+
   .weather-forecast .future .oneday .icon {
     width: 32px;
     height: 32px;
@@ -743,21 +842,27 @@ body {
   line-height: 36px;
   vertical-align: middle;
 }
+
 .mdl-button::-moz-focus-inner {
   border: 0;
 }
+
 .mdl-button:hover {
   background-color: rgba(158, 158, 158, 0.2);
 }
+
 .mdl-button:focus:not(:active) {
   background-color: rgba(0, 0, 0, 0.12);
 }
+
 .mdl-button:active {
   background-color: rgba(158, 158, 158, 0.4);
 }
+
 .mdl-button.mdl-button--colored {
   color: #3f51b5;
 }
+
 .mdl-button.mdl-button--colored:focus:not(:active) {
   background-color: rgba(0, 0, 0, 0.12);
 }
@@ -765,9 +870,11 @@ body {
 .mdl-button--primary.mdl-button--primary {
   color: #3f51b5;
 }
+
 .mdl-button--primary.mdl-button--primary .mdl-ripple {
   background: white;
 }
+
 .mdl-button--primary.mdl-button--primary.mdl-button--raised,
 .mdl-button--primary.mdl-button--primary.mdl-button--fab {
   color: white;

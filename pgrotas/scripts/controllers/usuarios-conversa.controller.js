@@ -11,8 +11,11 @@
         vm.conversas = $stateParams.usuariosConversa;
         vm.iniciarConversa = iniciarConversa;
 
-        function iniciarConversa() {
-            $state.go("chat");
+        function iniciarConversa(usuarioConversa, idUsuarioConversa) {
+            console.log("Usuario Conversa", usuarioConversa);
+            $state.go("chat", {
+                usuarioConversa: usuarioConversa
+            });
         }
     }
 

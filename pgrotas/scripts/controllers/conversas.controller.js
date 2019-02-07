@@ -3,13 +3,15 @@
     angular.module("app").controller("ConversasController", ConversasController);
 
 
-    ConversasController.$inject = ['Chat', 'User', '$scope', '$state'];
+    ConversasController.$inject = ['Chat', 'User', '$scope', '$state', 'Usuario'];
 
-    function ConversasController(Chat, User, $scope, $state) {
+    function ConversasController(Chat, User, $scope, $state, Usuario) {
         var vm = this;
         vm.homePageIsShown = true;
         vm.listarUsuariosConversa = listarUsuariosConversa;
         Chat.listarConversas().then(function (response) {
+
+
             vm.conversas = response;
             console.log("conversas", vm.conversas);
             $scope.$apply();
@@ -22,8 +24,11 @@
             User.listarUsuariosConversa().then(function (usuariosConversa) {
                 vm.usuariosConversa = []
                 for (var i in usuariosConversa) {
-                    usuariosConversa[i].id = i;
-                    vm.usuariosConversa.push(usuariosConversa[i]);
+                    if (Usuario.getUsuario().id != i) {
+                        usuariosConversa[i].id = i;
+
+                        vm.usuariosConversa.push(usuariosConversa[i]);
+                    }
                 }
 
                 $state.go("listar-usuarios-conversas", {

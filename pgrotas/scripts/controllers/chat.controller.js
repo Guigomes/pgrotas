@@ -3,15 +3,16 @@
     angular.module("app").controller("ChatController", ChatController);
 
 
-    ChatController.$inject = ["$stateParams", 'Chat', '$scope'];
+    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario'];
 
-    function ChatController($stateParams, Chat, $scope) {
+    function ChatController($stateParams, Chat, $scope, Usuario) {
         var vm = this;
 
         vm.enviarMensagem = enviarMensagem;
 
         vm.usuarioConversa = $stateParams.usuarioConversa;
 
+        var idConversa = $stateParams.idConversa;
         listarMensagens();
 
         function enviarMensagem() {
@@ -28,8 +29,33 @@
             vm.mensagem = "";
 
             Chat.enviarMensagem(objetoMensagem).then(function (respostaMensagem) {
+                console.log("idConversa", idConversa);
+                if (idConversa == undefined) {
+                    try {
 
 
+                        console.log("aqui");
+                        var dataUltimaMensagem = objetoMensagem.dataMensagem.toString();
+
+                        var chaveUsuariosMensagem = objetoMensagem.remetente > objetoMensagem.destinatario ? objetoMensagem.remetente + objetoMensagem.destinatario : objetoMensagem.destinatario + objetoMensagem.remetente;
+
+
+                        var conversa = {
+                            chaveUsuariosMensagem: chaveUsuariosMensagem,
+                            dataUltimaMensagem: dataUltimaMensagem,
+                            user1: objetoMensagem.remetente,
+                            nomeUser1: Usuario.getUsuario().nome,
+                            user2: objetoMensagem.destinatario,
+                            nomeUser2: vm.usuarioConversa.nome,
+                            textoUltimaMensagem: objetoMensagem.mensagem
+                        };
+                        console.log("conversa1", conversa);
+                        Chat.cadastrarNovaConversa(conversa);
+                    } catch (error) {
+                        console.log("error", error);
+
+                    }
+                }
             });
         }
 

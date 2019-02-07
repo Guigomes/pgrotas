@@ -1,0 +1,28 @@
+{
+  "name": "pgrotas",
+  "version": "1.0.0",
+  "description": "Rotas de Pokemon Go",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guigomes/pgrotas.git"
+  },
+  "keywords": [
+    "pokemon",
+    "rotas",
+    "raid"
+  ],
+  "author": "Guilherme Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guigomes/pgrotas/issues"
+  },
+  "homepage": "https://github.com/Guigomes/pgrotas#readme",
+  "dependencies": {
+    "firebase-admin": "^7.0.0",
+    "firebase-functions": "^2.2.0"
+  }
+}

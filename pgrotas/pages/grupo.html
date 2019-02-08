@@ -1,0 +1,76 @@
+<md-content class="md-padding" layout-fill style="overflow: hidden !important;">
+
+    <md-list layout-fill style="overflow: hidden !important;">
+
+        <md-subheader class="md-no-sticky no-padding-vertical">
+            <div layout="row" layout-align="center end">
+                Pressione sobre o jogador desejado para copiar o código
+
+            </div>
+            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;">
+
+                <md-icon md-font-set="material-icons">search</md-icon>
+                <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
+
+            </md-input-container>
+        </md-subheader>
+
+        <md-list-item style="overflow: hidden !important;" class="md-2-line" ng-repeat="jogador in vm.usuarios | orderBy: 'nome' | filter: vm.pesquisa"
+            ng-click="vm.copiarCodigoJogador(jogador)">
+
+            <div class="md-list-item-text" layout="row">
+                <div layout="column" class="no-padding-vertical" flex="60">
+                    <h3>{{ jogador.nome}}</h3>
+                    <p>{{ jogador.codigo }}</p>
+                </div>
+                <div layout="column" class="no-padding-vertical" flex ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
+                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="Eat cake">
+                        {{ jogador.nivel}}
+                    </md-button>
+                </div>
+                <div layout="column" layout-align="center center" class="no-padding-vertical" flex ng-show="jogador.time !== undefined">
+                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1">
+                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2">
+                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3">
+                </div>
+            </div>
+            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
+                <md-icon md-font-icon="material-icons">file_copy</md-icon>
+
+            </md-button>
+            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
+                <md-icon ng-click="alert('rrrr');" md-font-set="material-icons" ng-show="jogador.mensagens">
+                    message
+                </md-icon>
+            </md-button>
+            <md-divider></md-divider>
+        </md-list-item>
+
+        <md-list-item style="overflow: hidden !important;" class="md-2-line" ng-repeat="jogador in vm.grupo | orderBy: 'nome' | filter: vm.pesquisa"
+            ng-click="vm.copiarCodigoJogador(jogador)">
+
+            <div class="md-list-item-text" layout="row">
+                <div layout="column" class="no-padding-vertical" flex="60">
+                    <h3>{{ jogador.nome}}</h3>
+                    <p>{{ jogador.codigo }}</p>
+                </div>
+                <div layout="column" class="no-padding-vertical" flex ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
+                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="Eat cake">
+                        {{ jogador.nivel}}
+                    </md-button>
+                </div>
+
+                <div layout="column" layout-align="center center" class="no-padding-vertical" flex ng-show="jogador.time !== undefined">
+                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1">
+                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2">
+                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3">
+                </div>
+            </div>
+            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
+                <md-icon md-font-icon="material-icons">file_copy</md-icon>
+
+            </md-button>
+            <md-divider></md-divider>
+        </md-list-item>
+    </md-list>
+</md-content>

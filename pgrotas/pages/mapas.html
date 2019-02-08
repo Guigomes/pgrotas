@@ -1,0 +1,42 @@
+<md-content class="md-padding">
+
+
+
+
+  <md-button class="md-primary md-raised" ng-click="vm.mostrarMapa()" target="_blank">
+    <span">Mostrar Mapa</span>
+  </md-button>
+
+
+  <div class="card" layout-align="center center" layout="column">
+
+
+    <div class="card-header" style="font-weight: bold; background-color:#ba2f2f; ">
+      Selecione o ginásio ou digite o código e aperte GO
+    </div>
+
+    <form ng-submit="vm.go()">
+      <div layout="row" layout-align="center center">
+        <div layout="column">
+          <div layout="row">
+            <md-input-container>
+              <label>Ginásio</label>
+              <md-select ng-model="vm.localSelecionado" ng-change="vm.codigoLocal = vm.localSelecionado.codigo">
+                <md-option ng-repeat="local in vm.locais" ng-value="local">
+                  {{ local.codigo <= 9 ? "0" + local.codigo + " - " : local.codigo + " - " }}{{local.nome}} </md-option>
+                    </md-select> </md-input-container> </div> <div layout="row">
+                    <md-input-container>
+                      <label>Código do Ginásio</label>
+                      <input ng-model="vm.codigoLocal" type="number" />
+                    </md-input-container>
+          </div>
+        </div>
+        <div layout="column" layout-align="center center">
+          <button class="button-go"></button>
+        </div>
+      </div>
+
+      <br />
+    </form>
+  </div>
+</md-content>

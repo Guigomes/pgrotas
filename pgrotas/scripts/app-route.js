@@ -11,35 +11,44 @@
         .accentPalette("blue");
 
       $stateProvider
-        .state("/", {
-          url: "/",
-          name: "/",
+        .state("app", {
+          url: "/app",
+          name: "app",
+          abstract: true,
+          cache: false,
+          controller: "MenuController",
+          controllerAs: "vm",
+          templateUrl: "/pages/menu.html"
+
+        })
+        .state("app.home", {
+          url: "/home",
+          name: "home",
           views: {
-            viewContent: {
-              controller: "PrincipalController",
+            viewMapas: {
+              controller: "MapasController",
               controllerAs: "vm",
-              templateUrl: "/pages/principal.html"
-            }
-          }
-        }).state("conversas", {
-          url: "/conversas",
-          name: "conversas",
-          views: {
-            viewContent: {
+              templateUrl: "/pages/mapas.html"
+            },
+            viewConversas: {
               controller: "ConversasController",
               controllerAs: "vm",
               templateUrl: "/pages/conversas.html"
+            },
+            viewGrupo: {
+              controller: "GrupoController",
+              controllerAs: "vm",
+              templateUrl: "/pages/grupo.html"
             }
           }
-
-        }).state("listar-usuarios-conversas", {
+        }).state("app.listar-usuarios-conversas", {
           url: "/listar-usuarios-conversas",
           name: "listar-usuarios-conversas",
           params: {
             usuariosConversa: null
           },
           views: {
-            viewContent: {
+            viewConversas: {
               controller: "UsuariosConversaController",
               controllerAs: "vm",
               templateUrl: "/pages/listar-usuarios-conversa.html"
@@ -47,14 +56,14 @@
             }
           }
 
-        }).state("chat", {
+        }).state("app.chat", {
           url: "/chat",
           name: "chat",
           params: {
             usuarioConversa: null
           },
           views: {
-            viewContent: {
+            viewConversas: {
               controller: "ChatController",
               controllerAs: "vm",
               templateUrl: "/pages/chat.html"
@@ -63,7 +72,7 @@
           }
 
         });
-      $urlRouterProvider.otherwise("/");
+      $urlRouterProvider.otherwise("/app/home");
     });
 
   angular.module("app").run(run);

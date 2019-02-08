@@ -3,9 +3,9 @@
     angular.module("app").controller("ChatController", ChatController);
 
 
-    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Conversa'];
+    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Conversa', 'Toast'];
 
-    function ChatController($stateParams, Chat, $scope, Usuario, Conversa) {
+    function ChatController($stateParams, Chat, $scope, Usuario, Conversa, Toast) {
         var vm = this;
 
         vm.enviarMensagem = enviarMensagem;
@@ -14,21 +14,15 @@
 
         var conversa = Conversa.getConversa();
         vm.usuario = Usuario.getUsuario();
-        console.log("conversa", conversa);
 
         var idAmigo = conversa !== null ? conversa.idAmigo : vm.usuarioConversa.id;
         vm.nomeAmigo = conversa !== null ? conversa.nomeAmigo : vm.usuarioConversa.nome;
-        console.log("nomeAmigo", vm.nomeAmigo);
-        console.log("usaurioConversa", vm.usuarioConversa);
 
         if (conversa != undefined && conversa != null) {
-            console.log("ARQUI", conversa);
             listarMensagens(conversa.chaveUsuariosMensagem);
         } else {
             var chaveUsuariosMensagem = vm.usuario.id > vm.usuarioConversa.id ? vm.usuario.id + vm.usuarioConversa.id : vm.usuarioConversa.id + vm.usuario.id;
-            console.log("Chave", chaveUsuariosMensagem);
             listarMensagens(chaveUsuariosMensagem);
-
         }
 
         function enviarMensagem() {
@@ -48,11 +42,8 @@
                 if (conversa == undefined) {
                     try {
 
-
                         var dataUltimaMensagem = objetoMensagem.dataMensagem.toString();
-
                         var chaveUsuariosMensagem = objetoMensagem.remetente > objetoMensagem.destinatario ? objetoMensagem.remetente + objetoMensagem.destinatario : objetoMensagem.destinatario + objetoMensagem.remetente;
-
 
                         var conversa = {
                             chaveUsuariosMensagem: chaveUsuariosMensagem,
@@ -65,7 +56,7 @@
                         };
                         Chat.cadastrarNovaConversa(conversa);
                     } catch (error) {
-
+                        Toast.mostrarErro(error);
                     }
                 }
             });
@@ -75,10 +66,7 @@
             vm.mensagens = [];
             if (chaveUsuariosMensagem !== undefined && chaveUsuariosMensagem !== null) {
                 Chat.listarMensagens(chaveUsuariosMensagem).then(function (mensagens) {
-
                     vm.mensagens = mensagens;
-                    console.log("mensagens", vm.mensagens);
-                    console.log("usuario", vm.usuario);
                     $scope.$apply();
                 });
             }

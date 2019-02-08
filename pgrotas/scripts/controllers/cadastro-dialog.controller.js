@@ -3,10 +3,15 @@
 
     angular.module("app").controller("CadastroDialogController", CadastroDialogController);
 
-    function CadastroDialogController($scope, $mdDialog, $mdToast, Usuario) {
+    CadastroDialogController.$inject = ["$scope", "$mdDialog", "Toast", "Usuario"];
+
+    function CadastroDialogController($scope, $mdDialog, Toast, Usuario) {
         var vm = this;
+        vm.cancel = cancel;
+        vm.answer = answer;
 
         vm.usuario = Usuario.getUsuario();
+
         if (vm.usuario !== undefined && vm.usuario.codigo !== undefined) {
             vm.usuario.codigo1 = vm.usuario.codigo.substring(0, 4);
             vm.usuario.codigo2 = vm.usuario.codigo.substring(5, 9);
@@ -48,35 +53,23 @@
                 nome: "Esplanada"
             }
         ];
-        vm.cancel = function () {
-            $mdDialog.cancel();
-        };
 
-        vm.answer = function (form) {
+        function cancel() {
+            $mdDialog.cancel();
+        }
+
+        function answer(form) {
             if (!form.$valid) {
-                $mdToast.show(
-                    $mdToast
-                    .simple()
-                    .textContent("Por favor, informe todos os campos obrigatórios.")
-                    .position("bottom")
-                    .hideDelay(3000)
-                );
+                Toast.mostrarErro("Por favor, informe todos os campos obrigatórios.");
             } else {
                 if (vm.nivel === undefined || vm.nivel === "" || (vm.nivel > 0 && vm.nivel <= 40)) {
-
                     vm.usuario.codigo = vm.usuario.codigo1 + " " + vm.usuario.codigo2 + " " + vm.usuario.codigo3
                     $mdDialog.hide(vm.usuario);
                 } else {
-                    $mdToast.show(
-                        $mdToast
-                        .simple()
-                        .textContent("Por favor, informe um nivel entre 1 e 40.")
-                        .position("bottom")
-                        .hideDelay(3000)
-                    );
+                    Toast.mostrarErro("Por favor, informe um nivel entre 1 e 40.");
                 }
             }
-        };
+        }
     }
 
 })();

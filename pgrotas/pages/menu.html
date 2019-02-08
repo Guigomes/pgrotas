@@ -1,0 +1,79 @@
+<md-toolbar class="toolbar-small">
+    <div class="md-toolbar-tools small">
+        <h3 flex>
+            <md-icon ng-click="vm.toggle();" md-font-set="material-icons" ng-show="vm.logado">
+                menu
+            </md-icon>
+            <span ng-show="vm.logado">{{menu.title}}</span>
+            <span ng-show="!vm.logado">PG Rotas - Login - {{vm.logado}} - -</span>
+        </h3>
+
+    </div>
+</md-toolbar>
+<div layout="column" style="height:100%;" ng-cloak>
+    <section layout=" row" flex>
+        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+            <md-toolbar class="md-theme-indigo primary">
+                <div layout="column">
+                    <span> {{ menu.usuario.nome }}</span>
+                    <span>Nível: {{ menu.usuario.nivel }}</span>
+                    <span>Time: {{ menu.usuario.time | time }}</span>
+                </div>
+            </md-toolbar>
+            <md-content layout-padding>
+                <md-list class="md-dense" flex>
+                    <md-list-item ng-click="vm.toggle(); vm.editarDados()">
+                        <md-icon md-font-set="material-icons">person</md-icon>
+                        <p>Editar meus dados</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item ng-click="vm.toggle(); vm.trocarGrupo();">
+                        <md-icon md-font-set="material-icons">person</md-icon>
+                        <p>Trocar Grupo</p>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                    <md-list-item ng-click="vm.toggle(); vm.sair();">
+                        <md-icon md-font-set="material-icons">logout</md-icon>
+                        <p>Sair</p>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+
+        <md-content layout-fill ng-show="!vm.logado">
+
+            <div layout="row" layout-align="center center">
+                <md-card ng-show="!vm.logado">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Bem vindo(a)</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>Por favor, realize seu login com o google para acessar as funcionalidades. </p>
+                        <div id="firebaseui-auth-container"></div>
+
+                    </md-card-content>
+                </md-card>
+            </div>
+
+        </md-content>
+
+        <md-content layout-fill ng-show="vm.logado">
+            <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary">
+                <md-tab label="Ginásios">
+                    <ui-view name="viewMapas" flex></ui-view>
+
+                </md-tab>
+                <md-tab label="Grupo">
+                    <ui-view name="viewGrupo" flex></ui-view>
+
+                </md-tab>
+                <md-tab label="Mensagens">
+                    <ui-view name="viewConversas" flex></ui-view>
+
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </section>
+</div>

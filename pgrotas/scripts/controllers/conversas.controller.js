@@ -3,31 +3,37 @@
     angular.module("app").controller("ConversasController", ConversasController);
 
 
-    ConversasController.$inject = ['Chat', 'User', '$scope', '$state', 'Usuario', 'Conversa'];
+    ConversasController.$inject = ['Chat', 'User', '$scope', '$state', 'Usuario', 'Conversa', 'Toast'];
 
-    function ConversasController(Chat, User, $scope, $state, Usuario, Conversa) {
+    function ConversasController(Chat, User, $scope, $state, Usuario, Conversa, Toast) {
         var vm = this;
+
         vm.listarUsuariosConversa = listarUsuariosConversa;
+
         vm.abrirConversa = abrirConversa;
+
+
+        $scope.$on('load', function (e) {
+            vm.usuario = Usuario.getUsuario();
+            listarConversas();
+        });
 
 
         function abrirConversa(conversa) {
             Conversa.setConversa(conversa);
-
-            $state.go('chat');
+            $state.go('app.chat');
         }
 
 
-        Chat.listarConversas().then(function (response) {
-
-
-            vm.conversas = response;
-            console.log("conversas", vm.conversas);
-            $scope.$apply();
-        }, function (erro) {
-            console.log("ERRO", erro);
-        });
-
+        function listarConversas() {
+            console.log("Init conversas");
+            Chat.listarConversas().then(function (response) {
+                vm.conversas = response;
+                $scope.$apply();
+            }, function (erro) {
+                Toast.mostrarErro(erro);
+            });
+        }
 
         function listarUsuariosConversa() {
             User.listarUsuariosConversa().then(function (usuariosConversa) {
@@ -35,12 +41,11 @@
                 for (var i in usuariosConversa) {
                     if (Usuario.getUsuario().id != i) {
                         usuariosConversa[i].id = i;
-
                         vm.usuariosConversa.push(usuariosConversa[i]);
                     }
                 }
 
-                $state.go("listar-usuarios-conversas", {
+                $state.go("app.listar-usuarios-conversas", {
                     usuariosConversa: vm.usuariosConversa
                 })
 

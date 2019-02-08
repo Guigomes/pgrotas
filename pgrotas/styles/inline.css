@@ -20,8 +20,18 @@ body {
   overflow: hidden;
 }
 
+.card-mensagem {
+  padding: 3px;
+
+}
+
+.chat {
+  overflow-y: scroll;
+}
+
 .dataHoraMensagem {
-  font-size: 10px;
+  font-size: 8px;
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .mensagem {
@@ -32,9 +42,15 @@ body {
   margin-bottom: 0px !important;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .card-remetente {
-  background-color: #28aefd;
+  border-radius: 5px;
+  background-color: #dcf8c6;
   max-width: 300px;
+  min-width: 80px;
   clear: both;
   float: right;
   display: block;
@@ -42,11 +58,13 @@ body {
 }
 
 .card-destinatario {
-  background-color: yellowgreen;
+  border-radius: 5px;
+  background-color: #ffffff;
   max-width: 300px;
   clear: both;
   float: left;
   display: block;
+  min-width: 80px;
 }
 
 .header {

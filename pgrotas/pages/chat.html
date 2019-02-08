@@ -3,8 +3,8 @@
 
 
 
-    <md-toolbar class="toolbar-small">
-      <div class="md-toolbar-tools small">
+    <md-toolbar class="toolbar-small fixed">
+      <div class="md-toolbar-tools small" layout="row" layout-align="center center">
 
 
         <p>{{vm.nomeAmigo}}</p>
@@ -13,14 +13,16 @@
     </md-toolbar>
 
     <div layout="column" layout-fill>
-      <div flex="95" style="background-color: antiquewhite">
-        <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once" ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
+      <div flex="95" style="background-color: antiquewhite" class="chat">
+        <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once card-mensagem" ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
           <div layout="row">
             <span class="mensagem" flex>{{msg.mensagem}}</span>
 
+
+          </div>
+          <div layout="row" class="no-padding-vertical no-margin-bottom" layout-align="end end">
             <span class="dataHoraMensagem"> {{msg.dataMensagem | date:'HH:mm'}}</span>
           </div>
-
 
 
         </md-card>

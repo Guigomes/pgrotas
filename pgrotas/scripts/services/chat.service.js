@@ -52,7 +52,7 @@
           response.push(user1.val());
         }
         return firebase.database().ref('conversas/').orderByChild("user2").equalTo(userId.toString()).once("value").then(function (user2) {
-          if (user1.val() != null) {
+          if (user2.val() != null) {
             response.push(user2.val());
           }
 
@@ -93,37 +93,18 @@
       });
     }
 
-    function listarMensagens() {
-      let userId = firebase.auth().currentUser.uid;
+    function listarMensagens(chaveUsuariosMensagem) {
       var response = [];
-      return firebase.database().ref('mensagens/').orderByChild("remetente").equalTo(userId.toString()).once("value").then(function (user1) {
+      return firebase.database().ref('mensagens/').orderByChild("chaveUsuariosMensagem").equalTo(chaveUsuariosMensagem).once("value").then(function (user1) {
         if (user1.val() != null) {
           for (var i in user1.val()) {
             var mensagem = user1.val()[i];
-            mensagem.suaMensagem = true;
             mensagem.dataMensagem = new Date(mensagem.dataMensagem);
             response.push(mensagem);
           }
-          console.log("user1", response);
-
-
-        }
-        return firebase.database().ref('mensagens/').orderByChild("destinatario").equalTo(userId.toString()).once("value").then(function (user2) {
-          if (user2.val() != null) {
-            for (var i in user2.val()) {
-              var mensagem = user2.val()[i];
-              mensagem.suaMensagem = false;
-              mensagem.dataMensagem = new Date(mensagem.dataMensagem);
-
-              response.push(mensagem);
-            }
-
-          }
           return response;
-
-        });
+        }
       });
     }
-
   }
 })();

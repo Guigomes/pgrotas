@@ -7,18 +7,18 @@
       <div class="md-toolbar-tools small">
 
 
-        <p>{{vm.usuarioConversa.nome}}</p>
+        <p>{{vm.nomeAmigo}}</p>
 
       </div>
     </md-toolbar>
 
     <div layout="column" layout-fill>
       <div flex="95" style="background-color: antiquewhite">
-        <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once" ng-class="msg.suaMensagem ? 'card-remetente' : 'card-destinatario'">
+        <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once" ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
           <div layout="row">
             <span class="mensagem" flex>{{msg.mensagem}}</span>
 
-            <span class="dataHoraMensagem"> {{msg.dataMensagem | date:'MM/dd/yyyy'}}</span>
+            <span class="dataHoraMensagem"> {{msg.dataMensagem | date:'HH:mm'}}</span>
           </div>
 
 

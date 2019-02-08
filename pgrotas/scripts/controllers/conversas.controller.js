@@ -3,12 +3,21 @@
     angular.module("app").controller("ConversasController", ConversasController);
 
 
-    ConversasController.$inject = ['Chat', 'User', '$scope', '$state', 'Usuario'];
+    ConversasController.$inject = ['Chat', 'User', '$scope', '$state', 'Usuario', 'Conversa'];
 
-    function ConversasController(Chat, User, $scope, $state, Usuario) {
+    function ConversasController(Chat, User, $scope, $state, Usuario, Conversa) {
         var vm = this;
-        vm.homePageIsShown = true;
         vm.listarUsuariosConversa = listarUsuariosConversa;
+        vm.abrirConversa = abrirConversa;
+
+
+        function abrirConversa(conversa) {
+            Conversa.setConversa(conversa);
+
+            $state.go('chat');
+        }
+
+
         Chat.listarConversas().then(function (response) {
 
 

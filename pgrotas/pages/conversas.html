@@ -5,8 +5,6 @@
             <div layout="column" layout-align="center end">
                 <span>Você não tem nenhuma conversa com outro usuário </span>
 
-                <md-button class="md-primary md-raised primary" ng-click="vm.listarUsuariosConversa()">Adicionar
-                    Conversa</md-button>
             </div>
         </md-card-content>
     </md-card>
@@ -24,7 +22,7 @@
             </md-input-container>
         </md-subheader>
 
-        <md-list-item style="overflow: hidden !important;" ng-click="vm.iniciarConversa(pessoa, $index)" class="md-2-line"
+        <md-list-item style="overflow: hidden !important;" ng-click="vm.abrirConversa(pessoa)" class="md-2-line"
             ng-repeat="pessoa in vm.conversas | orderBy: 'nome' | filter: vm.pesquisa">
 
             <div class=" md-list-item-text" layout="row">
@@ -57,4 +55,7 @@
 
 
     </md-list>
+
+    <md-button class="md-primary md-raised primary" ng-click="vm.listarUsuariosConversa()">Adicionar
+        Conversa</md-button>
 </md-content>

@@ -4,20 +4,27 @@
             <md-icon ng-click="vm.toggle();" md-font-set="material-icons" ng-show="vm.logado">
                 menu
             </md-icon>
-            <span ng-show="vm.logado">{{menu.title}}</span>
-            <span ng-show="!vm.logado">PG Rotas - Login - {{vm.logado}} - -</span>
+            <span ng-show="vm.logado" class="title">{{menu.title}}</span>
+            <span ng-show="!vm.logado">PG Rotas - Login </span>
         </h3>
 
     </div>
 </md-toolbar>
 <div layout="column" style="height:100%;" ng-cloak>
     <section layout=" row" flex>
-        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+        <md-sidenav class="md-sidenav-left sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+            md-whiteframe="4">
             <md-toolbar class="md-theme-indigo primary">
                 <div layout="column">
-                    <span> {{ menu.usuario.nome }}</span>
-                    <span>Nível: {{ menu.usuario.nivel }}</span>
-                    <span>Time: {{ menu.usuario.time | time }}</span>
+                    <span class="sidenav-nome"> {{ vm.usuario.nome }}</span>
+                    <md-divider></md-divider>
+                    <span class="sidenav-nivel">Nível {{ vm.usuario.nivel }}</span>
+                    <span class="sidenav-time">Time {{ vm.usuario.time | time }}
+                        <img src="../images/fire.png" width="15px" height="15px" ng-show="vm.usuario.time == 1">
+                        <img src="../images/snowflake.png" width="15px" height="15px" ng-show="vm.usuario.time == 2">
+                        <img src="../images/lightning.png" width="15px" height="15px" ng-show="vm.usuario.time == 3">
+                    </span>
+                    <span class="sidenav-time">Grupo {{ vm.usuario.grupo | grupo}}
                 </div>
             </md-toolbar>
             <md-content layout-padding>
@@ -28,8 +35,8 @@
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item ng-click="vm.toggle(); vm.trocarGrupo();">
-                        <md-icon md-font-set="material-icons">person</md-icon>
-                        <p>Trocar Grupo</p>
+                        <md-icon md-font-set="material-icons">swap_horiz</md-icon>
+                        <p>Ver outro grupo</p>
                     </md-list-item>
                     <md-divider></md-divider>
                     <md-list-item ng-click="vm.toggle(); vm.sair();">
@@ -59,19 +66,32 @@
 
         </md-content>
 
-        <md-content layout-fill ng-show="vm.logado">
-            <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary">
-                <md-tab label="Ginásios">
-                    <ui-view name="viewMapas" flex></ui-view>
+        <md-content layout-fill>
+            <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary" md-swipe-content="true">
+                <md-tab>
+                    <md-tab-label>
+                        <span class="title">Ginásios</h3></span>
+                    </md-tab-label>
+                    <md-tab-body>
 
+                        <ui-view name="viewMapas" flex></ui-view>
+                    </md-tab-body>
                 </md-tab>
-                <md-tab label="Grupo">
-                    <ui-view name="viewGrupo" flex></ui-view>
-
+                <md-tab>
+                    <md-tab-label>
+                        <span class="title">Grupo</h3></span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <ui-view name="viewGrupo" flex></ui-view>
+                    </md-tab-body>
                 </md-tab>
-                <md-tab label="Mensagens">
-                    <ui-view name="viewConversas" flex></ui-view>
-
+                <md-tab>
+                    <md-tab-label>
+                        <span class="title">Mensagens</h3></span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <ui-view name="viewConversas" flex></ui-view>
+                    </md-tab-body>
                 </md-tab>
             </md-tabs>
         </md-content>

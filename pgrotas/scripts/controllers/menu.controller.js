@@ -32,8 +32,10 @@
             return firebase.auth().onAuthStateChanged(
                 function (user) {
                     if (user) {
+                        console.log("Logado");
                         _usuarioLogado();
                     } else {
+                        console.log("!logado");
                         _usuarioNaoLogado();
                     }
                 },
@@ -59,8 +61,11 @@
                 })
                 .then(
                     function (novoGrupo) {
-                        if (novoGrupo != $scope.menu.usuario.grupo) {
-                            $scope.menu.usuario.grupo = novoGrupo;
+                        if (novoGrupo != Usuario.getUsuario().grupo) {
+
+                            vm.usuario = Usuario.getUsuario();
+                            vm.usuario.grupo = novoGrupo;
+                            Usuario.setUsuario(vm.usuario);
                             $scope.$broadcast('load');
 
                         }
@@ -79,6 +84,7 @@
             firebase.auth().signOut().then(
                 function () {
                     vm.logado = false;
+                    console.log("AQUI");
                     $state.go("/app/home");
                 },
                 function (error) {
@@ -87,7 +93,7 @@
             );
         }
 
-        function salvarAlterarUsuario() {
+        function salvarAlterarUsuario(novoUsuario) {
 
             if (Usuario.getUsuario() === undefined) {
                 novoUsuario.email = vm.user.email;
@@ -108,13 +114,12 @@
             } else {
                 Progress.show();
                 User.alterarUsuario(
-                    vm.usuario
+                    novoUsuario
                 ).then(
                     () => {
                         Toast.mostrarMensagem("Seus dados foram alterados com sucesso");
-                        Usuario.setUsuario(vm.usuario);
-                        $scope.menu.usuario = vm.usuario;
-
+                        Usuario.setUsuario(novoUsuario);
+                        vm.usuario = novoUsuario;
                         Progress.hide();
                     },
                     erro => {

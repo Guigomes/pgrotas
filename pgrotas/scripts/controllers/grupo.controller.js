@@ -3,9 +3,9 @@
 
     angular.module("app").controller("GrupoController", GrupoController);
 
-    GrupoController.$inject = ["$scope", "Usuario", 'Progress', "User"];
+    GrupoController.$inject = ["$scope", "Usuario", 'Progress', "User", "ngClipboard"];
 
-    function GrupoController($scope, Usuario, Progress, User) {
+    function GrupoController($scope, Usuario, Progress, User, ngClipboard) {
         var vm = this;
         vm.copiarCodigoJogador = copiarCodigoJogador;
 

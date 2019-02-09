@@ -14,6 +14,33 @@
  * limitations under the License.
  */
 
+.title {
+  font-weight: bold;
+}
+
+.sidenav-nome {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  align-self: center;
+  font-weight: bold;
+}
+
+.sidenav-time {
+  padding-left: 2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.sidenav-nivel {
+  padding-left: 2px;
+  padding-top: 2px;
+  padding-bottom: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 body {
   background-color: #eeeeee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

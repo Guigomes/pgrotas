@@ -1,7 +1,7 @@
-<md-content class="md-padding animated slideInDown once" flex layout="column" layout-align="space-between center">
+<md-content class="md-padding animated slideInDown once" flex layout="column" layout-align="space-between stretch">
 
 
-    <md-list layout-fill>
+    <md-list>
 
         <md-subheader class="md-no-sticky no-padding-vertical">
             <div layout="row" layout-align="center end">
@@ -10,34 +10,28 @@
             </div>
         </md-subheader>
 
-        <md-list-item style="overflow: hidden !important;" ng-click="vm.abrirConversa(jogador)" class="md-2-line"
-            ng-repeat="jogador in vm.conversas | orderBy: 'nome' | filter: vm.pesquisa">
+        <md-list-item ng-click="vm.abrirConversa(jogador)" class="md-2-line" ng-repeat="jogador in vm.conversas | orderBy: 'nome' | filter: vm.pesquisa">
 
             <div class=" md-list-item-text" layout="row">
-                <div layout="column" class="no-padding-vertical" flex="60">
-                    <h3>{{ jogador.nomeAmigo}}</h3>
-                    <p>{{ jogador.textoUltimaMensagem }}</p>
+                <div layout="column" class="no-padding-vertical" flex="80">
+                    <span class="bold">{{ jogador.nomeAmigo}}</span>
+                    <p>{{ jogador.textoUltimaMensagem | ultimaMensagem}}</p>
                 </div>
 
 
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
-                {{jogador.dataUltimaMensagem}}
+            <div layout="row" class="no-padding-vertical no-margin-bottom" layout-align="end end">
+                <span class="dataHoraMensagem"> {{jogador.dataUltimaMensagem | date:'HH:mm'}}</span>
+            </div>
 
 
-            </md-button>
-            <md-button class="md-secondary md-icon-button">
-                <md-icon md-font-set="material-icons" ng-show="jogador.mensagens">
-                    message
-                </md-icon>
-            </md-button>
             <md-divider></md-divider>
         </md-list-item>
 
 
     </md-list>
 
-    <md-button class="md-primary md-raised" ng-click="vm.listarUsuariosConversa()" ng-show="vm.conversas.length == 0">
-        Iniciar conversa
+    <md-button class="md-primary md-raised" ng-click="vm.listarUsuariosConversa()">
+        Iniciar nova conversa
     </md-button>
 </md-content>

@@ -14,7 +14,17 @@
  * limitations under the License.
  */
 
+md-tabs-content-wrapper {
+  height: 100% !important;
+}
 
+md-tabs {
+  height: 100% !important;
+}
+
+#tab-content-3 {
+  height: 100% !important;
+}
 
 .button-list {
   display: block !important;
@@ -54,7 +64,8 @@
 }
 
 body {
-  background-color: #eeeeee;
+  background-color: rgb(250, 250, 250) !important;
+
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow: hidden;
 }
@@ -64,7 +75,13 @@ body {
 
 }
 
+.white {
+  color: white;
+  align-self: center;
+}
+
 .chat {
+
   overflow-y: scroll;
 }
 

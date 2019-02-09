@@ -80,42 +80,46 @@
 
   <!-- Aplicação -->
   <script src="scripts/app.js"></script>
-  <script src="scripts/services/clipboard.js"></script>
-
-  <script src="scripts/services/authentication.service.js"></script>
-  <script src="scripts/controllers/imagem-dialog.controller.js"></script>
-
-  <script src="scripts/controllers/cadastro-dialog.controller.js"></script>
-  <script src="scripts/controllers/trocar-grupo-dialog.controller.js"></script>
-  <script src="scripts/controllers/mapas.controller.js"></script>
-  <script src="scripts/controllers/grupo.controller.js"></script>
-
-  <script src="scripts/controllers/conversas.controller.js"></script>
-  <script src="scripts/controllers/usuarios-conversa.controller.js"></script>
-
-  <script src="scripts/controllers/menu.controller.js"></script>
-  <script src="scripts/controllers/chat.controller.js"></script>
-
   <script src="scripts/app-route.js"></script>
+
+
+  <!-- Filters -->
+  <script src="scripts/filters/time.filter.js"></script>
+  <script src="scripts/filters/grupo.filter.js"></script>
+  <script src="scripts/filters/ultima-mensagem.filter.js"></script>
+
+  <!-- Factorys -->
+  <script src="scripts/factory/cache.factory.js"></script>
   <script src="scripts/ginasios.factory.js"></script>
-
   <script src="scripts/factory/usuario.factory.js"></script>
-  <script src="scripts/factory/conversa.factory.js"></script>
 
-  <script src="scripts/pwa.js"></script>
+  <!-- Services -->
+  <script src="scripts/services/clipboard.js"></script>
   <script src="scripts/services/user.service.js"></script>
   <script src="scripts/services/toast.service.js"></script>
   <script src="scripts/services/progress.service.js"></script>
   <script src="scripts/services/chat.service.js"></script>
-  <script src="scripts/factory/cache.factory.js"></script>
+  <script src="scripts/services/authentication.service.js"></script>
 
-  <script src="scripts/filters/time.filter.js"></script>
-  <script src="scripts/filters/grupo.filter.js"></script>
+  <!-- Controllers -->
+  <script src="scripts/controllers/mapas.controller.js"></script>
+  <script src="scripts/controllers/grupo.controller.js"></script>
+  <script src="scripts/controllers/conversas.controller.js"></script>
+  <script src="scripts/controllers/menu.controller.js"></script>
 
-  <title>MAPA RAID PG</title>
+  <script src="scripts/controllers/imagem-dialog.controller.js"></script>
+  <script src="scripts/controllers/cadastro-dialog.controller.js"></script>
+  <script src="scripts/controllers/trocar-grupo-dialog.controller.js"></script>
+  <script src="scripts/controllers/usuarios-conversa.controller.js"></script>
+  <script src="scripts/controllers/chat.controller.js"></script>
+
+  <script src="scripts/pwa.js"></script>
+
+
+  <title>PG Rotas</title>
 </head>
 
-<body ng-app="app" ng-cloak style="overflow:scroll" ng-controller="MenuController as vm">
+<body ng-app="app" ng-cloak>
   <ui-view flex></ui-view>
 </body>
 

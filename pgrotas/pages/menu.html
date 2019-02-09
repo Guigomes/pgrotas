@@ -1,20 +1,20 @@
 <md-toolbar class="toolbar-small">
     <div class="md-toolbar-tools small">
-        <h3 flex>
+        <p flex>
             <md-icon ng-click="vm.toggle();" md-font-set="material-icons" ng-show="vm.logado">
                 menu
             </md-icon>
             <span ng-show="vm.logado" class="title">{{menu.title}}</span>
             <span ng-show="!vm.logado">PG Rotas - Login </span>
-        </h3>
-
+        </p>
     </div>
 </md-toolbar>
-<div layout="column" style="height:100%;" ng-cloak>
+<div layout="column" ng-cloak flex layout-fill>
     <section layout=" row" flex>
         <md-sidenav class="md-sidenav-left sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
-            md-whiteframe="4">
+            md-whiteframe="4" ng-show="vm.logado">
             <md-toolbar class="md-theme-indigo primary">
+
                 <div ng-show="vm.usuario == undefined" layout="row" layout-sm="column" layout-align="center center"
                     aria-label="wait" style="height:70px;">
                     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -22,8 +22,8 @@
                 <div layout="column" ng-show="vm.usuario != undefined" class="animated fadeIn once">
                     <span class="sidenav-nome"> {{ vm.usuario.nome }}</span>
                     <md-divider></md-divider>
-                    <span class="sidenav-nivel">Nível {{ vm.usuario.nivel }}</span>
-                    <span class="sidenav-time">Time {{ vm.usuario.time | time }}
+                    <span class="sidenav-nivel" ng-show="vm.usuario.nivel  > 0">Nível {{ vm.usuario.nivel }}</span>
+                    <span class="sidenav-time" ng-show="vm.usuario.time.length > 0"> Time {{ vm.usuario.time | time }}
                         <img src="../images/fire.png" width="15px" height="15px" ng-show="vm.usuario.time == 1">
                         <img src="../images/snowflake.png" width="15px" height="15px" ng-show="vm.usuario.time == 2">
                         <img src="../images/lightning.png" width="15px" height="15px" ng-show="vm.usuario.time == 3">
@@ -51,7 +51,7 @@
             </md-content>
         </md-sidenav>
 
-        <md-content layout-fill ng-show="!vm.logado">
+        <md-content ng-show="!vm.logado">
 
             <div layout="row" layout-align="center center">
                 <md-card ng-show="!vm.logado">
@@ -70,7 +70,7 @@
 
         </md-content>
 
-        <md-content layout-fill>
+        <md-content layout="column" layout-fill layout-align="space-between stretch" ng-show="vm.logado">
 
 
 
@@ -79,7 +79,7 @@
                     <md-tab-label>
                         <span class="title">Ginásios</h3></span>
                     </md-tab-label>
-                    <md-tab-body layout-fill>
+                    <md-tab-body>
 
                         <ui-view name="viewMapas" flex></ui-view>
                     </md-tab-body>
@@ -88,7 +88,7 @@
                     <md-tab-label>
                         <span class="title">Grupo</h3></span>
                     </md-tab-label>
-                    <md-tab-body layout-fill>
+                    <md-tab-body>
                         <ui-view name="viewGrupo" flex></ui-view>
                     </md-tab-body>
                 </md-tab>
@@ -96,9 +96,10 @@
                     <md-tab-label>
                         <span class="title">Mensagens</h3></span>
                     </md-tab-label>
-                    <md-tab-body layout-fill>
-                        <ui-view name="viewConversas" flex></ui-view>
+                    <md-tab-body>
+                        <ui-view name="viewConversas" class="height100"></ui-view>
                     </md-tab-body>
+                    </md-tab-content>
                 </md-tab>
             </md-tabs>
         </md-content>

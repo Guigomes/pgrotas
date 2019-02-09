@@ -3,9 +3,9 @@
 
     angular.module("app").controller("GrupoController", GrupoController);
 
-    GrupoController.$inject = ["$scope", "Usuario", "User", "ngClipboard", "$window", '$timeout'];
+    GrupoController.$inject = ["$scope", "Usuario", "User", "ngClipboard", "$window", '$timeout', 'Cache', 'Progress'];
 
-    function GrupoController($scope, Usuario, User, ngClipboard, $window, $timeout) {
+    function GrupoController($scope, Usuario, User, ngClipboard, $window, $timeout, Cache, Progress) {
         var vm = this;
         vm.copiarCodigoJogador = copiarCodigoJogador;
         vm.pesquisar = pesquisar;
@@ -15,6 +15,13 @@
             carregarGrupo();
 
         });
+        initCache();
+
+        function initCache() {
+            if (Cache.getUsuarios() !== undefined) {
+                vm.usuarios = Cache.getUsuarios();
+            }
+        }
 
         function carregarGrupo() {
 
@@ -55,7 +62,9 @@
                         vm.usuariosTemp = [];
 
                         for (var i in usuarios) {
-                            vm.usuariosTemp.push(usuarios[i]);
+                            if (usuarios[i].codigo !== undefined && usuarios[i].codigo.trim().length > 0) {
+                                vm.usuariosTemp.push(usuarios[i]);
+                            }
                         }
                         vm.usuariosTemp = vm.usuariosTemp.concat(vm.grupoTemp);
                         vm.usuariosTemp.sort(function (a, b) {
@@ -67,6 +76,8 @@
                             return 0;
                         });
                         vm.usuarios = new DynamicItems(vm.usuariosTemp);
+                        Cache.setUsuarios(vm.usuarios);
+                        Progress.hide();
                     });
 
                 });
@@ -74,7 +85,7 @@
                 User.listarUsuarios(vm.usuario.grupo).then(function (usuarios) {
                     vm.usuarios = [];
                     vm.grupo = [];
-
+                    vm.usuariosTemp = [];
                     for (var i in usuarios) {
                         vm.usuariosTemp.push(usuarios[i]);
                     }
@@ -87,6 +98,8 @@
                         return 0;
                     });
                     vm.usuarios = new DynamicItems(vm.usuariosTemp);
+                    Cache.setUsuarios(vm.usuarios);
+                    Progress.hide();
                 });
 
             }
@@ -104,7 +117,7 @@
             this.numItems = 0;
 
             /** @const {number} Number of items to fetch per request. */
-            this.PAGE_SIZE = 50;
+            this.PAGE_SIZE = 20;
 
             this.fetchNumItems_();
         };

@@ -21,10 +21,6 @@
 
 
         init();
-        vm.items = [];
-        for (var i = 0; i < 1000; i++) {
-            vm.items.push(i);
-        }
 
 
         function init() {
@@ -37,7 +33,7 @@
             return firebase.auth().onAuthStateChanged(
                 function (user) {
                     if (user) {
-                        _usuarioLogado();
+                        _usuarioLogado(user);
                     } else {
                         _usuarioNaoLogado();
                     }
@@ -66,7 +62,7 @@
                 .then(
                     function (novoGrupo) {
                         if (novoGrupo != Usuario.getUsuario().grupo) {
-
+                            Progress.show();
                             vm.usuario = Usuario.getUsuario();
                             vm.usuario.grupo = novoGrupo;
                             Usuario.setUsuario(vm.usuario);
@@ -97,17 +93,20 @@
         }
 
         function salvarAlterarUsuario(novoUsuario) {
+            Progress.show();
 
             if (Usuario.getUsuario() === undefined) {
                 novoUsuario.email = vm.user.email;
                 User.adicionarUsuario(
                     novoUsuario
                 ).then(
-                    () => {
+                    (id) => {
                         Toast.mostrarMensagem("Seja bem vindo " + novoUsuario.nome);
+                        novoUsuario.id = id;
                         vm.usuario = novoUsuario;
                         $scope.menu.usuario = novoUsuario;
                         Usuario.setUsuario(vm.usuario);
+                        $scope.$apply();
                         $scope.$broadcast('load');
                     },
                     erro => {
@@ -115,7 +114,6 @@
                     }
                 );
             } else {
-                Progress.show();
                 User.alterarUsuario(
                     novoUsuario
                 ).then(
@@ -123,6 +121,8 @@
                         Toast.mostrarMensagem("Seus dados foram alterados com sucesso");
                         Usuario.setUsuario(novoUsuario);
                         vm.usuario = novoUsuario;
+                        $scope.$broadcast('load');
+
                         Progress.hide();
                     },
                     erro => {
@@ -147,31 +147,37 @@
                     function (novoUsuario) {
                         salvarAlterarUsuario(novoUsuario);
                     }
-                );
+                ),
+                function (error) {
+                    Toast.mostrarErro(error);
+                };
         }
 
-        function _usuarioLogado() {
-            let userId = firebase.auth().currentUser.uid;
-            User.buscarUsuario(userId).then(function (usuario) {
+        function _usuarioLogado(user) {
+            try {
+                let userId = firebase.auth().currentUser.uid;
+                User.buscarUsuario(userId).then(function (usuario) {
 
-                    if (usuario == null) {
-                        vm.user = user
-                        Progress.hide();
-                        __abrirModalCadastro();
+                        if (usuario == null) {
+                            vm.user = user;
+                            Progress.hide();
+                            __abrirModalCadastro();
 
-                    } else {
-                        usuario.id = userId;
-                        vm.usuario = usuario;
-                        $scope.menu.usuario = usuario;
-                        Usuario.setUsuario(usuario);
-                        $scope.$broadcast('load');
-                        Progress.hide();
-                    }
-                },
-                function (error) {
-                    Toast.mostrarErro("Erro ao buscar usuário " + JSON.stringify(error));
-                })
-
+                        } else {
+                            usuario.id = userId;
+                            vm.usuario = usuario;
+                            $scope.menu.usuario = usuario;
+                            Usuario.setUsuario(usuario);
+                            $scope.$broadcast('load');
+                            Progress.hide();
+                        }
+                    },
+                    function (error) {
+                        Toast.mostrarErro("Erro ao buscar usuário " + JSON.stringify(error));
+                    })
+            } catch (err) {
+                Toast.mostrarErro(err);
+            }
         }
 
         function _usuarioNaoLogado() {

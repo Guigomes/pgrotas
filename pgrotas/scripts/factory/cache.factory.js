@@ -1,7 +1,3 @@
-import {
-    version
-} from "punycode";
-
 (function () {
     "use strict";
 
@@ -14,6 +10,7 @@ import {
         vm.ginasios;
         vm.usuarios;
         vm.conversas;
+        vm.conversaAtual;
 
         function setGinasios(ginasios) {
             vm.ginasios = ginasios;
@@ -39,6 +36,14 @@ import {
             return vm.conversas;
         }
 
+        function setConversaAtual(conversaAtual) {
+            vm.conversaAtual = conversaAtual;
+        }
+
+        function getConversaAtual() {
+            return vm.conversaAtual;
+        }
+
 
         return {
             setGinasios: setGinasios,
@@ -46,7 +51,9 @@ import {
             setUsuarios: setUsuarios,
             getUsuarios: getUsuarios,
             setConversas: setConversas,
-            getConversas: getConversas
+            getConversas: getConversas,
+            setConversaAtual: setConversaAtual,
+            getConversaAtual: getConversaAtual
         };
 
 

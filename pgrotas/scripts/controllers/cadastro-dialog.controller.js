@@ -36,11 +36,11 @@
             },
             {
                 codigo: 2,
-                nome: "Mistic"
+                nome: "Mystic"
             },
             {
                 codigo: 3,
-                nome: "Instinto"
+                nome: "Instinct"
             }
         ];
 
@@ -62,8 +62,10 @@
             if (!form.$valid) {
                 Toast.mostrarErro("Por favor, informe todos os campos obrigatórios.");
             } else {
-                if (vm.nivel === undefined || vm.nivel === "" || (vm.nivel > 0 && vm.nivel <= 40)) {
-                    vm.usuario.codigo = vm.usuario.codigo1 + " " + vm.usuario.codigo2 + " " + vm.usuario.codigo3
+                if (vm.usuario.nivel === undefined || vm.usuario.nivel === null || vm.usuario.nivel.length == 0 || (vm.usuario.nivel > 0 && vm.usuario.nivel <= 40)) {
+                    if (vm.usuario.codigo1 != undefined && vm.usuario.codigo2 != undefined && vm.usuario.codigo3 != undefined) {
+                        vm.usuario.codigo = vm.usuario.codigo1 + " " + vm.usuario.codigo2 + " " + vm.usuario.codigo3;
+                    }
                     $mdDialog.hide(vm.usuario);
                 } else {
                     Toast.mostrarErro("Por favor, informe um nivel entre 1 e 40.");

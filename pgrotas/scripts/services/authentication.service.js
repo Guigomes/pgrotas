@@ -43,9 +43,7 @@
       }
     }
 
-    function isUsuarioLogado(callback) {
-      return firebase.auth().onAuthStateChanged(callback);
-    }
+
 
 
     function logout() {
@@ -58,8 +56,7 @@
       getPromptEvent: getPromptEvent,
       instalar: instalar,
       isMostrarInstalar: isMostrarInstalar,
-      setMostrarInstalar: setMostrarInstalar,
-      isUsuarioLogado: isUsuarioLogado
+      setMostrarInstalar: setMostrarInstalar
     };
   }
 })();

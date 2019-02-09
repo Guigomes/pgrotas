@@ -3,9 +3,9 @@
 
   angular.module("app").controller("MapasController", MapasController);
 
-  MapasController.$inject = ['Usuario', 'Ginasios', '$mdDialog', '$scope'];
+  MapasController.$inject = ['Usuario', 'Ginasios', '$mdDialog', '$scope', 'Cache'];
 
-  function MapasController(Usuario, Ginasios, $mdDialog, $scope) {
+  function MapasController(Usuario, Ginasios, $mdDialog, $scope, Cache) {
     var vm = this;
 
     vm.go = go;
@@ -14,15 +14,23 @@
 
     $scope.$on('load', function (e) {
       vm.usuario = Usuario.getUsuario();
-      init();
+      initMapas();
     });
 
+    initCache();
 
-
-    function init() {
+    function initMapas() {
       vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
+      Cache.setGinasios(vm.locais);
       vm.localSelecionado = vm.locais[0];
 
+    }
+
+    function initCache() {
+      if (Cache.getGinasios() != undefined) {
+        vm.locais = Cache.getGinasios();
+        vm.localSelecionado = vm.locais[0];
+      }
     }
 
 

@@ -57,12 +57,14 @@
         .ref("users/" + userId)
         .set({
           nome: novoUsuario.nome,
-          codigo: novoUsuario.codigo,
-          nivel: novoUsuario.nivel,
-          time: novoUsuario.time,
+          codigo: novoUsuario.codigo != undefined ? novoUsuario.codigo : "",
+          nivel: novoUsuario.nivel != undefined ? novoUsuario.nivel : "",
+          time: novoUsuario.time != undefined ? novoUsuario.time : "",
           mensagens: novoUsuario.mensagens,
           grupo: novoUsuario.grupo,
           email: novoUsuario.email
+        }).then(function () {
+          return userId;
         });
     }
 
@@ -73,7 +75,7 @@
         .ref("users/" + userId)
         .set({
           nome: novosDadosUsuario.nome,
-          codigo: novosDadosUsuario.codigo,
+          codigo: novosDadosUsuario.codigo != undefined ? novosDadosUsuario.codigo : "",
           nivel: novosDadosUsuario.nivel,
           time: novosDadosUsuario.time,
           mensagens: novosDadosUsuario.mensagens,

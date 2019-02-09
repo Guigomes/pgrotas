@@ -10,7 +10,8 @@
       listarConversas: listarConversas,
       listarMensagens: listarMensagens,
       enviarMensagem: enviarMensagem,
-      cadastrarNovaConversa: cadastrarNovaConversa
+      cadastrarNovaConversa: cadastrarNovaConversa,
+      atualizarConversa: atualizarConversa
     };
 
     function enviarMensagem(objetoMensagem) {
@@ -44,6 +45,18 @@
         });
     }
 
+    function atualizarConversa(conversa, key) {
+
+      return firebase
+        .database()
+        .ref("conversas/" + key)
+        .set(conversa).then(function () {
+          return true;
+        }, function (error) {
+          Toast.mostrarErro(error);
+        });
+    }
+
     function listarConversas() {
       let userId = firebase.auth().currentUser.uid;
       var response = [];
@@ -63,8 +76,9 @@
               for (var j in conversaArray) {
                 if (conversaArray[j].user1 == userId) {
                   var conversa = {
+                    id: j,
                     chaveUsuariosMensagem: conversaArray[j].chaveUsuariosMensagem,
-                    dataUltimaMensagem: conversaArray[j].dataUltimaMensagem,
+                    dataUltimaMensagem: new Date(conversaArray[j].dataUltimaMensagem),
                     idAmigo: conversaArray[j].user2,
                     nomeAmigo: conversaArray[j].nomeUser2,
                     textoUltimaMensagem: conversaArray[j].textoUltimaMensagem
@@ -73,8 +87,9 @@
                   minhasConversas.push(conversa);
                 } else {
                   var conversa = {
+                    id: j,
                     chaveUsuariosMensagem: conversaArray[j].chaveUsuariosMensagem,
-                    dataUltimaMensagem: conversaArray[j].dataUltimaMensagem,
+                    dataUltimaMensagem: new Date(conversaArray[j].dataUltimaMensagem),
                     idAmigo: conversaArray[j].user1,
                     nomeAmigo: conversaArray[j].nomeUser1,
                     textoUltimaMensagem: conversaArray[j].textoUltimaMensagem

@@ -23,38 +23,20 @@
                 <div layout="row" class="no-padding-vertical">
 
                     <md-input-container flex class="margin-vertical-menor">
-                        <label>Código</label>
-                        <input ng-model="vm.usuario.codigo1" name="codigo1" type="tel" required minlength="4" maxlength="4"
-                            size="4" max="5000">
+                        <label>Código (opcional)</label>
+                        <input ng-model="vm.usuario.codigo1" name="codigo1" type="tel" size="4" maxlength="4">
 
-                        <div ng-messages="jogadorForm.codigo1.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                Precisa ser 4 números
-                            </div>
 
-                        </div>
                     </md-input-container>
                     <md-input-container flex class="margin-vertical-menor">
                         <label>Código</label>
-                        <input name="codigo2" ng-model="vm.usuario.codigo2" type="tel" required minlength="4" maxlength="4"
-                            size="4">
-                        <div ng-messages="jogadorForm.codigo2.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                Precisa ser 4 números
-                            </div>
+                        <input name="codigo2" ng-model="vm.usuario.codigo2" type="tel" size="4" maxlength="4">
 
-                        </div>
                     </md-input-container>
                     <md-input-container flex class="margin-vertical-menor">
                         <label>Código </label>
-                        <input ng-model="vm.usuario.codigo3" name="codigo3" type="tel" required minlength="4" maxlength="4"
-                            size="4">
-                        <div ng-messages="jogadorForm.codigo3.$error">
-                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                Precisa ser 4 números
-                            </div>
+                        <input ng-model="vm.usuario.codigo3" name="codigo3" type="tel" size="4" maxlength="4">
 
-                        </div>
                     </md-input-container>
 
                 </div>
@@ -92,6 +74,10 @@
 
                     </md-input-container>
                 </div>
+
+                <p style="font-size: 11px;" class="no-padding-vertical"> *Só jogadores com código cadastrado aparecem
+                    na
+                    lista do grupo</p>
             </div>
         </md-dialog-content>
 

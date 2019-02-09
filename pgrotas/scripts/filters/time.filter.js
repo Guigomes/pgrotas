@@ -11,7 +11,7 @@
                 return "Valor";
 
             } else if (value == 2) {
-                return "Mistic";
+                return "Mystic";
 
             } else if (value == 3) {
                 return "Instinct";
@@ -20,6 +20,4 @@
             return null;
         }
     }
-
-
 })();

@@ -3,7 +3,9 @@
 
   angular.module("app").factory("Chat", Chat);
 
-  function Chat() {
+  Chat.$inject = ['Toast'];
+
+  function Chat(Toast) {
     return {
       listarConversas: listarConversas,
       listarMensagens: listarMensagens,
@@ -32,15 +34,13 @@
 
       var key = firebase.database().ref().child('conversas').push().key;
 
-      console.log("conversa", conversa);
       return firebase
         .database()
         .ref("conversas/" + key)
         .set(conversa).then(function () {
-          console.log("SAUT");
-          return {};
+          return true;
         }, function (error) {
-          console.log("ERROR", error);
+          Toast.mostrarErro(error);
         });
     }
 
@@ -58,7 +58,6 @@
 
           var minhasConversas = [];
           for (var i in response) {
-            console.log("response[i]", response[i]);
             if (response[i] != null) {
               var conversaArray = response[i];
               for (var j in conversaArray) {
@@ -71,7 +70,6 @@
                     textoUltimaMensagem: conversaArray[j].textoUltimaMensagem
                   };
 
-                  console.log("minhaConversa1", conversa);
                   minhasConversas.push(conversa);
                 } else {
                   var conversa = {
@@ -81,7 +79,6 @@
                     nomeAmigo: conversaArray[j].nomeUser1,
                     textoUltimaMensagem: conversaArray[j].textoUltimaMensagem
                   };
-                  console.log("minhaConversa2", conversa);
                   minhasConversas.push(conversa);
                 }
               }

@@ -11,6 +11,7 @@
     vm.go = go;
     vm.mostrarMapa = mostrarMapa;
 
+
     $scope.$on('load', function (e) {
       vm.usuario = Usuario.getUsuario();
       init();
@@ -19,7 +20,6 @@
 
 
     function init() {
-      console.log("Init Mapas");
       vm.locais = vm.usuario.grupo == 1 ? Ginasios.getGinasiosAguasClaras() : Ginasios.getGinasiosEsplanada();
       vm.localSelecionado = vm.locais[0];
 

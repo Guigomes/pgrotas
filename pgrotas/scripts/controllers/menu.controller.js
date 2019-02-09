@@ -21,6 +21,11 @@
 
 
         init();
+        vm.items = [];
+        for (var i = 0; i < 1000; i++) {
+            vm.items.push(i);
+        }
+
 
         function init() {
             Progress.show();
@@ -32,15 +37,14 @@
             return firebase.auth().onAuthStateChanged(
                 function (user) {
                     if (user) {
-                        console.log("Logado");
                         _usuarioLogado();
                     } else {
-                        console.log("!logado");
                         _usuarioNaoLogado();
                     }
                 },
                 function (error) {
-                    console.log(error);
+                    Toast.mostrarErro(error);
+
                 }
             );
         }
@@ -84,7 +88,6 @@
             firebase.auth().signOut().then(
                 function () {
                     vm.logado = false;
-                    console.log("AQUI");
                     $state.go("/app/home");
                 },
                 function (error) {

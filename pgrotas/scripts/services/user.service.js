@@ -46,7 +46,6 @@
 
     function listarUsuariosConversa() {
       return firebase.database().ref('users/').orderByChild("mensagens").equalTo(true).once("value").then(function (user) {
-        console.log("user", user.val());
         return user.val();
       });
     }

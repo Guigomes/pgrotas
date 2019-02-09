@@ -4,9 +4,11 @@
 
         <md-subheader class="md-no-sticky no-padding-vertical">
             <div layout="row" layout-align="center end">
-                Selecione o jogador que deseja enviar uma mensagem
+                <span ng-show="vm.usuariosConversa.length > 0">Selecione o jogador que deseja enviar uma mensagem</span>
+                <span ng-show="vm.usuariosConversa.length == 0">Sinto muito mas este grupo ainda não possui nenhum
+                    usuário que aceita receber mensagens</span>
             </div>
-            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;">
+            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;" ng-show="vm.usuariosConversa.length > 0">
 
                 <md-icon md-font-set="material-icons">search</md-icon>
                 <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
@@ -14,8 +16,8 @@
             </md-input-container>
         </md-subheader>
 
-        <md-list-item style="overflow: hidden !important;" ng-click="vm.iniciarConversa(jogador, $index)" class="md-2-line"
-            ng-repeat="jogador in vm.conversas | orderBy: 'nome' | filter: vm.pesquisa">
+        <md-list-item style="overflow: hidden !important;" ng-click="vm.iniciarConversa(jogador)" class="md-2-line"
+            ng-repeat="jogador in vm.usuariosConversa | orderBy: 'nome' | filter: vm.pesquisa">
 
             <div class=" md-list-item-text" layout="row">
                 <div layout="column" class="no-padding-vertical" flex="60">

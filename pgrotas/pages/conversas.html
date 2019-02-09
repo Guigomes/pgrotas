@@ -1,25 +1,13 @@
-<md-content class="md-padding animated slideInDown once" flex="100">
+<md-content class="md-padding animated slideInDown once" flex layout="column" layout-align="space-between center">
 
-    <md-card flex="100">
-        <md-card-content ng-show="vm.conversas.length == 0">
-            <div layout="column" layout-align="center end">
-                <span>Você não tem nenhuma conversa com outro usuário </span>
 
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-list layout-fill style="overflow: hidden !important;">
+    <md-list layout-fill>
 
         <md-subheader class="md-no-sticky no-padding-vertical">
             <div layout="row" layout-align="center end">
-                Selecione o jogador que deseja enviar uma mensagem
+                <span ng-show="vm.conversas.length > 0">Suas conversas</span>
+                <span ng-show="vm.conversas.length == 0">Você ainda não iniciou nenhuma conversa</span>
             </div>
-            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;">
-
-                <md-icon md-font-set="material-icons">search</md-icon>
-                <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
-
-            </md-input-container>
         </md-subheader>
 
         <md-list-item style="overflow: hidden !important;" ng-click="vm.abrirConversa(jogador)" class="md-2-line"
@@ -30,19 +18,12 @@
                     <h3>{{ jogador.nomeAmigo}}</h3>
                     <p>{{ jogador.textoUltimaMensagem }}</p>
                 </div>
-                <div layout="column" class="no-padding-vertical" flex ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
-                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="Eat cake">
-                        {{ jogador.nivel}}
-                    </md-button>
-                </div>
-                <div layout="column" layout-align="center center" class="no-padding-vertical" flex ng-show="jogador.time !== undefined">
-                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1">
-                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2">
-                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3">
-                </div>
+
+
             </div>
             <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
-                <md-icon md-font-icon="material-icons">file_copy</md-icon>
+                {{jogador.dataUltimaMensagem}}
+
 
             </md-button>
             <md-button class="md-secondary md-icon-button">
@@ -56,6 +37,7 @@
 
     </md-list>
 
-    <md-button class="md-primary md-raised primary" ng-click="vm.listarUsuariosConversa()">Adicionar
-        Conversa</md-button>
+    <md-button class="md-primary md-raised" ng-click="vm.listarUsuariosConversa()" ng-show="vm.conversas.length == 0">
+        Iniciar conversa
+    </md-button>
 </md-content>

@@ -15,9 +15,12 @@
         var conversa = Conversa.getConversa();
         vm.usuario = Usuario.getUsuario();
 
+        console.log("conversa", conversa);
+        console.log(" vm.usuarioConversa", vm.usuarioConversa);
         var idAmigo = conversa !== null ? conversa.idAmigo : vm.usuarioConversa.id;
         vm.nomeAmigo = conversa !== null ? conversa.nomeAmigo : vm.usuarioConversa.nome;
 
+        console.log("nomeAmigo", vm.nomeAmigo);
         if (conversa != undefined && conversa != null) {
             listarMensagens(conversa.chaveUsuariosMensagem);
         } else {
@@ -51,9 +54,10 @@
                             user1: objetoMensagem.remetente,
                             nomeUser1: Usuario.getUsuario().nome,
                             user2: objetoMensagem.destinatario,
-                            nomeUser2: vm.nomeAmigo.nome,
+                            nomeUser2: vm.nomeAmigo,
                             textoUltimaMensagem: objetoMensagem.mensagem
                         };
+                        console.log("novaConversa", conversa);
                         Chat.cadastrarNovaConversa(conversa);
                     } catch (error) {
                         Toast.mostrarErro(error);

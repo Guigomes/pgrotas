@@ -26,7 +26,6 @@
 
 
         function listarConversas() {
-            console.log("Init conversas");
             Chat.listarConversas().then(function (response) {
                 vm.conversas = response;
                 $scope.$apply();

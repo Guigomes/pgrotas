@@ -53,6 +53,16 @@
               controllerAs: "vm",
               templateUrl: "/pages/listar-usuarios-conversa.html"
 
+            },
+            viewMapas: {
+              controller: "MapasController",
+              controllerAs: "vm",
+              templateUrl: "/pages/mapas.html"
+            },
+            viewGrupo: {
+              controller: "GrupoController",
+              controllerAs: "vm",
+              templateUrl: "/pages/grupo.html"
             }
           }
 
@@ -68,6 +78,17 @@
               controllerAs: "vm",
               templateUrl: "/pages/chat.html"
 
+            },
+
+            viewMapas: {
+              controller: "MapasController",
+              controllerAs: "vm",
+              templateUrl: "/pages/mapas.html"
+            },
+            viewGrupo: {
+              controller: "GrupoController",
+              controllerAs: "vm",
+              templateUrl: "/pages/grupo.html"
             }
           }
 

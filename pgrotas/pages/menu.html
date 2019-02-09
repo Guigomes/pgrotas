@@ -15,7 +15,11 @@
         <md-sidenav class="md-sidenav-left sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
             md-whiteframe="4">
             <md-toolbar class="md-theme-indigo primary">
-                <div layout="column">
+                <div ng-show="vm.usuario == undefined" layout="row" layout-sm="column" layout-align="center center"
+                    aria-label="wait" style="height:70px;">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <div layout="column" ng-show="vm.usuario != undefined" class="animated fadeIn once">
                     <span class="sidenav-nome"> {{ vm.usuario.nome }}</span>
                     <md-divider></md-divider>
                     <span class="sidenav-nivel">Nível {{ vm.usuario.nivel }}</span>
@@ -67,12 +71,15 @@
         </md-content>
 
         <md-content layout-fill>
+
+
+
             <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" class="md-primary" md-swipe-content="true">
                 <md-tab>
                     <md-tab-label>
                         <span class="title">Ginásios</h3></span>
                     </md-tab-label>
-                    <md-tab-body>
+                    <md-tab-body layout-fill>
 
                         <ui-view name="viewMapas" flex></ui-view>
                     </md-tab-body>
@@ -81,7 +88,7 @@
                     <md-tab-label>
                         <span class="title">Grupo</h3></span>
                     </md-tab-label>
-                    <md-tab-body>
+                    <md-tab-body layout-fill>
                         <ui-view name="viewGrupo" flex></ui-view>
                     </md-tab-body>
                 </md-tab>
@@ -89,7 +96,7 @@
                     <md-tab-label>
                         <span class="title">Mensagens</h3></span>
                     </md-tab-label>
-                    <md-tab-body>
+                    <md-tab-body layout-fill>
                         <ui-view name="viewConversas" flex></ui-view>
                     </md-tab-body>
                 </md-tab>

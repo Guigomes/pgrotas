@@ -8,10 +8,10 @@
     function UsuariosConversaController($stateParams, $state) {
         var vm = this;
 
-        vm.conversas = $stateParams.usuariosConversa;
+        vm.usuariosConversa = $stateParams.usuariosConversa;
         vm.iniciarConversa = iniciarConversa;
 
-        function iniciarConversa(usuarioConversa, idUsuarioConversa) {
+        function iniciarConversa(usuarioConversa) {
             $state.go("app.chat", {
                 usuarioConversa: usuarioConversa
             });

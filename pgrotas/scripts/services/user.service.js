@@ -62,7 +62,9 @@
           time: novoUsuario.time != undefined ? novoUsuario.time : "",
           mensagens: novoUsuario.mensagens,
           grupo: novoUsuario.grupo,
-          email: novoUsuario.email
+          email: novoUsuario.email,
+          messageToken: novoUsuario.messageToken != undefined ? novoUsuario.messageToken : ""
+
         }).then(function () {
           return userId;
         });
@@ -76,11 +78,13 @@
         .set({
           nome: novosDadosUsuario.nome,
           codigo: novosDadosUsuario.codigo != undefined ? novosDadosUsuario.codigo : "",
-          nivel: novosDadosUsuario.nivel,
-          time: novosDadosUsuario.time,
+          nivel: novosDadosUsuario.nivel != undefined ? novosDadosUsuario.nivel : "",
+          time: novosDadosUsuario.time != undefined ? novosDadosUsuario.time : "",
           mensagens: novosDadosUsuario.mensagens,
           grupo: novosDadosUsuario.grupo,
-          email: novosDadosUsuario.email
+          email: novosDadosUsuario.email,
+          messageToken: novosDadosUsuario.messageToken != undefined ? novosDadosUsuario.messageToken : ""
+
         });
     }
 

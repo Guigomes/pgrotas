@@ -170,6 +170,7 @@
                             Usuario.setUsuario(usuario);
                             $scope.$broadcast('load');
                             Progress.hide();
+                            messageToken();
                         }
                     },
                     function (error) {
@@ -204,59 +205,80 @@
 
 
 
+        function messageToken() {
 
+            var messaging = firebase.messaging();
+            console.log("On message ligador");
+            messaging.onMessage(function (payload) {
+                alert("UHUU");
+                console.log('Message received. ', payload);
+
+            });
+            console.log("Entrar getToken");
+            messaging.usePublicVapidKey("BCGwZEs7nsIbkiuJE_gHwxnfBjReLr3RJ0X4Y4XHi5gRFy9JBt_3SvAFBfx7K2Tz5cqEWBMg_zziT98xDh8LtDE");
+            messaging.requestPermission().then(function () {
+
+                messaging.getToken().then(function (currentToken) {
+                    if (currentToken) {
+                        console.log("Sai getToken", currentToken);
+                        Usuario.getUsuario().messageToken = currentToken;
+                        User.alterarUsuario(
+                            Usuario.getUsuario()
+                        ).then(
+                            () => {
+                                console.log('Token generated.');
+
+                                Progress.hide();
+                            },
+                            erro => {
+                                Toast.mostrarErro(erro);
+                            }
+                        );
+                    }
+                }).catch(function (err) {
+                    console.log("Erro token", err);
+                    console.log('An error occurred while retrieving token. ', err);
+
+                });
+            }).catch(function (err) {
+                console.log("Pemissao Negada");
+            });
+
+
+
+            messaging.onTokenRefresh(function () {
+                messaging.getToken().then(function (refreshedToken) {
+
+                    Usuario.getUsuario().messageToken = refreshedToken;
+                    User.alterarUsuario(
+                        Usuario.getUsuario()
+                    ).then(
+                        () => {
+                            console.log('Token refreshed.');
+
+
+                            Progress.hide();
+                        },
+                        erro => {
+                            Toast.mostrarErro(erro);
+                        }
+                    );
+                    // Indicate that the new Instance ID token has not yet been sent to the
+                    // app server.
+                    // setTokenSentToServer(false);
+                    // Send Instance ID token to app server.
+                    // sendTokenToServer(refreshedToken);
+                    // ...
+                }).catch(function (err) {
+                    console.log('Unable to retrieve refreshed token ', err);
+                    // showToken('Unable to retrieve refreshed token ', err);
+                });
+            });
+            console.log("FINSL");
+        }
 
 
 
     }
 
 })();
-
-
-/*
-    
-      var messaging = firebase.messaging();
-
-      messaging.usePublicVapidKey("BCGwZEs7nsIbkiuJE_gHwxnfBjReLr3RJ0X4Y4XHi5gRFy9JBt_3SvAFBfx7K2Tz5cqEWBMg_zziT98xDh8LtDE");
-      messaging.requestPermission().then(function () {
-        alert("Pemissao Concedida");
-        // TODO(developer): Retrieve an Instance ID token for use with FCM.
-        // ...
-
-        messaging.getToken().then(function (currentToken) {
-          if (currentToken) {
-            console.log("TOKEN", currentToken);
-
-          } else {
-            // Show permission request.
-            console.log('No Instance ID token available. Request permission to generate one.');
-
-            setTokenSentToServer(false);
-          }
-        }).catch(function (err) {
-          console.log('An error occurred while retrieving token. ', err);
-
-        });
-      }).catch(function (err) {
-        alert("Pemissao Negada");
-      });
-      messaging.onMessage(function (payload) {
-        console.log('Message received. ', payload);
-
-      });
-
-      messaging.onTokenRefresh(function () {
-        messaging.getToken().then(function (refreshedToken) {
-          console.log('Token refreshed.');
-          // Indicate that the new Instance ID token has not yet been sent to the
-          // app server.
-          // setTokenSentToServer(false);
-          // Send Instance ID token to app server.
-          // sendTokenToServer(refreshedToken);
-          // ...
-        }).catch(function (err) {
-          console.log('Unable to retrieve refreshed token ', err);
-          showToken('Unable to retrieve refreshed token ', err);
-        });
-      });
-      */

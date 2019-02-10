@@ -58,7 +58,6 @@
                         nomeUser2: vm.nomeAmigo,
                         textoUltimaMensagem: objetoMensagem.mensagem
                     };
-                    console.log("conversaatual", vm.conversaAtual);
                     if (vm.conversaAtual == undefined) {
                         Chat.cadastrarNovaConversa(conversa);
                     } else {

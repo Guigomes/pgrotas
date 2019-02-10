@@ -1,24 +1,30 @@
-<md-content class="md-padding animated slideInLeft once" style="overflow: hidden !important;">
-    <md-button class="md-icon-button no-margin-bottom" aria-label="conversas" ng-click="vm.goback()">
-        <md-icon md-font-set="material-icons">
-            arrow_back
-        </md-icon>
-    </md-button>
-    <md-list style="overflow: hidden !important;">
+<md-content layout-fill class="animated slideInLeft once" style="overflow: hidden !important;">
 
-        <md-subheader class="md-no-sticky no-padding-vertical">
-            <div layout="row" layout-align="center end">
+    <md-subheader class="md-no-sticky no-padding-vertical">
+        <div layout="row" layout-align="start center">
+            <div layout="column" flex="10" layout-align="center start">
+                <md-button class="md-icon-button no-margin no-padding" aria-label="conversas" ng-click="vm.goback()">
+                    <md-icon md-font-set="material-icons">
+                        arrow_back
+                    </md-icon>
+                </md-button>
+            </div>
+            <div layout="column" flex="90" layout-align="center center">
                 <span ng-show="vm.usuariosConversa.length > 0">Selecione o jogador que deseja enviar uma mensagem</span>
                 <span ng-show="vm.usuariosConversa.length == 0">Sinto muito mas este grupo ainda não possui nenhum
                     usuário que aceita receber mensagens</span>
             </div>
-            <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;" ng-show="vm.usuariosConversa.length > 0">
+        </div>
+        <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;" ng-show="vm.usuariosConversa.length > 0">
 
-                <md-icon md-font-set="material-icons">search</md-icon>
-                <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
+            <md-icon md-font-set="material-icons">search</md-icon>
+            <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
 
-            </md-input-container>
-        </md-subheader>
+        </md-input-container>
+    </md-subheader>
+    <md-list style="overflow: hidden !important;">
+
+
 
         <md-list-item style="overflow: hidden !important;" ng-click="vm.iniciarConversa(jogador)" class="md-2-line"
             ng-repeat="jogador in vm.usuariosConversa | orderBy: 'nome' | filter: vm.pesquisa">
@@ -39,15 +45,7 @@
                     <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3">
                 </div>
             </div>
-            <md-button class="md-secondary md-icon-button" ng-click="vm.copiar(jogador)">
-                <md-icon md-font-icon="material-icons">file_copy</md-icon>
 
-            </md-button>
-            <md-button class="md-secondary md-icon-button">
-                <md-icon md-font-set="material-icons" ng-show="jogador.mensagens">
-                    message
-                </md-icon>
-            </md-button>
             <md-divider></md-divider>
         </md-list-item>
 

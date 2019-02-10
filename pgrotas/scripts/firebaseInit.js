@@ -4,8 +4,10 @@ var config = {
   databaseURL: "https://pgrotas.firebaseio.com",
   projectId: "pgrotas",
   storageBucket: "pgrotas.appspot.com",
-  messagingSenderId: "103953800507"
+  messagingSenderId: "76992976990"
+
 };
+
 firebase.initializeApp(config);
 var database = firebase.database();
 

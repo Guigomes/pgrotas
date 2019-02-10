@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/*
 md-tabs-content-wrapper {
   height: 100% !important;
 }
@@ -25,11 +26,31 @@ md-tabs {
 #tab-content-3 {
   height: 100% !important;
 }
+*/
+.md-subheader-inner {
+  padding: 0px !important;
+
+}
+
+.no-padding {
+  padding: 0px !important;
+}
+
+.no-margin {
+  margin: 0px !important;
+}
+
+.no-margin-horizontal {
+  margin-left: 1px !important;
+  margin-right: 1px !important;
+
+}
 
 .button-list {
   display: block !important;
   line-height: inherit !important;
   text-align: left !important;
+  text-transform: none !important;
 }
 
 .title {
@@ -96,6 +117,11 @@ body {
 
 .no-margin-bottom {
   margin-bottom: 0px !important;
+}
+
+.no-margin-vertical {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
 }
 
 
@@ -416,7 +442,7 @@ body {
 
 .legenda-mensagem {
   font-size: 10px;
-  float: right;
+
 }
 
 .small {

@@ -27,6 +27,12 @@ md-tabs {
   height: 100% !important;
 }
 */
+
+.align-right {
+  text-align: right;
+  float: right;
+}
+
 .md-subheader-inner {
   padding: 0px !important;
 
@@ -89,6 +95,7 @@ body {
 
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow: hidden;
+
 }
 
 .card-mensagem {
@@ -395,10 +402,6 @@ body {
   height: 100% !important;
 }
 
-html {
-  overflow: hidden;
-}
-
 body {
   display: -webkit-box;
   display: -webkit-flex;
@@ -443,6 +446,10 @@ body {
 .legenda-mensagem {
   font-size: 10px;
 
+}
+
+.chat-content {
+  max-height: 470px !important;
 }
 
 .small {
@@ -549,7 +556,6 @@ body {
   height: 24px;
   margin-right: 16px;
   text-indent: -30000px;
-  overflow: hidden;
   opacity: 0.54;
   -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
   transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);

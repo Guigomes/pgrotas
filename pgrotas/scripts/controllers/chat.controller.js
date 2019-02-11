@@ -3,9 +3,9 @@
     angular.module("app").controller("ChatController", ChatController);
 
 
-    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$anchorScroll', '$location', '$window'];
+    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$timeout', '$location', '$window'];
 
-    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $anchorScroll, $location, $window) {
+    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $timeout, $location, $window) {
         var vm = this;
 
         vm.enviarMensagem = enviarMensagem;
@@ -71,7 +71,25 @@
 
             });
         }
-        vm.scroll = function () {
+
+        function scroll() {
+            try {
+                $timeout(function () {
+                    var list = angular.element(document.querySelector('#chat-content'));
+                    var body = angular.element(document.querySelector('body'));
+
+                    console.log("list", list);
+                    alert(body.prop('scrollHeight'));
+                    alert(body.prop('height'));
+                    var scrollHeight = list.prop('scrollHeight');
+                    list.animate({
+                        scrollTop: scrollHeight
+                    }, 500);
+                }, 100)
+
+            } catch (err) {
+                alert(err);
+            }
             //    $location.hash('end');
 
             //  $anchorScroll();
@@ -84,6 +102,7 @@
                     if (mensagens != undefined && mensagens.length > 0) {
 
                         vm.mensagens = mensagens;
+                        scroll();
                         //   $location.hash('bottom');
                         //  $anchorScroll();
                     }

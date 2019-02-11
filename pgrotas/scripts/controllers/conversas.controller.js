@@ -35,6 +35,7 @@
         function listarConversas() {
             Chat.listarConversas().then(function (response) {
                 vm.conversas = response;
+                scrollDown();
                 Cache.setConversas(response);
                 $scope.$apply();
             }, function (erro) {

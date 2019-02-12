@@ -15,6 +15,15 @@
         vm.conversaAtual = Cache.getConversaAtual();
         vm.usuario = Usuario.getUsuario();
 
+        var body = angular.element(document.querySelector('body'));
+
+
+        var scrollHeight = body.prop('scrollHeight');
+
+        vm.style = {
+            "max-height": scrollHeight - 200 + "px"
+        };
+
         function goback() {
             $window.history.back();
         }
@@ -29,6 +38,16 @@
             listarMensagens(chaveUsuariosMensagem);
         }
 
+        $timeout(function () {
+
+            if (vm.conversaAtual != undefined && vm.conversaAtual != null) {
+                listarMensagens(vm.conversaAtual.chaveUsuariosMensagem);
+            } else {
+                var chaveUsuariosMensagem = vm.usuario.id > vm.usuarioConversa.id ? vm.usuario.id + vm.usuarioConversa.id : vm.usuarioConversa.id + vm.usuario.id;
+                listarMensagens(chaveUsuariosMensagem);
+            }
+        }, 10000);
+
         function enviarMensagem() {
             let userId = firebase.auth().currentUser.uid;
             var objetoMensagem = {
@@ -42,7 +61,7 @@
 
             vm.mensagens.push(objetoMensagem);
             vm.mensagem = "";
-
+            scroll(1000);
             Chat.enviarMensagem(objetoMensagem).then(function (respostaMensagem) {
                 try {
 
@@ -72,27 +91,20 @@
             });
         }
 
-        function scroll() {
+        function scroll(timeAnimation) {
             try {
                 $timeout(function () {
                     var list = angular.element(document.querySelector('#chat-content'));
-                    var body = angular.element(document.querySelector('body'));
-
-                    console.log("list", list);
-                    alert(body.prop('scrollHeight'));
-                    alert(body.prop('height'));
                     var scrollHeight = list.prop('scrollHeight');
                     list.animate({
                         scrollTop: scrollHeight
-                    }, 500);
+                    }, timeAnimation);
                 }, 100)
 
             } catch (err) {
                 alert(err);
             }
-            //    $location.hash('end');
 
-            //  $anchorScroll();
         }
 
         function listarMensagens(chaveUsuariosMensagem) {
@@ -101,14 +113,23 @@
                 Chat.listarMensagens(chaveUsuariosMensagem).then(function (mensagens) {
                     if (mensagens != undefined && mensagens.length > 0) {
 
+                        mensagens.sort(compare);
                         vm.mensagens = mensagens;
-                        scroll();
+                        scroll(0);
                         //   $location.hash('bottom');
                         //  $anchorScroll();
                     }
 
                     $scope.$apply();
                 });
+            }
+
+            function compare(a, b) {
+                if (a.dataMensagem < b.dataMensagem)
+                    return -1;
+                if (a.dataMensagem > b.dataMensagem)
+                    return 1;
+                return 0;
             }
         }
     }

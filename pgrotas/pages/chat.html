@@ -1,8 +1,10 @@
+<!--
 <div layout="column">
   <div layout="row" flex="80">
-    <md-content style="background-color: #DCDCDC;" id="chat-content" class="chat-content">
+    <md-content ng-style="vm.style" id="chat-content" class="chat-content">
       <md-list>
-        <md-list-item ng-repeat="message in vm.mensagens" style="margin-top: 8px; margin-bottom: 8px;">
+        <md-list-item ng-repeat="message in vm.mensagens" style="margin-top: 8px; margin-bottom: 8px;" class="animated slideInUp once card-mensagem"
+          ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
           <div flex-order="{{vm.usuario.id == message.remetente ? 2 : 0}}" layout="column" layout-align="center center"
             class="md-caption">
             <img layout="row" style="margin-right: 3px;" ng-src="{{message.avatar}}" class="md-avatar"></img>
@@ -10,9 +12,16 @@
               {{vm.nomeAmigo}}
             </div>
           </div>
+
           <div flex-order="1" style="background-color: white; padding: 10px; border-radius: 5px;" layout-fill>
-            {{message.mensagem}}
+            <span class="mensagem" flex>{{message.mensagem}}</span>
+
+
           </div>
+          <div layout="row" class="no-padding-vertical no-margin-bottom" layout-align="end end">
+            <span class="dataHoraMensagem"> {{message.dataMensagem | date:'HH:mm'}}</span>
+          </div>
+
         </md-list-item>
       </md-list>
     </md-content>
@@ -24,28 +33,34 @@
     </md-input-container>
   </form>
 </div>
-<!--
-<md-content layout-fill layout="column" layout-align="start stretch">
+-->
+<md-content ng-style="vm.style" id="chat-content" class="chat-content">
 
-  <div class="toolbar-small" flex="10">
+  <!-- 
+  <div class="toolbar-small" style="position: fixed;">
 
-    <div class="md-toolbar-tools small" layout="row" layout-align="center center">
+    <div class="md-toolbar-tools small"  style="position: fixed;" layout="row" layout-align="center center">
 
-      <md-button class="md-icon-button no-margin-bottom" aria-label="conversas" ng-click="vm.goback()">
+      <md-button class="md-icon-button no-margin-bottom" style="position: fixed;" aria-label="conversas" ng-click="vm.goback()">
         <md-icon md-font-set="material-icons">
           arrow_back
 
         </md-icon>
       </md-button>
 
-      <p class="bold white">{{vm.nomeAmigo}}</p>
+      <p class="bold white" style="position: fixed;">{{vm.nomeAmigo}}</p>
 
     </div>
   </div>
-
-  <div flex="35" class="card-mensagem chat" style="background-color: antiquewhite">
+-->
+  <div class="card-mensagem chat" style="background-color: antiquewhite">
 
     <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once card-mensagem" ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
+      <div layout="row" layout-align="start center" ng-show="vm.usuario.id !== msg.remetente">
+        <span class="nomeAmigo" flex>{{vm.nomeAmigo}}</span>
+
+      </div>
+
       <div layout="row">
         <span class="mensagem" flex>{{msg.mensagem}}</span>
 
@@ -60,19 +75,25 @@
   </div>
 
 
-  <div flex="10" class="no-padding-vertical">
-    <div layout="row">
-      <md-input-container class="md-block no-padding-vertical no-margin-bottom" flex>
-        <input ng-model="vm.mensagem" placeholder="Digite aqui..." required>
+  <div class="no-padding-vertical" style="background-color: white;">
+    <form ng-submit="vm.enviarMensagem()">
+      <div layout="row" layout-align="center center">
 
-      </md-input-container>
-      <md-button class="md-icon-button no-margin-bottom" aria-label="conversas" ng-click="vm.enviarMensagem()">
-        <md-icon md-font-set="material-icons">
-          send
-        </md-icon>
-      </md-button>
-    </div>
+        <md-input-container class=" md-block no-padding-vertical
+        no-margin-bottom" flex="80">
+          <input ng-model="vm.mensagem" placeholder="Digite aqui..." required>
+
+        </md-input-container>
+
+        <md-button class="md-icon-button no-margin-bottom" aria-label="conversas" ng-click="vm.enviarMensagem()" flex="20">
+          <md-icon md-font-set="material-icons">
+            send
+          </md-icon>
+        </md-button>
+      </div>
+
+    </form>
+
   </div>
 
 </md-content>
--->

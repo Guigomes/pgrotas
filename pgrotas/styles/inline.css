@@ -100,6 +100,7 @@ body {
 
 .card-mensagem {
   padding: 3px;
+  width: 100% !important;
 
 }
 
@@ -116,6 +117,13 @@ body {
 .dataHoraMensagem {
   font-size: 10px;
   color: rgba(0, 0, 0, 0.45);
+}
+
+.nomeAmigo {
+  font-size: 12px;
+  color: #ba2f2f;
+  font-weight: bold;
+  margin-bottom: 2px;
 }
 
 .mensagem {
@@ -449,7 +457,8 @@ body {
 }
 
 .chat-content {
-  max-height: 470px !important;
+  background-color: #DCDCDC;
+  width: 100% !important;
 }
 
 .small {

@@ -5,6 +5,7 @@
 
     angular.module('app').directive('ngCopyable', ngCopyable);
 
+    ngClipboard.$inject = ["$compile", "$rootScope", "$document", "Toast"];
 
     function ngClipboard($compile, $rootScope, $document, Toast) {
         return {

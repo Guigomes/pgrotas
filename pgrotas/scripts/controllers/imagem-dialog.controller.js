@@ -3,9 +3,9 @@
 
     angular.module("app").controller("ImagemDialogController", ImagemDialogController);
 
-    ImagemDialogController.$inject = ["$scope", "$mdDialog", "Usuario"];
+    ImagemDialogController.$inject = ["$mdDialog", "Usuario"];
 
-    function ImagemDialogController($scope, $mdDialog, Usuario) {
+    function ImagemDialogController($mdDialog, Usuario) {
         var vm = this;
 
         vm.imagem = Usuario.getUsuario().grupo == 1 ? "mapa.jpg" : "mapa-esplanada.jpeg";

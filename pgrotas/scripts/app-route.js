@@ -4,99 +4,105 @@
 
   angular
     .module("app")
-    .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
-      $mdThemingProvider
-        .theme("default")
-        .primaryPalette("red")
-        .accentPalette("blue");
+    .config("config", config);
 
-      $stateProvider
-        .state("app", {
-          url: "/app",
-          name: "app",
-          abstract: true,
-          cache: false,
-          controller: "MenuController",
-          controllerAs: "vm",
-          templateUrl: "/pages/menu.html"
+  config.$inject = ["$mdThemingProvider", "$stateProvider", "$urlRouterProvider"];
 
-        })
-        .state("app.home", {
-          url: "/home",
-          name: "home",
-          views: {
-            viewMapas: {
-              controller: "MapasController",
-              controllerAs: "vm",
-              templateUrl: "/pages/mapas.html"
-            },
-            viewConversas: {
-              controller: "ConversasController",
-              controllerAs: "vm",
-              templateUrl: "/pages/conversas.html"
-            },
-            viewGrupo: {
-              controller: "GrupoController",
-              controllerAs: "vm",
-              templateUrl: "/pages/grupo.html"
-            }
-          }
-        }).state("app.listar-usuarios-conversas", {
-          url: "/listar-usuarios-conversas",
-          name: "listar-usuarios-conversas",
-          params: {
-            usuariosConversa: null
+  function config($mdThemingProvider, $stateProvider, $urlRouterProvider) {
+    $mdThemingProvider
+      .theme("default")
+      .primaryPalette("red")
+      .accentPalette("blue");
+
+    $stateProvider
+      .state("app", {
+        url: "/app",
+        name: "app",
+        abstract: true,
+        cache: false,
+        controller: "MenuController",
+        controllerAs: "vm",
+        templateUrl: "/pages/menu.html"
+
+      })
+      .state("app.home", {
+        url: "/home",
+        name: "home",
+        views: {
+          viewMapas: {
+            controller: "MapasController",
+            controllerAs: "vm",
+            templateUrl: "/pages/mapas.html"
           },
-          views: {
-            viewConversas: {
-              controller: "UsuariosConversaController",
-              controllerAs: "vm",
-              templateUrl: "/pages/listar-usuarios-conversa.html"
-
-            },
-            viewMapas: {
-              controller: "MapasController",
-              controllerAs: "vm",
-              templateUrl: "/pages/mapas.html"
-            },
-            viewGrupo: {
-              controller: "GrupoController",
-              controllerAs: "vm",
-              templateUrl: "/pages/grupo.html"
-            }
-          }
-
-        }).state("app.chat", {
-          url: "/chat",
-          name: "chat",
-          params: {
-            usuarioConversa: null
+          viewConversas: {
+            controller: "ConversasController",
+            controllerAs: "vm",
+            templateUrl: "/pages/conversas.html"
           },
-          views: {
-            viewConversas: {
-              controller: "ChatController",
-              controllerAs: "vm",
-              templateUrl: "/pages/chat.html"
-
-            },
-
-            viewMapas: {
-              controller: "MapasController",
-              controllerAs: "vm",
-              templateUrl: "/pages/mapas.html"
-            },
-            viewGrupo: {
-              controller: "GrupoController",
-              controllerAs: "vm",
-              templateUrl: "/pages/grupo.html"
-            }
+          viewGrupo: {
+            controller: "GrupoController",
+            controllerAs: "vm",
+            templateUrl: "/pages/grupo.html"
           }
+        }
+      }).state("app.listar-usuarios-conversas", {
+        url: "/listar-usuarios-conversas",
+        name: "listar-usuarios-conversas",
+        params: {
+          usuariosConversa: null
+        },
+        views: {
+          viewConversas: {
+            controller: "UsuariosConversaController",
+            controllerAs: "vm",
+            templateUrl: "/pages/listar-usuarios-conversa.html"
 
-        });
-      $urlRouterProvider.otherwise("/app/home");
-    });
+          },
+          viewMapas: {
+            controller: "MapasController",
+            controllerAs: "vm",
+            templateUrl: "/pages/mapas.html"
+          },
+          viewGrupo: {
+            controller: "GrupoController",
+            controllerAs: "vm",
+            templateUrl: "/pages/grupo.html"
+          }
+        }
+
+      }).state("app.chat", {
+        url: "/chat",
+        name: "chat",
+        params: {
+          usuarioConversa: null
+        },
+        views: {
+          viewConversas: {
+            controller: "ChatController",
+            controllerAs: "vm",
+            templateUrl: "/pages/chat.html"
+
+          },
+
+          viewMapas: {
+            controller: "MapasController",
+            controllerAs: "vm",
+            templateUrl: "/pages/mapas.html"
+          },
+          viewGrupo: {
+            controller: "GrupoController",
+            controllerAs: "vm",
+            templateUrl: "/pages/grupo.html"
+          }
+        }
+
+      });
+    $urlRouterProvider.otherwise("/app/home");
+  };
 
   angular.module("app").run(run);
+
+  run.$inject = ["$window", "$rootScope", "Authentication"];
 
   function run($window, $rootScope, Authentication) {
     const beforeinstallprompt = function (e) {

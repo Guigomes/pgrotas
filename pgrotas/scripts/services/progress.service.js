@@ -5,6 +5,8 @@
     angular.module("app").factory("Progress", Progress);
 
 
+    Progress.$inject = ['$mdDialog'];
+
     function Progress($mdDialog) {
 
         var vm = this;
@@ -43,8 +45,7 @@
         }
     }
 
-    function ProgressController($timeout, $mdDialog) {
-        var vm = this;
+    function ProgressController() {
 
 
     }

@@ -3,9 +3,9 @@
     angular.module("app").controller("ChatController", ChatController);
 
 
-    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$timeout', '$location', '$window'];
+    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$timeout', '$window'];
 
-    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $timeout, $location, $window) {
+    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $timeout, $window) {
         var vm = this;
 
         vm.enviarMensagem = enviarMensagem;

@@ -3,7 +3,7 @@
 
   angular.module("app").factory("Usuario", Usuario);
 
-  function Usuario($state) {
+  function Usuario() {
     var vm = this;
 
     vm.Usuario = {};

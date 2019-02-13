@@ -3,7 +3,7 @@
 
   angular.module("app").factory("Authentication", Authentication);
 
-  function Authentication($state, Usuario, User) {
+  function Authentication() {
     var vm = this;
 
     function setPromptEvent(promptEvent) {

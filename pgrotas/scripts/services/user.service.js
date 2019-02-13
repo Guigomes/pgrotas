@@ -3,6 +3,8 @@
 
   angular.module("app").factory("User", User);
 
+  User.$inject = ["Usuario"];
+
   function User(Usuario) {
     return {
       adicionarUsuario: adicionarUsuario,

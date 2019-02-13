@@ -3,6 +3,8 @@
 
     angular.module("app").factory("Cache", Cache);
 
+    Cache.$inject = ['$state'];
+
     function Cache($state) {
         var vm = this;
 

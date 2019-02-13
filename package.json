@@ -20,7 +20,6 @@
   "bugs": {
     "url": "https://github.com/Guigomes/pgrotas/issues"
   },
-
   "devDependencies": {
     "eslint-config-google": "^0.9.1",
     "gulp": "^3.9.1",

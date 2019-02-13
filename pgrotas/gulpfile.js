@@ -21,11 +21,11 @@ var ngAnnotate = require('gulp-ng-annotate');
 
 
 var paths = {
-    templateCache: ['./www/templates/**/*.html'],
-    ng_annotate: ['./www/js/**/*.js'],
-    validate: ['./www/js/**/*.js'],
+    templateCache: ['./pgrotas/pages/*.html'],
+    ng_annotate: ['./pgrotas/pgrotas/**/*.js'],
+    validate: ['./pgrotas/pgrotas/**/*.js'],
 
-    useref: ['./www/*.html']
+    useref: ['./pgrotas/pages/*.html']
 
 };
 gulp.task('default', ['validate']);

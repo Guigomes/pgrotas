@@ -1,11 +1,10 @@
 var gulp = require('gulp');
 
-var run = require('gulp-run');
+
 var jsValidate = require('gulp-jsvalidate');
-var gulpif = require('gulp-if');
+
 var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
+
 var uglify = require('gulp-uglify');
 var pump = require('pump');
 
@@ -16,7 +15,6 @@ var cleanCSS = require('gulp-clean-css');
 var replace = require('gulp-replace');
 var useref = require('gulp-useref');
 var ngAnnotate = require('gulp-ng-annotate');
-
 
 
 var paths = {
@@ -66,9 +64,9 @@ gulp.task('ng_annotate', function (done) {
 
 gulp.task('useref', function () {
 
-    return gulp.src('./www/*.html')
+    return gulp.src('./index.html')
         .pipe(useref())
-        .pipe(gulp.dest('./www'));
+        .pipe(gulp.dest('./pages'));
 });
 
 gulp.task('validate', function () {

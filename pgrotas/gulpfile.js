@@ -5,7 +5,6 @@ var jsValidate = require('gulp-jsvalidate');
 
 var gutil = require('gulp-util');
 
-var uglify = require('gulp-uglify');
 var pump = require('pump');
 
 var runSequence = require('run-sequence');
@@ -16,7 +15,7 @@ var replace = require('gulp-replace');
 var useref = require('gulp-useref');
 var ngAnnotate = require('gulp-ng-annotate');
 
-
+let uglify = require('gulp-uglify-es').default;
 var paths = {
     templateCache: ['./pages/*.html'],
     ng_annotate: ['./scripts/**/*.js'],
@@ -87,12 +86,12 @@ gulp.task('compress', function (cb) {
 });
 
 gulp.task('compressjs', function () {
-    return gulp.src('./dist_js/app.min.js')
+    return gulp.src('./dist/app.min.js')
         .pipe(uglify())
         .on('error', function (err) {
             gutil.log(gutil.colors.red('[Error]'), err.toString());
         })
-        .pipe(gulp.dest('./dist_js'));
+        .pipe(gulp.dest('./dist'));
 
 
 
@@ -111,9 +110,9 @@ gulp.task('clean', function () {
 
 
 gulp.task('minify-css', () => {
-    return gulp.src('./www/dist_css/styles.css')
+    return gulp.src('./dist/app.min.css')
         .pipe(cleanCSS())
-        .pipe(gulp.dest('./www/dist_css'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('replace-templates', function () {

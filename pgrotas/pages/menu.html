@@ -57,11 +57,15 @@
                 <md-card ng-show="!vm.logado">
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Bem vindo(a)</span>
+                            <span class="md-headline">Bem vindo(a) ao PG Rotas</span>
                         </md-card-title-text>
                     </md-card-title>
-                    <md-card-content>
-                        <p>Por favor, realize seu login com o google para acessar as funcionalidades. </p>
+                    <md-card-content style="text-align: center">
+                        <p> Aqui você encontrará mapas dos ginásios das regiões cadastradas, podendo seleciona-los e abrir uma rota no google maps.</p>
+                          <p>  Você também encontrará uma lista de jogadores de cada região com seus códigos cadastrados para aumentar suas amizades.                                                         
+                            </p>
+                            <p>No momento temos  a região de Águas Claras e Esplanada</p>
+                            <p>Por favor, realize seu login com o google para acessar as funcionalidades. </p>
                         <div id="firebaseui-auth-container"></div>
 
                     </md-card-content>
@@ -93,7 +97,7 @@
                         <ui-view name="viewGrupo" flex></ui-view>
                     </md-tab-body>
                 </md-tab>
-                <md-tab>
+                <md-tab ng-if="vm.usuario.id == '4lEH7zyfADSKmkJGHszkDGD8vl52'">
                     <md-tab-label>
                         <span class="title">Mensagens</h3></span>
                     </md-tab-label>

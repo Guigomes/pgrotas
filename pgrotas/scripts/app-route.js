@@ -22,7 +22,7 @@
         cache: false,
         controller: "MenuController",
         controllerAs: "vm",
-        templateUrl: "/pages/menu.html"
+        templateUrl: "pages/menu.html"
 
       })
       .state("app.home", {
@@ -32,17 +32,17 @@
           viewMapas: {
             controller: "MapasController",
             controllerAs: "vm",
-            templateUrl: "/pages/mapas.html"
+            templateUrl: "pages/mapas.html"
           },
           viewConversas: {
             controller: "ConversasController",
             controllerAs: "vm",
-            templateUrl: "/pages/conversas.html"
+            templateUrl: "pages/conversas.html"
           },
           viewGrupo: {
             controller: "GrupoController",
             controllerAs: "vm",
-            templateUrl: "/pages/grupo.html"
+            templateUrl: "pages/grupo.html"
           }
         }
       }).state("app.listar-usuarios-conversas", {
@@ -55,18 +55,18 @@
           viewConversas: {
             controller: "UsuariosConversaController",
             controllerAs: "vm",
-            templateUrl: "/pages/listar-usuarios-conversa.html"
+            templateUrl: "pages/listar-usuarios-conversa.html"
 
           },
           viewMapas: {
             controller: "MapasController",
             controllerAs: "vm",
-            templateUrl: "/pages/mapas.html"
+            templateUrl: "pages/mapas.html"
           },
           viewGrupo: {
             controller: "GrupoController",
             controllerAs: "vm",
-            templateUrl: "/pages/grupo.html"
+            templateUrl: "pages/grupo.html"
           }
         }
 
@@ -80,19 +80,19 @@
           viewConversas: {
             controller: "ChatController",
             controllerAs: "vm",
-            templateUrl: "/pages/chat.html"
+            templateUrl: "pages/chat.html"
 
           },
 
           viewMapas: {
             controller: "MapasController",
             controllerAs: "vm",
-            templateUrl: "/pages/mapas.html"
+            templateUrl: "pages/mapas.html"
           },
           viewGrupo: {
             controller: "GrupoController",
             controllerAs: "vm",
-            templateUrl: "/pages/grupo.html"
+            templateUrl: "pages/grupo.html"
           }
         }
 

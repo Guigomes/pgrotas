@@ -106,7 +106,7 @@ gulp.task('minify-css', () => {
 });
 
 gulp.task('replace-templates', function () {
-    return gulp.src(['./script/**/*.js'])
-        .pipe(replace('pages/', ''))
-        .pipe(gulp.dest('./script/'));
+    return gulp.src(['./scripts/**/*.js'])
+        .pipe(replace('/pages/', ''))
+        .pipe(gulp.dest('./scripts/'));
 });

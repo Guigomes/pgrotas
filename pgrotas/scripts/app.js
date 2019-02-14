@@ -1,5 +1,5 @@
 (function () {
   "use strict";
 
-  angular.module("app", ["ngMaterial", "ui.router",  "ngAnimate", 'ngMessages']);
+  angular.module("app", ["ngMaterial", "ui.router", "ngAnimate", 'ngMessages', 'templates']);
 })();

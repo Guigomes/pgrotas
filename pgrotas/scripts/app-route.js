@@ -4,7 +4,7 @@
 
   angular
     .module("app")
-    .config("config", config);
+    .config(config);
 
   config.$inject = ["$mdThemingProvider", "$stateProvider", "$urlRouterProvider"];
 

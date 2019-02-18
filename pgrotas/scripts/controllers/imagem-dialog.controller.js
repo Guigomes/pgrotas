@@ -8,7 +8,7 @@
     function ImagemDialogController($mdDialog, Usuario) {
         var vm = this;
 
-        vm.imagem = Usuario.getUsuario().grupo == 1 ? "mapa.jpg" : "mapa-esplanada.jpeg";
+        vm.imagem = Usuario.getUsuario().grupo == 1 ? "mapa.jpg" : "mapa-esplanada.jpg";
 
         vm.hide = function () {
             $mdDialog.hide();

@@ -25,7 +25,7 @@
 
         function carregarGrupo() {
 
-            $scope.menu.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginários da Esplanada";
+            $scope.menu.title = vm.usuario.grupo == 1 ? "Ginásios de Aguas Claras" : "Ginásios da Esplanada";
             listarJogadores();
         }
 

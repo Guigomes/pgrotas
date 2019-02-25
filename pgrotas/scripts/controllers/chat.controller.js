@@ -3,9 +3,9 @@
     angular.module("app").controller("ChatController", ChatController);
 
 
-    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$timeout', '$window'];
+    ChatController.$inject = ["$stateParams", 'Chat', '$scope', 'Usuario', 'Cache', 'Toast', '$timeout', '$window', '$interval'];
 
-    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $timeout, $window) {
+    function ChatController($stateParams, Chat, $scope, Usuario, Cache, Toast, $timeout, $window, $interval) {
         var vm = this;
 
         vm.enviarMensagem = enviarMensagem;
@@ -21,7 +21,8 @@
         var scrollHeight = body.prop('scrollHeight');
 
         vm.style = {
-            "max-height": scrollHeight - 200 + "px"
+            "max-height": scrollHeight - 300 + "px",
+            "min-height": scrollHeight - 300 + "px"
         };
 
         function goback() {
@@ -30,6 +31,7 @@
 
         var idAmigo = vm.conversaAtual !== undefined ? vm.conversaAtual.idAmigo : vm.usuarioConversa.id;
         vm.nomeAmigo = vm.conversaAtual !== undefined ? vm.conversaAtual.nomeAmigo : vm.usuarioConversa.nome;
+        vm.mensagens = [];
 
         if (vm.conversaAtual != undefined && vm.conversaAtual != null) {
             listarMensagens(vm.conversaAtual.chaveUsuariosMensagem);
@@ -38,9 +40,9 @@
             listarMensagens(chaveUsuariosMensagem);
         }
 
-        $timeout(function () {
+        $interval(function () {
 
-            if (vm.conversaAtual != undefined && vm.conversaAtual != null) {
+            if (vm.conversaAtual != undefined && vm.conversaAtual != null && vm.conversaAtual.chaveUsuariosMensagem !== undefined) {
                 listarMensagens(vm.conversaAtual.chaveUsuariosMensagem);
             } else {
                 var chaveUsuariosMensagem = vm.usuario.id > vm.usuarioConversa.id ? vm.usuario.id + vm.usuarioConversa.id : vm.usuarioConversa.id + vm.usuario.id;
@@ -77,8 +79,14 @@
                         nomeUser2: vm.nomeAmigo,
                         textoUltimaMensagem: objetoMensagem.mensagem
                     };
+                    console.log("conversa atual", vm.conversaAtual);
                     if (vm.conversaAtual == undefined) {
-                        Chat.cadastrarNovaConversa(conversa);
+                        Chat.cadastrarNovaConversa(conversa).then(function (key) {
+                            vm.conversaAtual = {};
+                            vm.conversaAtual.id = key;
+                            console.log("Conversa atual", vm.conversaAtual);
+
+                        });
                     } else {
                         Chat.atualizarConversa(conversa, vm.conversaAtual.id);
                     }
@@ -108,16 +116,16 @@
         }
 
         function listarMensagens(chaveUsuariosMensagem) {
-            vm.mensagens = [];
             if (chaveUsuariosMensagem !== undefined && chaveUsuariosMensagem !== null) {
                 Chat.listarMensagens(chaveUsuariosMensagem).then(function (mensagens) {
                     if (mensagens != undefined && mensagens.length > 0) {
 
                         mensagens.sort(compare);
-                        vm.mensagens = mensagens;
-                        scroll(0);
-                        //   $location.hash('bottom');
-                        //  $anchorScroll();
+                        if (vm.mensagens.length != mensagens.length) {
+                            vm.mensagens = mensagens;
+                            scroll(0);
+                        }
+
                     }
 
                     $scope.$apply();

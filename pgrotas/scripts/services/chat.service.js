@@ -38,8 +38,8 @@
       return firebase
         .database()
         .ref("conversas/" + key)
-        .set(conversa).then(function () {
-          return true;
+        .set(conversa).then(function (response) {
+          return key;
         }, function (error) {
           Toast.mostrarErro(error);
         });

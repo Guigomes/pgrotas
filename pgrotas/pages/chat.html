@@ -53,11 +53,11 @@
     </div>
   </div>
 -->
-  <div class="card-mensagem chat" style="background-color: antiquewhite">
+  <div class="card-mensagem chat" layout="column" layout-align="end none" ng-style="vm.style" style="background-color: antiquewhite">
 
-    <md-card ng-repeat="msg in vm.mensagens" class="animated slideInUp once card-mensagem" ng-class="vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario'">
+    <md-card ng-repeat="msg in vm.mensagens" class="card-mensagem" ng-class="[vm.usuario.id == msg.remetente ? 'card-remetente' : 'card-destinatario', $index == vm.mensagens.length-1 ? 'animated slideInUp once' : '']">
       <div layout="row" layout-align="start center" ng-show="vm.usuario.id !== msg.remetente">
-        <span class="nomeAmigo" flex>{{vm.nomeAmigo}}</span>
+        <span class="nomeAmigo" flex>{{vm.nomeAmigo}} {{$index}}</span>
 
       </div>
 

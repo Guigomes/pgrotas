@@ -1,13 +1,13 @@
 <md-content layout-fill style="overflow: hidden !important;">
 
     <md-subheader class="md-no-sticky no-padding-vertical" layout="column" flex>
-        <div class="legenda-mensagem" layout="row" layout-align="end center">
+        <div class="legenda-mensagem" layout="row" layout-align="end center" style="margin-right:10px;">
             <md-icon md-font-set="material-icons" class="no-margin-horizontal">
                 message
             </md-icon> aceita receber mensagens
 
         </div>
-        <div class="bold" flex layout="row">
+        <div class="bold" flex layout="row" style="padding-left: 10px">
             Pressione sobre o jogador desejado para copiar o código
 
         </div>
@@ -49,7 +49,8 @@
 
             <md-divider></md-divider>
         </div>
-        <!--
+    </md-virtual-repeat-container>
+    <!--
         <div md-virtual-repeat="jogador in vm.grupo" md-on-demand class="repeated-item" flex ng-click="vm.copiarCodigoJogador(jogador)">
 
             <div class="md-list-item-text" layout="row">

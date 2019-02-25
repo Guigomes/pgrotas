@@ -1,7 +1,8 @@
 <md-content layout-fill class="animated slideInLeft once" style="overflow: hidden !important;">
 
     <md-subheader class="md-no-sticky no-padding-vertical">
-        <div layout="row" layout-align="start center">
+
+        <div layout="row" layout-align="start center" flex>
             <div layout="column" flex="10" layout-align="center start">
                 <md-button class="md-icon-button no-margin no-padding" aria-label="conversas" ng-click="vm.goback()">
                     <md-icon md-font-set="material-icons">
@@ -10,44 +11,51 @@
                 </md-button>
             </div>
             <div layout="column" flex="90" layout-align="center center">
-                <span ng-show="vm.usuariosConversa.length > 0">Selecione o jogador que deseja enviar uma mensagem</span>
-                <span ng-show="vm.usuariosConversa.length == 0">Sinto muito mas este grupo ainda não possui nenhum
+                <span ng-show="vm.usuariosConversa.objeto.length > 0">Selecione o jogador que deseja enviar uma
+                    mensagem</span>
+                <span ng-show="vm.usuariosConversa.objeto.length == 0">Sinto muito mas este grupo ainda não possui
+                    nenhum
                     usuário que aceita receber mensagens</span>
             </div>
         </div>
-        <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;" ng-show="vm.usuariosConversa.length > 0">
+        <md-input-container class="md-icon-float md-icon-left md-block" style="margin-bottom: 0px;" ng-show="vm.usuariosConversa.objeto.length > 0">
 
             <md-icon md-font-set="material-icons">search</md-icon>
             <input ng-model="vm.pesquisa" placeholder="Pesquisar" type="text">
 
         </md-input-container>
     </md-subheader>
-    <md-list>
 
 
+    <md-virtual-repeat-container id="vertical-container" ng-style="vm.getListHeight()">
 
-        <md-list-item ng-click="vm.iniciarConversa(jogador)" class="md-2-line" ng-repeat="jogador in vm.usuariosConversa | orderBy: 'nome' | filter: vm.pesquisa">
 
-            <div class=" md-list-item-text" layout="row">
+        <div md-virtual-repeat="jogador in vm.usuariosConversa" md-on-demand class="repeated-item md-no-style md-button md-ink-ripple button-list"
+            flex ng-click="vm.iniciarConversa(jogador)">
+
+            <div style="padding: 4px;" layout="row" layout-align="start center">
                 <div layout="column" class="no-padding-vertical" flex="60">
-                    <h3>{{ jogador.nome}}</h3>
+                    <span class="bold">{{ jogador.nome}}</span>
                     <p>{{ jogador.codigo }}</p>
                 </div>
-                <div layout="column" class="no-padding-vertical" flex ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
-                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="Eat cake">
+                <div layout="column" class="no-padding-vertical" flex layout-align="center center">
+                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="nivel" ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
                         {{ jogador.nivel}}
                     </md-button>
                 </div>
-                <div layout="column" layout-align="center center" class="no-padding-vertical" flex ng-show="jogador.time !== undefined">
-                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1">
-                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2">
-                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3">
+                <div layout="column" layout-align="center center" class="no-padding-vertical" flex>
+                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1 && jogador.time !== undefined">
+                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2 && jogador.time !== undefined">
+                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3 && jogador.time !== undefined">
+                </div>
+                <div layout="column" layout-align="center center" class="no-padding-vertical" flex>
+                    <md-icon md-font-set="material-icons" ng-show="jogador.mensagens">
+                        message
+                    </md-icon>
                 </div>
             </div>
 
             <md-divider></md-divider>
-        </md-list-item>
-
-
-    </md-list>
+        </div>
+    </md-virtual-repeat-container>
 </md-content>

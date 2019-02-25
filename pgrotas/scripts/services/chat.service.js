@@ -9,6 +9,7 @@
     return {
       listarConversas: listarConversas,
       listarMensagens: listarMensagens,
+      buscarConversa: buscarConversa,
       enviarMensagem: enviarMensagem,
       cadastrarNovaConversa: cadastrarNovaConversa,
       atualizarConversa: atualizarConversa
@@ -102,6 +103,14 @@
           return minhasConversas;
 
         });
+      });
+    }
+
+
+    function buscarConversa(chaveUsuariosMensagem) {
+
+      return firebase.database().ref('conversas/').orderByChild("chaveUsuariosMensagem").equalTo(chaveUsuariosMensagem).once("value").then(function (conversa) {
+        return conversa.val();
       });
     }
 

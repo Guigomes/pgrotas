@@ -12,9 +12,9 @@
 
         vm.abrirConversa = abrirConversa;
 
-
         $scope.$on('load', function (e) {
             vm.usuario = Usuario.getUsuario();
+            console.log("Load");
             listarConversas();
         });
 
@@ -35,6 +35,7 @@
         function listarConversas() {
             Chat.listarConversas().then(function (response) {
                 vm.conversas = response;
+                console.log("Conversas", response);
                 Cache.setConversas(response);
                 $scope.$apply();
             }, function (erro) {

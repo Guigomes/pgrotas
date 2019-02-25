@@ -13,7 +13,7 @@
         $scope.$on('load', function (e) {
             vm.usuario = Usuario.getUsuario();
             carregarGrupo();
-
+            console.log("load gruipo");
         });
         initCache();
 

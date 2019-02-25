@@ -81,12 +81,27 @@
                     };
                     console.log("conversa atual", vm.conversaAtual);
                     if (vm.conversaAtual == undefined) {
-                        Chat.cadastrarNovaConversa(conversa).then(function (key) {
-                            vm.conversaAtual = {};
-                            vm.conversaAtual.id = key;
-                            console.log("Conversa atual", vm.conversaAtual);
+                        Chat.buscarConversa(chaveUsuariosMensagem).then(function (conversaExistente) {
+                            if (conversaExistente == undefined || conversaExistente == null) {
+                                Chat.cadastrarNovaConversa(conversa).then(function (key) {
+                                    vm.conversaAtual = {};
+                                    vm.conversaAtual.id = key;
+                                    console.log("Conversa atual", vm.conversaAtual);
 
-                        });
+                                });
+                            } else {
+                                vm.conversaAtual = {};
+                                for (var i in conversaExistente) {
+                                    vm.conversaAtual.id = i;
+                                }
+
+
+                                Chat.atualizarConversa(conversa, vm.conversaAtual.id);
+
+                            }
+                        })
+                        /*  
+                         */
                     } else {
                         Chat.atualizarConversa(conversa, vm.conversaAtual.id);
                     }

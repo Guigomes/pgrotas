@@ -64,6 +64,7 @@
           time: novoUsuario.time != undefined ? novoUsuario.time : "",
           mensagens: novoUsuario.mensagens,
           grupo: novoUsuario.grupo,
+          data: new Date(),
           email: novoUsuario.email,
           messageToken: novoUsuario.messageToken != undefined ? novoUsuario.messageToken : ""
 

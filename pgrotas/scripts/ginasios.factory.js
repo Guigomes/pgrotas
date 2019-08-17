@@ -31,8 +31,8 @@
         {
           codigo: 3,
           nome: "Palácio da Justiça",
-          lat: "-15.797044",
-          long: "-47.865904"
+          lat: "-15.797931",
+          long: "-47.865885"
         },
 
         {
@@ -111,8 +111,8 @@
         {
           codigo: 16,
           nome: "Minister Marker",
-          lat: "15.799677",
-          long: "-47.87018"
+          lat: "-15.799677",
+          long: "-47.870180"
         },
         {
           codigo: 17,

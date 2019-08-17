@@ -1,12 +1,18 @@
 <md-content layout-fill style="overflow: hidden !important;">
 
     <md-subheader class="md-no-sticky no-padding-vertical" layout="column" flex>
-        <div class="legenda-mensagem" layout="row" layout-align="end center"
-            style="margin-right:15px; margin-top:4px; margin-bottom:4px;">
-            <md-icon md-font-set="material-icons" class="no-margin-horizontal">
-                message
-            </md-icon> aceita receber mensagens
 
+
+        <div class="legenda-mensagem" layout="row" layout-align="space-between center"
+            style="margin-right:15px; padding-left: 20px; margin-top:4px; margin-bottom:4px;">
+
+            <span>{{ vm.usuarios.objeto.length}} jogadores</span>
+
+            <span>
+                <md-icon md-font-set="material-icons" class="no-margin-horizontal">
+                    message
+                </md-icon> aceita receber mensagens
+            </span>
         </div>
         <div class="bold" flex layout="row" style="padding-left: 10px">
             Pressione sobre o jogador desejado para copiar o código

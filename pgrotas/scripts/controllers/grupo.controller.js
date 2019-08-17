@@ -76,6 +76,8 @@
                             return 0;
                         });
                         vm.usuarios = new DynamicItems(vm.usuariosTemp);
+                        console.log("vm.usuarios", vm.usuarios);
+                        console.log("tamanho", vm.usuarios.objeto.length);
                         Cache.setUsuarios(vm.usuarios);
                         Progress.hide();
                     });

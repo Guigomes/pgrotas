@@ -22,8 +22,9 @@
     <md-virtual-repeat-container id="vertical-container" ng-style="vm.getListHeight()">
 
 
-        <div md-virtual-repeat="jogador in vm.usuarios" md-on-demand class="repeated-item md-no-style md-button md-ink-ripple button-list"
-            flex ng-click="vm.copiarCodigoJogador(jogador)">
+        <div md-virtual-repeat="jogador in vm.usuarios" md-on-demand
+            class="repeated-item md-no-style md-button md-ink-ripple button-list" flex
+            ng-click="vm.copiarCodigoJogador(jogador)">
 
             <div style="padding: 4px;" layout="row" layout-align="start center">
                 <div layout="column" class="no-padding-vertical" flex="60">
@@ -31,14 +32,18 @@
                     <p>{{ jogador.codigo }}</p>
                 </div>
                 <div layout="column" class="no-padding-vertical" flex layout-align="center center">
-                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="nivel" ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
+                    <md-button class=" md-fab md-mini md-primary fab-menor" aria-label="nivel"
+                        ng-show="jogador.nivel !== undefined && jogador.nivel !== 0">
                         {{ jogador.nivel}}
                     </md-button>
                 </div>
                 <div layout="column" layout-align="center center" class="no-padding-vertical" flex>
-                    <img src="../images/fire.png" width="20px" height="20px" ng-show="jogador.time == 1 && jogador.time !== undefined">
-                    <img src="../images/snowflake.png" width="20px" height="20px" ng-show="jogador.time == 2 && jogador.time !== undefined">
-                    <img src="../images/lightning.png" width="20px" height="20px" ng-show="jogador.time == 3 && jogador.time !== undefined">
+                    <img src="../images/fire.png" width="20px" height="20px"
+                        ng-show="jogador.time == 1 && jogador.time !== undefined">
+                    <img src="../images/snowflake.png" width="20px" height="20px"
+                        ng-show="jogador.time == 2 && jogador.time !== undefined">
+                    <img src="../images/lightning.png" width="20px" height="20px"
+                        ng-show="jogador.time == 3 && jogador.time !== undefined">
                 </div>
                 <div layout="column" layout-align="center center" class="no-padding-vertical" flex>
                     <md-icon md-font-set="material-icons" ng-show="jogador.mensagens">

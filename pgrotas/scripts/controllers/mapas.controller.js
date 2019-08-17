@@ -3,14 +3,14 @@
 
   angular.module("app").controller("MapasController", MapasController);
 
-  MapasController.$inject = ['Usuario', 'Ginasios', '$mdDialog', '$scope', 'Cache'];
+  MapasController.$inject = ['Usuario', 'Ginasios', '$mdDialog', '$scope', 'Cache', '$mdToast'];
 
-  function MapasController(Usuario, Ginasios, $mdDialog, $scope, Cache) {
+  function MapasController(Usuario, Ginasios, $mdDialog, $scope, Cache, $mdToast) {
     var vm = this;
 
     vm.go = go;
     vm.mostrarMapa = mostrarMapa;
-
+    vm.mostrarGinasiosDialog = mostrarGinasiosDialog;
 
     $scope.$on('load', function (e) {
       vm.usuario = Usuario.getUsuario();
@@ -33,6 +33,29 @@
       }
     }
 
+    function mostrarGinasiosDialog() {
+
+      $mdDialog
+        .show({
+          templateUrl: "pages/ginasios-dialog.html",
+          parent: angular.element(document.body),
+          controller: "GinasiosDialogController",
+          controllerAs: "vm",
+          clickOutsideToClose: true,
+          fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+        .then(
+          function (local) {
+            vm.codigoLocal = local.codigo
+            vm.localSelecionado = vm.locais.find(
+              item => item.codigo == vm.codigoLocal
+            );
+          },
+          function () {
+            $scope.status = "You cancelled the dialog.";
+          }
+        );
+    }
 
     function mostrarMapa() {
 
@@ -62,6 +85,7 @@
         );
       }
 
+      console.log("vm.localSelecionado", vm.localSelecionado);
       if (vm.localSelecionado !== undefined) {
         __mapsSelector(
           vm.localSelecionado.lat,
@@ -69,6 +93,7 @@
           vm.localSelecionado.nome
         );
       } else {
+
         $mdToast.show(
           $mdToast
           .simple()
@@ -78,6 +103,7 @@
           .position("bottom")
           .hideDelay(3000)
         );
+        vm.localSelecionado = vm.locais[0];
       }
     }
 

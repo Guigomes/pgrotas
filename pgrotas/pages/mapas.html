@@ -17,26 +17,32 @@
 
     <form ng-submit="vm.go()">
       <div layout="row" layout-align="center center">
-        <div layout="column">
+        <div>
+          <div layout="column">
+
+
+            <label style="color: rgba(0,0,0,0.38);">Ginásio</label>
+
+            <div layout="row" flex ng-click="vm.mostrarGinasiosDialog()" class="custom-select">
+              <span style="padding-top: 5px;">{{vm.localSelecionado.codigo}} -
+                {{vm.localSelecionado.nome}}</span>
+              <md-icon md-font-set="material-icons" style="float:right">
+                arrow_drop_down
+              </md-icon>
+            </div>
+          </div>
           <div layout="row">
             <md-input-container>
-              <label>Ginásio</label>
-              <md-select ng-model="vm.localSelecionado" ng-change="vm.codigoLocal = vm.localSelecionado.codigo">
-                <md-option ng-repeat="local in vm.locais" ng-value="local">
-                  {{ local.codigo <= 9 ? "0" + local.codigo + " - " : local.codigo + " - " }}{{local.nome}} </md-option>
-                    </md-select> </md-input-container> </div> <div layout="row">
-                    <md-input-container>
-                      <label>Código do Ginásio</label>
-                      <input ng-model="vm.codigoLocal" type="number" />
-                    </md-input-container>
+              <label>Código do Ginásio</label>
+              <input ng-model="vm.codigoLocal" type="number" />
+            </md-input-container>
           </div>
         </div>
-        <div layout="column" layout-align="center center">
+        <div>
           <button class="button-go"></button>
         </div>
       </div>
 
-      <br />
     </form>
   </div>
 </md-content>

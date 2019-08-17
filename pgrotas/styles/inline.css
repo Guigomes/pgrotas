@@ -141,6 +141,21 @@ body {
 }
 
 
+.custom-select {
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.38);
+  padding: 5px;
+  align-content: center center;
+  align-items: center center;
+  border: 1px solid grey;
+}
+
+.lista-ginasios .md-button {
+  font-size: 12px !important;
+  line-height: 1px !important;
+
+}
+
 .fixed {
   position: fixed;
 }

@@ -293,7 +293,7 @@
         },
         {
           codigo: 25,
-          nome: "Teatro Céu Aberto",
+          nome: "Teatro Céu Aberto / Qd. 104",
           lat: "-15.83416518",
           long: "-48.01878544"
         },

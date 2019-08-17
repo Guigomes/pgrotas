@@ -140,6 +140,17 @@ body {
   margin-top: 0px !important;
 }
 
+.table-header {
+  font-size: 13px;
+  font-weight: bold;
+  align-items: center center;
+
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #ba2f2f;
+  color: white;
+
+}
 
 .custom-select {
   border-radius: 5px;
